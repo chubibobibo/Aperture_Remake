@@ -1,11 +1,23 @@
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
+import mongoose from "mongoose";
+
+import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
 
 /** middleware function parses requests with json payloads */
 app.use(express.json());
+
+/** database connection */
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(process.env.MONGO_URL);
+}
+
+/** Routes */
+app.use("/api/auth", authRoutes);
 
 /** middleware for pages not found */
 app.use("*", (req, res) => {
