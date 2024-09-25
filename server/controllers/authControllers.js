@@ -13,7 +13,20 @@ export const register = async (req, res) => {
     );
   }
 
-  const newUser = await UserModel.create(req.body);
+  /** @setPassword passport method to set a new unique password by accessing the newly created instance of UserModel */
+  /** @isAdmin checks if number of entries in the UserModel is 0 then use it as ternary operator */
+  /** destructure req.body to obtain each property */
+  const { username, email, password } = req.body;
+  const isAdmin = (await UserModel.countDocuments()) === 0;
+  req.body.role = isAdmin ? "admin" : "user";
+  const newUser = await UserModel.create({
+    username: username,
+    email: email,
+    role: req.body.role,
+  });
+  await newUser.setPassword(password);
+  await newUser.save();
+
   if (!newUser) {
     throw new ExpressError(
       "User cannot be registered",
