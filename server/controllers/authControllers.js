@@ -16,12 +16,14 @@ export const register = async (req, res) => {
   /** @setPassword passport method to set a new unique password by accessing the newly created instance of UserModel */
   /** @isAdmin checks if number of entries in the UserModel is 0 then use it as ternary operator */
   /** destructure req.body to obtain each property */
-  const { username, email, password } = req.body;
+  const { username, email, password, firstName, lastName } = req.body;
   const isAdmin = (await UserModel.countDocuments()) === 0;
   req.body.role = isAdmin ? "admin" : "user";
   const newUser = await UserModel.create({
     username: username,
     email: email,
+    firstName: firstName,
+    lastName: lastName,
     role: req.body.role,
   });
   await newUser.setPassword(password);
@@ -49,6 +51,5 @@ export const login = async (req, res) => {
   if (!foundUser) {
     throw new ExpressError("No user found", res.status(StatusCodes.NOT_FOUND));
   }
-
   res.status(StatusCodes.OK).json({ message: "User found", foundUser });
 };
