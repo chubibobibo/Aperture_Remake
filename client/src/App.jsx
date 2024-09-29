@@ -5,6 +5,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 /** all elements for the routes */
 import { HomeLayout, LoginPage, RegisterPage, LandingPage } from "./utils";
 
+/** action and loader functions to submit and load data*/
+import { action as registerAction } from "./pages/RegisterPage.jsx";
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -23,6 +26,7 @@ function App() {
         {
           path: "register",
           element: <RegisterPage />,
+          action: registerAction,
         },
       ],
     },
