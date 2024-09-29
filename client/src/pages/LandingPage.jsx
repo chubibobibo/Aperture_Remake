@@ -6,10 +6,22 @@ import {
   Button,
 } from "@material-tailwind/react";
 
+import { useNavigate } from "react-router-dom";
+
 function LandingPage() {
+  const navigate = useNavigate();
+
+  /** @handleNavigateRegister event handler to navigate to the register page*/
+  const handleNavigateRegister = () => {
+    navigate("/register");
+  };
+  const handleNavigateLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <section
-      className='w-full h-screen bg-cover bg-center bg-blend-luminosity flex justify-center items-center'
+      className='w-screen h-screen bg-cover bg-center bg-blend-luminosity flex justify-center items-center'
       style={{ backgroundImage: "url(../src/assets/Landing_mobile.jpg)" }}
     >
       <Card className='w-68 bg-transparent m-2 sm:m-4 md:w-3/4 lg:w-2/4 xl:w-2/4'>
@@ -46,13 +58,19 @@ function LandingPage() {
           </Typography>
         </CardBody>
         <CardFooter className='pt-0 flex gap-2 justify-center items-center flex-col'>
-          <Button className='w-44 bg-landingGray-50 sm:max-lg:bg-red-60 '>
+          <Button className='w-44 bg-landingGray-50 sm:max-lg:bg-red-60'>
             Explore the app
           </Button>
-          <Button className='w-44 bg-landingGray-50 sm:max-lg:bg-red-60 '>
+          <Button
+            className='w-44 bg-landingGray-50 sm:max-lg:bg-red-60'
+            onClick={handleNavigateRegister}
+          >
             Register
           </Button>
-          <Button className='w-44 bg-landingGray-50 sm:max-lg:bg-red-60 '>
+          <Button
+            className='w-44 bg-landingGray-50 sm:max-md:bg-red'
+            onClick={handleNavigateLogin}
+          >
             Login
           </Button>
         </CardFooter>
