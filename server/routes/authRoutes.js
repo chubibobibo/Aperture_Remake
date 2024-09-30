@@ -6,7 +6,11 @@ import {
   loginValidation,
 } from "../middleware/authValidation.js";
 
-import { register, login } from "../controllers/authControllers.js";
+import {
+  register,
+  login,
+  getLoggedUser,
+} from "../controllers/authControllers.js";
 import { rateLimit } from "express-rate-limit";
 
 const router = express.Router();
@@ -51,5 +55,8 @@ router.post("/login", limiter, loginValidation, (req, res, next) => {
     });
   })(req, res, next);
 });
+
+/** GET LOGGED USER */
+router.get("/getLoggedUser", getLoggedUser);
 
 export default router;

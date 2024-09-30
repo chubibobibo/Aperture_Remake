@@ -7,10 +7,7 @@ import { UserModel } from "../models/UserSchema.js";
 /** REGISTER CONTROLLER */
 export const register = async (req, res) => {
   if (!req.body) {
-    throw new ExpressError(
-      "Something went wrong",
-      res.status(StatusCodes.BAD_REQUEST)
-    );
+    throw new ExpressError("Something went wrong", StatusCodes.BAD_REQUEST);
   }
 
   /** @setPassword passport method to set a new unique password by accessing the newly created instance of UserModel */
@@ -32,7 +29,7 @@ export const register = async (req, res) => {
   if (!newUser) {
     throw new ExpressError(
       "User cannot be registered",
-      res.status(StatusCodes.BAD_REQUEST)
+      StatusCodes.BAD_REQUEST
     );
   }
   res.status(StatusCodes.OK).json({ message: "Registered new user", newUser });
@@ -52,4 +49,19 @@ export const login = async (req, res) => {
     throw new ExpressError("No user found", res.status(StatusCodes.NOT_FOUND));
   }
   res.status(StatusCodes.OK).json({ message: "User found", foundUser });
+};
+
+/** GET LOGGED USER */
+export const getLoggedUser = async (req, res) => {
+  if (!req.user) {
+    throw new ExpressError(
+      "User not logged in",
+      StatusCodes.UNAUTHORIZED
+      //   res.status(StatusCodes.UNAUTHORIZED)
+    );
+  }
+
+  const foundLoggedUser = await UserModel.findById(req.user._id);
+  console.log(foundLoggedUser);
+  res.status(StatusCodes.OK).json({ message: "Logged User:", foundLoggedUser });
 };
