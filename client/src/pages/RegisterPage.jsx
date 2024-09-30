@@ -8,56 +8,109 @@ import {
   Checkbox,
   Button,
 } from "@material-tailwind/react";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
-import { Form, redirect } from "react-router-dom";
+import { Form, redirect, useNavigation } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
+/** ACTION FUNCTION to submit data from the forms to REGISTER API */
 /** @formData data obtained from the forms using .formData method */
 /** @data data from forms converted to useable object using Object.fromEntries() */
+/** @confirmedPassword taking 2 passwords from input field and checking if they are the same */
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-  try {
-    await axios.post("/api/auth/register", data);
-    toast.success("New user registered");
-    return redirect("/");
-  } catch (err) {
-    console.log(err);
-    toast.error(
-      Array.isArray(err?.response?.data?.message)
-        ? err?.response?.data?.message[0]
-        : err?.response?.data?.message
-    );
-    return err;
+  console.log(data);
+  const confirmedPassword = data.password1 === data.password2;
+  if (confirmedPassword) {
+    data.password = data.password1; //modifying the password in the data object with the value of password1
+    try {
+      await axios.post("/api/auth/register", data);
+      toast.success("New user registered");
+      return redirect("/login");
+    } catch (err) {
+      console.log(err);
+      toast.error(
+        Array.isArray(err?.response?.data?.message)
+          ? err?.response?.data?.message[0]
+          : err?.response?.data?.message
+      );
+      return err;
+    }
   }
+  return toast.error("Passwords don't match");
 };
 
 function RegisterPage() {
+  /** @toggleHidePass1 @toggleHidePass2 onClick functions to change the @isHidden state to change the input type to text to password and to change the icons */
+  const [isHidden, setIsHidden] = useState({
+    password1: true,
+    password2: true,
+  });
+  const toggleHidePass1 = () => {
+    setIsHidden((prev) => ({
+      ...prev,
+      password1: !isHidden.password1,
+    }));
+  };
+  const toggleHidePass2 = () => {
+    setIsHidden((prev) => ({
+      ...prev,
+      password2: !isHidden.password2,
+    }));
+  };
+
+  /** @isSubmitting defines the state of navigation to dynamically disable the register button */
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
+
   return (
     <section className=' h-screen flex justify-center items-center'>
-      <Card className='w-72 md:w-[40rem] md:-mt-[15rem]'>
-        {/* <CardHeader
-          variant='gradient'
-          color='gray'
-          className='mb-4 grid h-28 place-items-center'
-        >
-          <Typography variant='h3' color='white'>
-            Sign In
-          </Typography>
-        </CardHeader> */}
+      <Card className='w-72 md:w-[25rem] md:mt-[0rem]'>
         <Form method='POST'>
           <CardBody className='flex flex-col gap-4'>
-            <Input label='Username' name='username' size='lg' />
-            <Input label='First name' name='firstName' size='lg' />
-            <Input label='Last name' name='lastName' size='lg' />
+            <Input label='Username' name='username' size='md' />
+            <Input label='First name' name='firstName' size='md' />
+            <Input label='Last name' name='lastName' size='md' />
             <Input label='Email' name='email' size='lg' />
-            <Input label='Password' name='password' type='password' size='lg' />
+            <Input
+              label='Password'
+              name='password1'
+              type={isHidden.password1 ? "password" : "text"}
+              size='md'
+              icon={
+                isHidden.password1 ? (
+                  <IoMdEyeOff onClick={toggleHidePass1} />
+                ) : (
+                  <IoMdEye onClick={toggleHidePass1} />
+                )
+              }
+            />
+            <Input
+              label='Re-enter your password'
+              name='password2'
+              type={isHidden.password2 ? "password" : "text"}
+              size='md'
+              icon={
+                isHidden.password2 ? (
+                  <IoMdEyeOff onClick={toggleHidePass2} />
+                ) : (
+                  <IoMdEye onClick={toggleHidePass2} />
+                )
+              }
+            />
             <div className='-ml-2.5'>
               <Checkbox label='Remember Me' />
             </div>
-            <Button variant='gradient' fullWidth type='submit'>
-              Register
+            <Button
+              variant='gradient'
+              fullWidth
+              type='submit'
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Registering user..." : "Register"}
             </Button>
           </CardBody>
         </Form>
