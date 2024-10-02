@@ -16,6 +16,7 @@ export const register = async (req, res) => {
   const { username, email, password, firstName, lastName } = req.body;
   const isAdmin = (await UserModel.countDocuments()) === 0;
   req.body.role = isAdmin ? "admin" : "user";
+
   const newUser = await UserModel.create({
     username: username,
     email: email,
@@ -54,14 +55,12 @@ export const login = async (req, res) => {
 /** GET LOGGED USER */
 export const getLoggedUser = async (req, res) => {
   if (!req.user) {
-    throw new ExpressError(
-      "User not logged in",
-      StatusCodes.UNAUTHORIZED
-      //   res.status(StatusCodes.UNAUTHORIZED)
-    );
+    res.status(StatusCodes.OK).json({ message: "No logged user" });
+  } else {
+    const foundLoggedUser = await UserModel.findById(req.user._id);
+    console.log(foundLoggedUser);
+    res
+      .status(StatusCodes.OK)
+      .json({ message: "Logged User:", foundLoggedUser });
   }
-
-  const foundLoggedUser = await UserModel.findById(req.user._id);
-  console.log(foundLoggedUser);
-  res.status(StatusCodes.OK).json({ message: "Logged User:", foundLoggedUser });
 };
