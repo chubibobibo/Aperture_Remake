@@ -48,7 +48,7 @@ function LandingPage() {
 
           <Typography className='font-lato font text-xs text-landingGray-50 sm:text-sm md:max-lg:text-lg'>
             Welcome to Aperture, where your moments become part of a global
-            gallery. Whether you're a seasoned photographer or a passionate
+            gallery. Whether you are a seasoned photographer or a passionate
             hobbyist, this is the place to showcase your creativity, connect
             with a like-minded community, and find inspiration from others.
             Share your photos with the world and discover stunning visuals —all

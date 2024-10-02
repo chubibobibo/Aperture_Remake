@@ -24,6 +24,9 @@ const limiter = rateLimit({
   message: "Too many login attempts. Try again in 15 minutes ",
 });
 
+/** GET LOGGED USER */
+router.get("/getLoggedUser", getLoggedUser);
+
 /** REGISTER ROUTE */
 router.post("/register", registerValidation, register);
 
@@ -55,8 +58,5 @@ router.post("/login", limiter, loginValidation, (req, res, next) => {
     });
   })(req, res, next);
 });
-
-/** GET LOGGED USER */
-router.get("/getLoggedUser", getLoggedUser);
 
 export default router;

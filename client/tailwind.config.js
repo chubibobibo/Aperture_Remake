@@ -16,6 +16,9 @@ export default withMT({
           50: "#2e2f30",
         },
       },
+      screens: {
+        "sm-max": { max: "720px" },
+      },
     },
   },
   plugins: [],
