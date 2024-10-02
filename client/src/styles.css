@@ -1,0 +1,17 @@
+.leaflet-container {
+  height: 100vh;
+}
+
+.custom-marker-cluster {
+  background-color: black;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  /* transform: translateX(); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  font-size: 15px;
+  color: white;
+}

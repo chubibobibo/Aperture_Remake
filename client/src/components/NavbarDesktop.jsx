@@ -24,10 +24,11 @@ function NavbarDesktop({ userData }) {
     };
   }, []);
 
-  console.log(userData);
+  /** @userName logged user's name from the props @userData */
+  const userName = userData?.data?.foundLoggedUser?.username;
 
   return (
-    <Navbar className='mx-auto max-w-screen-xl px-6 py-3 mt-2'>
+    <Navbar className='mx-auto max-w-screen-3xl px-6 py-3 mt-0'>
       <div className='flex items-center justify-between text-blue-gray-900'>
         <div className='hidden lg:block'>
           <NavList />
@@ -48,19 +49,16 @@ function NavbarDesktop({ userData }) {
           as='a'
           href='#'
           variant='h6'
-          className='-ml-[] cursor-pointer py-1.5 sm-max:ml-[70%] md:ml-[75%] lg:ml-[55%]'
+          className='cursor-pointer py-1.5 sm-max:ml-[70%] md:ml-[75%] lg:ml-[50%]'
         >
           {userData?.data?.message === "No logged user"
             ? "User"
-            : userData?.data?.foundLoggedUser?.username
-                .charAt(0)
-                .toUpperCase() +
-              userData?.data?.foundLoggedUser?.username.slice(1)}
+            : userName.charAt(0).toUpperCase() + userName.slice(1)}
         </Typography>
         <img
           src='../src/assets/avatar-male.jpg'
           alt='avatar picture'
-          className='w-12 h-12 rounded-full'
+          className='w-12 h-12 rounded-full ml-2 mr-2'
         />
       </div>
       <Collapse open={openNav}>

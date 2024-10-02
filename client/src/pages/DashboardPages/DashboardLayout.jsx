@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useLoaderData, redirect } from "react-router-dom";
+import { useLoaderData, Outlet } from "react-router-dom";
 import NavbarDesktop from "../../components/NavbarDesktop";
 
 export const loader = async () => {
@@ -22,6 +22,7 @@ function DashboardLayout() {
   return (
     <>
       <NavbarDesktop userData={data} />
+      <Outlet />
     </>
   );
 }

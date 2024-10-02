@@ -14,7 +14,7 @@ function NavList() {
         as='li'
         variant='small'
         color='blue-gray'
-        className='p-1 font-medium'
+        className='p-1 text-lg'
       >
         <a
           href='#'
@@ -27,7 +27,7 @@ function NavList() {
         as='li'
         variant='small'
         color='blue-gray'
-        className='p-1 font-medium'
+        className='p-1 text-lg'
       >
         <a
           href='#'
@@ -40,7 +40,7 @@ function NavList() {
         as='li'
         variant='small'
         color='blue-gray'
-        className='p-1 font-medium'
+        className='p-1 text-lg'
       >
         <a
           href='#'
@@ -53,7 +53,7 @@ function NavList() {
         as='li'
         variant='small'
         color='blue-gray'
-        className='p-1 font-medium'
+        className='p-1 text-lg'
       >
         <a
           href='#'
