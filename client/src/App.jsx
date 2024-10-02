@@ -15,12 +15,14 @@ import {
 import { action as registerAction } from "./pages/RegisterPage.jsx";
 import { action as loginAction } from "./pages/LoginPage.jsx";
 import { loader as getLoggedUser } from "./pages/DashboardPages/DashboardLayout.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <HomeLayout />,
+      errorElement: <ErrorPage />,
       children: [
         {
           index: true,

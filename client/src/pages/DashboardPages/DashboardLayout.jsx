@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, redirect } from "react-router-dom";
+import NavbarDesktop from "../../components/NavbarDesktop";
 
 export const loader = async () => {
   try {
@@ -9,13 +10,19 @@ export const loader = async () => {
   } catch (err) {
     console.log(err);
     toast.error(err?.response?.data?.message);
-    return err;
+    // return redirect("/login");
+    return null;
   }
 };
 
+/** @userData props passed to @NavbarDesktop containing the data from loader function */
 function DashboardLayout() {
   const data = useLoaderData();
-  console.log(data);
-  return <>DashboardLayout</>;
+
+  return (
+    <>
+      <NavbarDesktop userData={data} />
+    </>
+  );
 }
 export default DashboardLayout;
