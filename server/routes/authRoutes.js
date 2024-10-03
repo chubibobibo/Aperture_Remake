@@ -10,6 +10,7 @@ import {
   register,
   login,
   getLoggedUser,
+  logout,
 } from "../controllers/authControllers.js";
 import { rateLimit } from "express-rate-limit";
 
@@ -58,5 +59,8 @@ router.post("/login", limiter, loginValidation, (req, res, next) => {
     });
   })(req, res, next);
 });
+
+/** LOGOUT USER */
+router.post("/logout", logout);
 
 export default router;
