@@ -63,4 +63,20 @@ export const getLoggedUser = async (req, res) => {
       .status(StatusCodes.OK)
       .json({ message: "Logged User:", foundLoggedUser });
   }
+  if (!req.user) {
+    console.log("No logged user");
+  }
+};
+
+/** LOGOUT USER */
+/** @logout uses req.logout from passport and accepts a  callback for errors. Then handles the error by  returning it to the next middleware or request */
+export const logout = (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res
+      .status(StatusCodes.OK)
+      .json({ message: "User successfully logged out " });
+  });
 };

@@ -44,7 +44,6 @@ function IndexPage() {
           iconCreateFunction={createClusterCustomIcon}
         >
           {mockData.map((newData) => {
-            console.log(newData.location);
             return (
               <Marker
                 position={newData.location}

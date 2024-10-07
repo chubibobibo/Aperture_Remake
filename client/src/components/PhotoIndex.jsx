@@ -1,4 +1,5 @@
 import mockData from "../jsonData/data.json";
+
 function PhotoIndex() {
   return (
     <div className='grid grid-cols-2 gap-4 md:grid-cols-3'>
@@ -10,6 +11,7 @@ function PhotoIndex() {
               className='h-auto max-w-full rounded-lg object-cover object-center'
               src={newData.url}
               alt='gallery-photo'
+              loading='lazy'
             />
           </div>
         );

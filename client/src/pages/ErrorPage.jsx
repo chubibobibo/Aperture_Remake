@@ -6,7 +6,7 @@ function ErrorPage() {
   const error = useRouteError();
   /** @navToHome function used as an onClick event to navigate */
   const navToHome = () => {
-    navigate("/dashboard");
+    navigate("/dashboard/index");
   };
 
   if (error.status === 404) {

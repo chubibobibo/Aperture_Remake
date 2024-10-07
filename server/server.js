@@ -5,8 +5,10 @@ import mongoose from "mongoose";
 import session from "express-session";
 import cors from "cors";
 import MongoStore from "connect-mongo";
+import cloudinary from "cloudinary";
 
 import authRoutes from "./routes/authRoutes.js";
+import photoRoutes from "./routes/photoRoutes.js";
 import passport from "passport";
 import { UserModel } from "./models/UserSchema.js";
 
@@ -56,11 +58,11 @@ app.use(passport.initialize()); // initialize passport middleware for incoming r
 app.use(passport.session()); //allows persistent sessions
 
 // middleware to verify if user is stored as req.user and if session is created.
-app.use((req, res, next) => {
-  console.log(req.user);
-  console.log(req.session);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log(req.user);
+//   console.log(req.session);
+//   next();
+// });
 
 passport.use(UserModel.createStrategy()); // uses local strategy used in UserSchema using passport-local-mongoose
 
@@ -69,8 +71,16 @@ passport.use(UserModel.createStrategy()); // uses local strategy used in UserSch
 passport.serializeUser(UserModel.serializeUser());
 passport.deserializeUser(UserModel.deserializeUser());
 
+/** CLOUDINARY CONFIG */
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
+
 /** Routes */
 app.use("/api/auth", authRoutes);
+app.use("/api/photo", photoRoutes);
 
 /** middleware for pages not found and  errors */
 app.use("*", (req, res) => {

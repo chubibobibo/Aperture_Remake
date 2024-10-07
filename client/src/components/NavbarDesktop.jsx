@@ -5,14 +5,17 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 
+import { useContext } from "react";
+import { Context } from "../pages/DashboardPages/DashboardLayout";
+
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import NavList from "./NavList";
 
-function NavbarDesktop({ userData }) {
+function NavbarDesktop() {
   /** @openNav state that handles the display of compact and full navbar */
   const [openNav, setOpenNav] = useState(false);
-
+  /** @handleWindowResize from material tailwind navbar hiding*/
   const handleWindowResize = () =>
     window.innerWidth >= 960 && setOpenNav(false);
 
@@ -23,6 +26,9 @@ function NavbarDesktop({ userData }) {
       window.removeEventListener("resize", handleWindowResize);
     };
   }, []);
+
+  /** @userData data from context in DashboardLayout */
+  const userData = useContext(Context);
 
   /** @userName logged user's name from the props @userData */
   const userName = userData?.data?.foundLoggedUser?.username;
@@ -56,7 +62,11 @@ function NavbarDesktop({ userData }) {
             : userName.charAt(0).toUpperCase() + userName.slice(1)}
         </Typography>
         <img
-          src='../src/assets/avatar-male.jpg'
+          src={
+            userData?.data?.message === "No logged user"
+              ? "../src/assets/avatar-female.jpg"
+              : "../src/assets/avatar-male.jpg"
+          }
           alt='avatar picture'
           className='w-12 h-12 rounded-full ml-2 mr-2'
         />
