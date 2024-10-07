@@ -20,7 +20,7 @@ export const action = async ({ request }) => {
   const data = Object.fromEntries(formData);
   try {
     await axios.post("/api/auth/login", data);
-    return redirect("/dashboard");
+    return redirect("/dashboard/index");
   } catch (err) {
     console.log(err);
     toast.error(

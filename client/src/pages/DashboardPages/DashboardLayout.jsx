@@ -2,7 +2,9 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useLoaderData, Outlet } from "react-router-dom";
 import NavbarDesktop from "../../components/NavbarDesktop";
+import { createContext } from "react";
 
+/** @loader obtains logged user data then pass it to the context*/
 export const loader = async () => {
   try {
     const loggedUser = await axios.get("/api/auth/getLoggedUser");
@@ -15,15 +17,17 @@ export const loader = async () => {
   }
 };
 
+export const Context = createContext();
+
 /** @userData props passed to @NavbarDesktop containing the data from loader function */
 function DashboardLayout() {
   const data = useLoaderData();
 
   return (
-    <>
-      <NavbarDesktop userData={data} />
+    <Context.Provider value={data}>
+      <NavbarDesktop />
       <Outlet />
-    </>
+    </Context.Provider>
   );
 }
 export default DashboardLayout;
