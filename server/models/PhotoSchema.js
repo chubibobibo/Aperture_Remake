@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const { Schema } = mongoose();
+const { Schema } = mongoose;
 
 const PhotoSchema = new Schema({
   title: {
@@ -22,7 +22,7 @@ const PhotoSchema = new Schema({
     type: String,
   },
 
-  Description: {
+  description: {
     type: String,
     required: true,
   },

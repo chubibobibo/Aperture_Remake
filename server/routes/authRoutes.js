@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import {
   registerValidation,
   loginValidation,
-} from "../middleware/authValidation.js";
+} from "../middleware/inputValidation.js";
 
 import {
   register,
