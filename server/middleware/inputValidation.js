@@ -75,6 +75,7 @@ export const createPostValidation = withValidationErrors([
     .withMessage(
       "Description should be at least 10 characters and not more than 200 characters"
     ),
+  body("photoLocation").notEmpty().withMessage("Location cannot be empty"),
   // body("createdBy")
   //   .notEmpty()
   //   .withMessage("createdBy property cannot be empty.")

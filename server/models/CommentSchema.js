@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const { Schema } = moongoose;
+const { Schema } = mongoose;
 
 const CommentSchema = new Schema({
   body: {

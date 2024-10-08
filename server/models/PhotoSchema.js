@@ -1,3 +1,5 @@
+import { UserModel } from "./UserSchema.js";
+import { CommentModel } from "./CommentSchema.js";
 import mongoose from "mongoose";
 
 const { Schema } = mongoose;
@@ -9,8 +11,8 @@ const PhotoSchema = new Schema({
   },
 
   createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "UserSchema",
+    type: Schema.Types.ObjectId,
+    ref: UserModel,
   },
 
   photoUrl: {
@@ -28,8 +30,16 @@ const PhotoSchema = new Schema({
   },
 
   comment: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "CommentSchema",
+    type: Schema.Types.ObjectId,
+    ref: CommentModel,
+  },
+
+  photoLocation: {
+    type: String,
+  },
+
+  photoCoords: {
+    type: [Number],
   },
 });
 

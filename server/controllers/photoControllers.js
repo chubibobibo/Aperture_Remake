@@ -8,6 +8,7 @@ import cloudinary from "cloudinary";
 import { promises as fs } from "fs";
 import { PhotoModel } from "../models/PhotoSchema.js";
 
+/** CREATING NEW POST */
 export const createPost = async (req, res) => {
   console.log(req.body);
   if (!req.body) {
@@ -37,4 +38,14 @@ export const createPost = async (req, res) => {
   }
 
   res.status(StatusCodes.OK).json({ message: "Post created", newPhoto });
+};
+
+/** GET ALL PHOTOS */
+export const getAllPhotos = async (req, res) => {
+  const allPhotos = await PhotoModel.find({}).populate("createdBy");
+  if (!allPhotos) {
+    res.status(StatusCodes.OK).json({ message: "There are no images to show" });
+  } else {
+    res.status(StatusCodes.OK).json({ message: "All photos", allPhotos });
+  }
 };
