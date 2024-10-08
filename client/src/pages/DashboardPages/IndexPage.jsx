@@ -7,7 +7,31 @@ import mockData from "../../jsonData/data.json";
 import PhotoIndex from "../../components/PhotoIndex";
 import MarkerClusterGroup from "react-leaflet-cluster";
 
+import { createContext } from "react";
+import { useLoaderData } from "react-router-dom";
+
+import { toast } from "react-toastify";
+import axios from "axios";
+import { Typography } from "@material-tailwind/react";
+
+/** @loader function to obtain all photos using getAllphotos endpoint */
+export const loader = async () => {
+  try {
+    const imageData = await axios.get("/api/photo/allPhotos");
+    return imageData;
+  } catch (err) {
+    console.log(err);
+    toast.error(err?.response?.data?.message);
+  }
+};
+
+/** @PhotosContext shares data from the loader function to the PhotoIndex component */
+export const PhotosContext = createContext();
+
 function IndexPage() {
+  /** @photoData contains all photos obtained using loader function */
+  const photoData = useLoaderData();
+
   /** @custmoMapIcon new instance of Icon from leaflet that will apply a custom made pins in the map */
   const customMapIcon = new Icon({
     iconUrl: "../../src/assets/location.png",
@@ -24,6 +48,12 @@ function IndexPage() {
     });
   };
 
+  /** @arraySwap function to swap the position of the coordinates in the photoCoords property. This allows leaflet to read the location correctly */
+  const arraySwap = (array, a, b) => {
+    [array[a], array[b]] = [array[b], array[a]];
+    return array;
+  };
+
   /** @Marker component determines the position and the icon to be used for the markers */
   /** @MarkerClusterGroup wraps around the marker to cluster them when map is zoomed out */
   return (
@@ -38,20 +68,34 @@ function IndexPage() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
-        {/** @chunkedLoading allows react to  render the markers one at a time to improve performance*/}
+        {/** @chunkedLoading allows react to render the markers one at a time to improve performance*/}
         <MarkerClusterGroup
           chunkedLoading
           iconCreateFunction={createClusterCustomIcon}
         >
-          {mockData.map((newData) => {
+          {photoData?.data?.allPhotos?.map((newData) => {
+            console.log(newData);
+            /** @orderedCoords using the arraySwap function to swap the places of longitude and latitude in the photoCoords for every iteration of the array */
+            const orderedCoords = arraySwap(newData?.photoCoords, 0, 1);
+            // console.log(orderedCoords);
+
             return (
               <Marker
-                position={newData.location}
+                position={orderedCoords}
                 icon={customMapIcon}
-                key={newData.id}
+                key={newData._id}
               >
                 <Popup>
-                  A pretty CSS3 popup. <br /> Easily customizable.
+                  <span className='font-bold text-md'>Photo uploaded by: </span>
+                  <span className='text-md'>
+                    {newData.createdBy.username.toUpperCase()}
+                  </span>
+                  <br />
+                  <span className='font-bold text-md'>Title: </span>
+                  <span className='text-md'>{newData.title}</span>
+                  <br />
+                  <span className='font-bold text-md'>Location: </span>
+                  <span className='text-md'>{newData.photoLocation}</span>
                 </Popup>
               </Marker>
             );
@@ -59,7 +103,9 @@ function IndexPage() {
         </MarkerClusterGroup>
       </MapContainer>
       <section className='m-3'>
-        <PhotoIndex />
+        <PhotosContext.Provider value={photoData}>
+          <PhotoIndex />
+        </PhotosContext.Provider>
       </section>
     </div>
   );

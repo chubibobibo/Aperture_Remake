@@ -13,18 +13,35 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigation } from "react-router-dom";
 
+/** @mapbox_api API key stored in env file */
+const mapbox_api = import.meta.env.VITE_MAPBOX;
+
 /** @action function that will obtain data from the forms using @formData and send it to the create post API */
 /** Instead of transforming the formData inot an object using fromEntries(), we are going to let multer convert it. */
+/** @formData input data in the forms. We used .get and .append methods to acquire or modify it's values */
 /** @photoUrl name of the input that sends the photo file */
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const file = formData.get("photoUrl");
+  const loc = formData.get("photoLocation");
 
   if (file && file.size > 50000000) {
     toast.error("file is too large");
   }
 
   try {
+    /** @coord Get latitude & longitude from address using mapbox endpoint. */
+    /** @newCoord array of coordinates from the response mapbox api */
+    /** @newCoord mapped this array then added it's values to the photoCoords property in the formData that we will send to the endpoint to create new post. */
+    const coord = await axios.get(
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${loc}.json?access_token=${mapbox_api}`
+    );
+
+    const newCoord = coord.data.features[0].geometry.coordinates;
+    newCoord.map((newValue) => {
+      return formData.append("photoCoords", newValue);
+    });
+
     await axios.post("/api/photo/createPost", formData);
     toast.success("New post created");
     return redirect("/dashboard/index");
@@ -41,6 +58,7 @@ export const action = async ({ request }) => {
 
 function CreatePost() {
   const navigation = useNavigation();
+  /** @isSubmitting used to dynamically render the Button */
   const isSubmitting = navigation.state === "submitting";
   return (
     <section className='flex justify-center'>
@@ -50,12 +68,6 @@ function CreatePost() {
             <Typography variant='h5' color='blue-gray' className='mb-2'>
               CREATE NEW POST
             </Typography>
-            {/* <Typography>
-            The place is close to Barceloneta Beach and bus stop just 2 min by
-            walk and near to &quot;Naviglio&quot; where you can enjoy the main
-            night life in Barcelona.
-          </Typography> */}
-
             <div className='w-72'>
               <Input label='Title of Post' name='title' />
             </div>
@@ -64,6 +76,9 @@ function CreatePost() {
             </div>
             <div className='w-72'>
               <Textarea label='Description of your photo' name='description' />
+            </div>
+            <div className='w-72'>
+              <Input label='Location of your photo' name='photoLocation' />
             </div>
           </CardBody>
           <CardFooter className='pt-0'>

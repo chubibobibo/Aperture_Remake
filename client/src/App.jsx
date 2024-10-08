@@ -18,6 +18,7 @@ import { action as registerAction } from "./pages/RegisterPage.jsx";
 import { action as loginAction } from "./pages/LoginPage.jsx";
 import { action as createPostAction } from "./pages/DashboardPages/CreatePost.jsx";
 import { loader as getLoggedUser } from "./pages/DashboardPages/DashboardLayout.jsx";
+import { loader as getAllPhotos } from "./pages/DashboardPages/IndexPage.jsx";
 import CreatePost from "./pages/DashboardPages/CreatePost.jsx";
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
             {
               path: "index",
               element: <IndexPage />,
+              loader: getAllPhotos,
             },
             {
               path: "createPost",
