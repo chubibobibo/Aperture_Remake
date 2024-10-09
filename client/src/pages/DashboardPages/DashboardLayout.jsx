@@ -25,7 +25,7 @@ function DashboardLayout() {
 
   return (
     <Context.Provider value={data}>
-      <NavbarDesktop />
+      {/* <NavbarDesktop /> */}
       <Outlet />
     </Context.Provider>
   );

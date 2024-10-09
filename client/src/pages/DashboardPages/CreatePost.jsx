@@ -20,6 +20,7 @@ const mapbox_api = import.meta.env.VITE_MAPBOX;
 /** Instead of transforming the formData inot an object using fromEntries(), we are going to let multer convert it. */
 /** @formData input data in the forms. We used .get and .append methods to acquire or modify it's values */
 /** @photoUrl name of the input that sends the photo file */
+/** @loc obtaining the photoLocation property which contains the location on photo in TEXT */
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const file = formData.get("photoUrl");
@@ -37,6 +38,8 @@ export const action = async ({ request }) => {
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${loc}.json?access_token=${mapbox_api}`
     );
 
+    /** @newCoord contains coordinates that we can map */
+    /** @formData formData.append is to add to the photoCoords property each iterated value newValue */
     const newCoord = coord.data.features[0].geometry.coordinates;
     newCoord.map((newValue) => {
       return formData.append("photoCoords", newValue);
@@ -62,24 +65,20 @@ function CreatePost() {
   const isSubmitting = navigation.state === "submitting";
   return (
     <section className='flex justify-center'>
-      <Card className='mt-6 w-11/12 mx-2'>
+      <Card className='mt-6 w-94 md:w-[35rem] md:mt-[10rem] lg:w-[55rem] lg:mt-[15rem]'>
         <Form method='post' encType='multipart/form-data'>
           <CardBody className='flex flex-col items-center gap-3'>
             <Typography variant='h5' color='blue-gray' className='mb-2'>
               CREATE NEW POST
             </Typography>
-            <div className='w-72'>
-              <Input label='Title of Post' name='title' />
-            </div>
-            <div className='w-72'>
-              <Input label='Upload photo' type='file' name='photoUrl' />
-            </div>
-            <div className='w-72'>
-              <Textarea label='Description of your photo' name='description' />
-            </div>
-            <div className='w-72'>
-              <Input label='Location of your photo' name='photoLocation' />
-            </div>
+
+            <Input label='Title of Post' name='title' />
+
+            <Input label='Upload photo' type='file' name='photoUrl' />
+
+            <Textarea label='Description of your photo' name='description' />
+
+            <Input label='Location of your photo' name='photoLocation' />
           </CardBody>
           <CardFooter className='pt-0'>
             <Button type='submit' disabled={isSubmitting}>

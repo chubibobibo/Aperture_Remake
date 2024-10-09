@@ -27,11 +27,7 @@ export const createPost = async (req, res) => {
     req.body.photoId = response.public_id;
     req.body.createdBy = req.user.id;
   }
-  // if (!req.user) {
-  //   console.log("no user");
-  // } else {
-  //   console.log(`This is the logged user ${req.user}`);
-  // }
+
   const newPhoto = await PhotoModel.create(req.body);
   if (!newPhoto) {
     throw new ExpressError("Cannot post your photo", StatusCodes.BAD_REQUEST);

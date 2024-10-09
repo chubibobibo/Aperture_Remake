@@ -68,9 +68,19 @@ function RegisterPage() {
 
   return (
     <section className=' h-screen flex justify-center items-center'>
-      <Card className='w-72 md:w-[25rem] md:mt-[0rem]'>
+      <Card className='w-72 md:w-[25rem] md:-mt-[5rem] xl:-mt-[5rem] xl:w-[50rem]'>
         <Form method='POST'>
           <CardBody className='flex flex-col gap-4'>
+            <div className='flex justify-center'>
+              <Typography
+                as='h1'
+                // variant='large'
+                color='blue-gray'
+                className='ml-1 font-bold text-4xl'
+              >
+                REGISTER
+              </Typography>
+            </div>
             <Input label='Username' name='username' size='md' />
             <Input label='First name' name='firstName' size='md' />
             <Input label='Last name' name='lastName' size='md' />
@@ -104,14 +114,17 @@ function RegisterPage() {
             <div className='-ml-2.5'>
               <Checkbox label='Remember Me' />
             </div>
-            <Button
-              variant='gradient'
-              fullWidth
-              type='submit'
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Registering user..." : "Register"}
-            </Button>
+            <div className='flex justify-center'>
+              <Button
+                variant='gradient'
+                fullWidth
+                type='submit'
+                disabled={isSubmitting}
+                className='w-40'
+              >
+                {isSubmitting ? "Registering user..." : "Register"}
+              </Button>
+            </div>
           </CardBody>
         </Form>
         <CardFooter className='pt-0'>

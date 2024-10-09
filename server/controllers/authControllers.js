@@ -3,6 +3,8 @@ import { ExpressError } from "../errorHandler/ExpressError.js";
 import { StatusCodes } from "http-status-codes";
 
 import { UserModel } from "../models/UserSchema.js";
+import cloudinary from "cloudinary";
+import { promises as fs } from "fs";
 
 /** REGISTER CONTROLLER */
 export const register = async (req, res) => {
@@ -79,4 +81,32 @@ export const logout = (req, res, next) => {
       .status(StatusCodes.OK)
       .json({ message: "User successfully logged out " });
   });
+};
+
+/** UPDATE USER */
+/** req.file created by multer containing the formData and the image */
+export const updateUser = async (req, res) => {
+  if (!req.body) {
+    throw new ExpressError("No data received", StatusCodes.BAD_REQUEST);
+  }
+
+  if (req.file) {
+    const response = await cloudinary.v2.uploader.upload(req.file.path, {
+      folder: "aperture_remake",
+    });
+    fs.unlink(req.file.path);
+    req.body.avatarUrl = response.secure_url;
+    req.body.avatarId = response.publicId;
+  }
+
+  const { id } = req.params;
+  const updatedUser = await UserModel.findByIdAndUpdate(id, req.body, {
+    new: true,
+  });
+  if (!updatedUser) {
+    throw new ExpressError("Cannot update user", StatusCodes.BAD_REQUEST);
+  }
+  res
+    .status(StatusCodes.OK)
+    .json({ message: "User successfully updated", updatedUser });
 };

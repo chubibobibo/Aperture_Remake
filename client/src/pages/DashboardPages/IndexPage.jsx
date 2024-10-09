@@ -14,6 +14,8 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { Typography } from "@material-tailwind/react";
 
+import { toCapitalize } from "../../utils/toCaptialize";
+
 /** @loader function to obtain all photos using getAllphotos endpoint */
 export const loader = async () => {
   try {
@@ -61,8 +63,8 @@ function IndexPage() {
       <MapContainer
         center={[48.8566, 2.3522]}
         zoom={10}
-        scrollWheelZoom={true}
-        className='h-52 w-11/12 flex justify-center items-center rounded-lg mt-2 md:h-72'
+        scrollWheelZoom={false}
+        className='h-52 w-11/12 flex justify-center items-center rounded-lg mt-2 md:h-[30rem]'
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -74,7 +76,7 @@ function IndexPage() {
           iconCreateFunction={createClusterCustomIcon}
         >
           {photoData?.data?.allPhotos?.map((newData) => {
-            console.log(newData);
+            // console.log(newData);
             /** @orderedCoords using the arraySwap function to swap the places of longitude and latitude in the photoCoords for every iteration of the array */
             const orderedCoords = arraySwap(newData?.photoCoords, 0, 1);
             // console.log(orderedCoords);
@@ -88,14 +90,16 @@ function IndexPage() {
                 <Popup>
                   <span className='font-bold text-md'>Photo uploaded by: </span>
                   <span className='text-md'>
-                    {newData.createdBy.username.toUpperCase()}
+                    {toCapitalize(newData.createdBy.username)}
                   </span>
                   <br />
                   <span className='font-bold text-md'>Title: </span>
-                  <span className='text-md'>{newData.title}</span>
+                  <span className='text-md'>{toCapitalize(newData.title)}</span>
                   <br />
                   <span className='font-bold text-md'>Location: </span>
-                  <span className='text-md'>{newData.photoLocation}</span>
+                  <span className='text-md'>
+                    {toCapitalize(newData.photoLocation)}
+                  </span>
                 </Popup>
               </Marker>
             );
