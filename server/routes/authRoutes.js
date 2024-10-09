@@ -4,13 +4,18 @@ import { StatusCodes } from "http-status-codes";
 import {
   registerValidation,
   loginValidation,
+  updateUserValidation,
 } from "../middleware/inputValidation.js";
+
+import upload from "../middleware/multerMiddleware.js";
+import { isLoggedIn } from "../middleware/authMiddleware.js";
 
 import {
   register,
   login,
   getLoggedUser,
   logout,
+  updateUser,
 } from "../controllers/authControllers.js";
 import { rateLimit } from "express-rate-limit";
 
@@ -59,6 +64,15 @@ router.post("/login", limiter, loginValidation, (req, res, next) => {
     });
   })(req, res, next);
 });
+
+/** UPDATE USER */
+router.patch(
+  "/updateUser/:id",
+  isLoggedIn,
+  upload.single("avatarUrl"),
+  updateUserValidation,
+  updateUser
+);
 
 /** LOGOUT USER */
 router.post("/logout", logout);

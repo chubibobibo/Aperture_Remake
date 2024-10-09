@@ -76,16 +76,52 @@ export const createPostValidation = withValidationErrors([
       "Description should be at least 10 characters and not more than 200 characters"
     ),
   body("photoLocation").notEmpty().withMessage("Location cannot be empty"),
-  // body("createdBy")
-  //   .notEmpty()
-  //   .withMessage("createdBy property cannot be empty.")
-  //   .custom(async (createdById) => {
-  //     const validId = mongoose.Types.ObjectId.isValid(createdById);
-  //     if (!validId) {
-  //       throw new ExpressError(
-  //         "createdBy property is not a valid mongoId",
-  //         StatusCodes.BAD_REQUEST
-  //       );
-  //     }
-  //   }),
+]);
+
+/** INPUT VALIDATION FOR UPDATING USER */
+export const updateUserValidation = withValidationErrors([
+  body("username")
+    .notEmpty()
+    .withMessage("Username cannot be empty")
+    .isLength({ min: 4 })
+    .withMessage("Username must not be less than 4 characters"),
+  body("firstName")
+    .notEmpty()
+    .withMessage("First name cannot be empty")
+    .isLength({ min: 4 })
+    .withMessage("First name must not be less than 4 characters"),
+  body("lastName")
+    .notEmpty()
+    .withMessage("Last name cannot be empty")
+    .isLength({ min: 4 })
+    .withMessage("Last name must not be less than 4 characters"),
+  body("email")
+    .notEmpty()
+    .withMessage("Email cannot be empty")
+    .isEmail()
+    .withMessage("Enter a valid email")
+    .custom(async (email, { req }) => {
+      const foundEmail = await UserModel.findOne({ email: email });
+      //an email is found but logged user's email is the same as the input email
+      if (foundEmail && foundEmail.email !== req.user.email) {
+        throw new ExpressError(
+          "Email is already in use",
+          StatusCodes.FORBIDDEN
+        );
+      }
+    }),
+  /** @param id checking for the param id and using it to compare if the user trying to update the specific account are the same */
+  param("id").custom(async (id, { req }) => {
+    if (!req.user) {
+      throw new ExpressError("User not logged in", StatusCodes.UNAUTHORIZED);
+    }
+    const foundUser = await UserModel.findById(req.user.id);
+    //* prevents users from updating the profile of other users by comparing the param and the logged user
+    if (foundUser._id.toString() !== id) {
+      throw new ExpressError(
+        "User is not authorized to update this profile",
+        StatusCodes.UNAUTHORIZED
+      );
+    }
+  }),
 ]);

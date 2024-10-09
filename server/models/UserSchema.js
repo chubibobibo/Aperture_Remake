@@ -30,6 +30,14 @@ const UserSchema = new Schema(
       type: String,
       enum: Object.values(roles),
     },
+
+    avatarUrl: {
+      type: String,
+    },
+
+    avatarId: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
