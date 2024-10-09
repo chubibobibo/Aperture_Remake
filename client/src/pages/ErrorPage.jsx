@@ -4,6 +4,7 @@ import { useNavigate, useRouteError } from "react-router-dom";
 function ErrorPage() {
   const navigate = useNavigate();
   const error = useRouteError();
+  console.log(error);
   /** @navToHome function used as an onClick event to navigate */
   const navToHome = () => {
     navigate("/dashboard/index");
@@ -55,6 +56,12 @@ function ErrorPage() {
         className='mt-2 text-center px-2 font-normal mb-1 sm:text-lg md:text-2xl'
       >
         There seems to be some problem.
+      </Typography>
+      <Typography
+        variant='small'
+        className='mt-2 text-center px-2 font-normal mb-1 sm:text-lg md:text-2xl'
+      >
+        {error.stack}
       </Typography>
       <img
         className='h-64 w-64 rounded-lg object-cover object-center md:h-80 md:w-80'

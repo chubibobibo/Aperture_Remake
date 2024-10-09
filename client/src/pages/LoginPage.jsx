@@ -43,7 +43,18 @@ function LoginPage() {
   const isSubmitting = navigation.state === "submitting";
   return (
     <section className=' h-screen flex justify-center items-center'>
-      <Card className='w-72 md:w-[25rem] md:mt-[0rem]'>
+      <Card className='w-72 -mt-[12rem] md:w-[40rem] md:-mt-[10rem] xl:-mt-[10rem]'>
+        <div className='flex justify-center'>
+          <Typography
+            as='h1'
+            // variant='large'
+            color='blue-gray'
+            className='ml-1 font-bold text-4xl'
+          >
+            LOGIN
+          </Typography>
+        </div>
+
         <Form method='POST'>
           <CardBody className='flex flex-col gap-4'>
             <Input label='Username' name='username' size='md' />
@@ -63,14 +74,17 @@ function LoginPage() {
             <div className='-ml-2.5'>
               <Checkbox label='Remember Me' />
             </div>
-            <Button
-              variant='gradient'
-              fullWidth
-              type='submit'
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Logging in..." : "Login"}
-            </Button>
+            <div className='flex justify-center'>
+              <Button
+                variant='gradient'
+                fullWidth
+                type='submit'
+                disabled={isSubmitting}
+                className='w-40'
+              >
+                {isSubmitting ? "Logging in..." : "Login"}
+              </Button>
+            </div>
           </CardBody>
         </Form>
         <CardFooter className='pt-0'>
@@ -78,7 +92,7 @@ function LoginPage() {
             Don&apos;t have an account?
             <Typography
               as='a'
-              href='/login'
+              href='/register'
               variant='small'
               color='blue-gray'
               className='ml-1 font-bold'

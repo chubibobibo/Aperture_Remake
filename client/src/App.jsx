@@ -11,15 +11,17 @@ import {
   DashboardLayout,
   IndexPage,
   ErrorPage,
+  CreatePost,
+  UpdateUser,
 } from "./utils";
 
 /** action and loader functions to submit and load data*/
 import { action as registerAction } from "./pages/RegisterPage.jsx";
 import { action as loginAction } from "./pages/LoginPage.jsx";
 import { action as createPostAction } from "./pages/DashboardPages/CreatePost.jsx";
+import { action as updateUserAction } from "./pages/UpdateUser.jsx";
 import { loader as getLoggedUser } from "./pages/DashboardPages/DashboardLayout.jsx";
 import { loader as getAllPhotos } from "./pages/DashboardPages/IndexPage.jsx";
-import CreatePost from "./pages/DashboardPages/CreatePost.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -27,6 +29,7 @@ function App() {
       path: "/",
       element: <HomeLayout />,
       errorElement: <ErrorPage />,
+      loader: getLoggedUser,
       children: [
         {
           index: true,
@@ -44,6 +47,11 @@ function App() {
           action: registerAction,
         },
         {
+          path: "update-user/:id",
+          element: <UpdateUser />,
+          action: updateUserAction,
+        },
+        {
           path: "dashboard",
           element: <DashboardLayout />,
           loader: getLoggedUser,
@@ -54,7 +62,7 @@ function App() {
               loader: getAllPhotos,
             },
             {
-              path: "createPost",
+              path: "create-post",
               element: <CreatePost />,
               action: createPostAction,
             },

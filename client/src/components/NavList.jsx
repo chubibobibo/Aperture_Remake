@@ -1,9 +1,9 @@
 import { Typography } from "@material-tailwind/react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { redirect } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { Context } from "../pages/DashboardPages/DashboardLayout";
+import { UserContext } from "../pages/HomeLayout";
 
 function NavList() {
   /** @logoutUser onClick event to logout user */
@@ -19,8 +19,18 @@ function NavList() {
     }
   };
 
-  const data = useContext(Context);
-  const isLoggedIn = data?.data?.message !== "No logged user";
+  const userData = useContext(UserContext);
+  const loggedUser = userData?.data?.foundLoggedUser;
+  // console.log(userData);
+  const isLoggedIn = userData?.data?.message !== "No logged user";
+
+  const navigate = useNavigate();
+  const onClickToProfile = () => {
+    navigate(`/update-user/${loggedUser._id}`);
+  };
+  const onClickToLogin = () => {
+    navigate("/login");
+  };
 
   return (
     <ul className='my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6'>
@@ -28,10 +38,10 @@ function NavList() {
         as='li'
         variant='small'
         color='blue-gray'
-        className='p-1 text-lg'
+        className='p-1 text-md'
       >
         <a
-          href='#'
+          href='/dashboard/index'
           className='flex items-center hover:text-blue-500 transition-colors'
         >
           HOME
@@ -41,11 +51,12 @@ function NavList() {
         as='li'
         variant='small'
         color='blue-gray'
-        className='p-1 text-lg'
+        className='p-1 text-md'
       >
         <a
-          href='#'
+          href=''
           className='flex items-center hover:text-blue-500 transition-colors'
+          onClick={isLoggedIn ? onClickToProfile : onClickToLogin}
         >
           PROFILE
         </a>
@@ -55,10 +66,10 @@ function NavList() {
           as='li'
           variant='small'
           color='blue-gray'
-          className='p-1 text-lg'
+          className='p-1 text-md'
         >
           <a
-            href='/dashboard/createPost'
+            href='/dashboard/create-post'
             className='flex items-center hover:text-blue-500 transition-colors'
           >
             CREATE POST
@@ -70,7 +81,7 @@ function NavList() {
         as='li'
         variant='small'
         color='blue-gray'
-        className='p-1 text-lg'
+        className='p-1 text-md'
       >
         <a
           href='#'
@@ -84,7 +95,7 @@ function NavList() {
           as='li'
           variant='small'
           color='blue-gray'
-          className='p-1 text-lg'
+          className='p-1 text-md'
         >
           <a
             href='#'
@@ -99,7 +110,7 @@ function NavList() {
           as='li'
           variant='small'
           color='blue-gray'
-          className='p-1 text-lg'
+          className='p-1 text-md'
         >
           <a
             href='/login'
