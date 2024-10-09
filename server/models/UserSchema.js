@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import passportLocalMongoose from "passport-local-mongoose";
+import { roles } from "../utils/roles.js";
 
 const { Schema } = mongoose;
 
@@ -8,16 +10,37 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+
+    firstName: {
+      type: String,
+      required: true,
+    },
+
+    lastName: {
+      type: String,
+      required: true,
+    },
+
     email: {
       type: String,
       required: true,
     },
-    password: {
+
+    role: {
       type: String,
-      required: true,
+      enum: Object.values(roles),
+    },
+
+    avatarUrl: {
+      type: String,
+    },
+
+    avatarId: {
+      type: String,
     },
   },
   { timestamps: true }
 );
-
+/** @passportLocalMongoose as plugin will allow the use of different methods for authenticating a user. This creates a unique password */
+UserSchema.plugin(passportLocalMongoose);
 export const UserModel = mongoose.model("UserModel", UserSchema);
