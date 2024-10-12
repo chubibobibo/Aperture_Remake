@@ -45,3 +45,13 @@ export const getAllPhotos = async (req, res) => {
     res.status(StatusCodes.OK).json({ message: "All photos", allPhotos });
   }
 };
+
+/** GET SINGLE PHOTO */
+export const getSinglePhoto = async (req, res) => {
+  const { id } = req.params;
+  const foundPhoto = await PhotoModel.findById(id).populate("createdBy");
+  if (!foundPhoto) {
+    throw new ExpressError("Cannot find that photo", StatusCodes.NOT_FOUND);
+  }
+  res.status(StatusCodes.OK).json({ message: "Found photo", foundPhoto });
+};
