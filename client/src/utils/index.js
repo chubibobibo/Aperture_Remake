@@ -7,3 +7,4 @@ export { default as IndexPage } from "../pages/DashboardPages/IndexPage.jsx";
 export { default as ErrorPage } from "../pages/ErrorPage.jsx";
 export { default as CreatePost } from "../pages/DashboardPages/CreatePost.jsx";
 export { default as UpdateUser } from "../pages/UpdateUser.jsx";
+export { default as PostPage } from "../pages/DashboardPages/PostPage.jsx";
