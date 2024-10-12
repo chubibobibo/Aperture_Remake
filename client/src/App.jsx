@@ -13,6 +13,7 @@ import {
   ErrorPage,
   CreatePost,
   UpdateUser,
+  PostPage,
 } from "./utils";
 
 /** action and loader functions to submit and load data*/
@@ -22,6 +23,7 @@ import { action as createPostAction } from "./pages/DashboardPages/CreatePost.js
 import { action as updateUserAction } from "./pages/UpdateUser.jsx";
 import { loader as getLoggedUser } from "./pages/DashboardPages/DashboardLayout.jsx";
 import { loader as getAllPhotos } from "./pages/DashboardPages/IndexPage.jsx";
+import { loader as getSinglePhoto } from "./pages/DashboardPages/PostPage.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -65,6 +67,11 @@ function App() {
               path: "create-post",
               element: <CreatePost />,
               action: createPostAction,
+            },
+            {
+              path: "post/:id",
+              element: <PostPage />,
+              loader: getSinglePhoto,
             },
           ],
         },

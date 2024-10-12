@@ -1,12 +1,4 @@
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  Typography,
-  Input,
-  Checkbox,
-  Button,
-} from "@material-tailwind/react";
+import { Card, CardBody, Input, Button } from "@material-tailwind/react";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 import { Form, redirect, useNavigation } from "react-router-dom";
@@ -14,7 +6,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { useContext } from "react";
-import { UserContext } from "./HomeLayout";
+import { UserContext } from "../context/Context.js";
+// import { UserContext } from "./HomeLayout";
 
 /** ACTION FUNCTION to submit data from the forms to REGISTER API */
 /** @formData data obtained from the forms using .formData method */
@@ -69,8 +62,8 @@ function UpdateUser() {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   return (
-    <section className=' h-screen flex justify-center items-center'>
-      <Card className='w-[25rem] -mt-[30rem] md:w-[35rem] md:-mt-[20rem]'>
+    <section className='h-screen flex justify-center items-center'>
+      <Card className='w-[25rem]  -mt-[5rem]  md:w-[35rem] md:-mt-[5rem]'>
         <Form method='post' encType='multipart/form-data'>
           <CardBody className='flex flex-col gap-4'>
             <Input

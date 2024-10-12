@@ -2,8 +2,10 @@ import { Typography } from "@material-tailwind/react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { redirect, useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { UserContext } from "../pages/HomeLayout";
+// import { useContext } from "react";
+// import { UserContext } from "../context/Context.js";
+import { useUserContext } from "../hooks/useUserContext.js";
+// import { UserContext } from "../pages/HomeLayout";
 
 function NavList() {
   /** @logoutUser onClick event to logout user */
@@ -19,7 +21,8 @@ function NavList() {
     }
   };
 
-  const userData = useContext(UserContext);
+  // const userData = useContext(UserContext);
+  const userData = useUserContext();
   const loggedUser = userData?.data?.foundLoggedUser;
   // console.log(userData);
   const isLoggedIn = userData?.data?.message !== "No logged user";
