@@ -21,9 +21,11 @@ import { action as registerAction } from "./pages/RegisterPage.jsx";
 import { action as loginAction } from "./pages/LoginPage.jsx";
 import { action as createPostAction } from "./pages/DashboardPages/CreatePost.jsx";
 import { action as updateUserAction } from "./pages/UpdateUser.jsx";
+import { action as deleteCommentAction } from "./pages/DashboardPages/DeletePage.jsx";
 import { loader as getLoggedUser } from "./pages/DashboardPages/DashboardLayout.jsx";
 import { loader as getAllPhotos } from "./pages/DashboardPages/IndexPage.jsx";
 import { loader as getSinglePhoto } from "./pages/DashboardPages/PostPage.jsx";
+import DeletePage from "./pages/DashboardPages/DeletePage.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -72,6 +74,11 @@ function App() {
               path: "post/:id",
               element: <PostPage />,
               loader: getSinglePhoto,
+            },
+            {
+              path: "post/deleteComment/:photoId/:commentId",
+              element: <DeletePage />,
+              action: deleteCommentAction,
             },
           ],
         },
