@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { PhotosContext } from "../context/Context";
-import { ExpressError } from "../../../server/errorHandler/ExpressError";
+import { PhotosContext } from "../context/Context.js";
+import { ExpressError } from "../../../server/errorHandler/ExpressError.js";
 
 export const usePhotoContext = () => {
   const photoData = useContext(PhotosContext);

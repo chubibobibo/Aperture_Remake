@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { ExpressError } from "../../../server/errorHandler/ExpressError";
-import { UserContext } from "../context/Context";
+import { ExpressError } from "../../../server/errorHandler/ExpressError.js";
+import { UserContext } from "../context/Context.js";
 
 export const useUserContext = () => {
   const userData = useContext(UserContext);
