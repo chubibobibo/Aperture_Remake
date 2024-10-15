@@ -2,6 +2,8 @@ import "express-async-errors";
 import { ExpressError } from "../errorHandler/ExpressError.js";
 import { StatusCodes } from "http-status-codes";
 
+import { UserModel } from "../models/UserSchema.js";
+
 /** @promises file system is needed to delete images in the public folder */
 /** @response uses cloudinary API to upload to it's server the image from forms (req.file.path) then returns a secure link that will be saved in the database. */
 import cloudinary from "cloudinary";
@@ -47,9 +49,15 @@ export const getAllPhotos = async (req, res) => {
 };
 
 /** GET SINGLE PHOTO */
+/** @populate populates the ObjectIds of the created by property then populates the nested author property inside the photo-comments property */
 export const getSinglePhoto = async (req, res) => {
   const { id } = req.params;
-  const foundPhoto = await PhotoModel.findById(id).populate("createdBy");
+  const foundPhoto = await PhotoModel.findById(id)
+    .populate("createdBy")
+    .populate({
+      path: "comment",
+      populate: { path: "author", model: UserModel },
+    });
   if (!foundPhoto) {
     throw new ExpressError("Cannot find that photo", StatusCodes.NOT_FOUND);
   }

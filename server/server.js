@@ -9,6 +9,8 @@ import cloudinary from "cloudinary";
 
 import authRoutes from "./routes/authRoutes.js";
 import photoRoutes from "./routes/photoRoutes.js";
+import commentRoutes from "./routes/commentRoutes.js";
+
 import passport from "passport";
 import { UserModel } from "./models/UserSchema.js";
 
@@ -81,6 +83,7 @@ cloudinary.config({
 /** Routes */
 app.use("/api/auth", authRoutes);
 app.use("/api/photo", photoRoutes);
+app.use("/api/comment", commentRoutes);
 
 /** middleware for pages not found and  errors */
 app.use("*", (req, res) => {
