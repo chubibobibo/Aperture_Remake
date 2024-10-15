@@ -1,7 +1,6 @@
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useLoaderData, Outlet } from "react-router-dom";
-import NavbarDesktop from "../../components/NavbarDesktop";
 import { createContext } from "react";
 
 /** @loader obtains logged user data then pass it to the context*/
@@ -25,7 +24,6 @@ function DashboardLayout() {
 
   return (
     <Context.Provider value={data}>
-      {/* <NavbarDesktop /> */}
       <Outlet />
     </Context.Provider>
   );

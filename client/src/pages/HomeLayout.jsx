@@ -1,8 +1,10 @@
 import axios from "axios";
 import { Outlet, useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
-import { createContext } from "react";
+// import { createContext } from "react";
 import NavbarDesktop from "../components/NavbarDesktop";
+
+import { UserContext } from "../context/Context.js";
 
 /** LOADER FUNCTION TO OBTAIN  logged user*/
 export const loader = async () => {
@@ -16,11 +18,11 @@ export const loader = async () => {
   }
 };
 
-export const UserContext = createContext();
+// export const UserContext = createContext();
 
 function HomeLayout() {
   const userData = useLoaderData();
-  console.log(userData);
+  // console.log(userData);
   return (
     <>
       <UserContext.Provider value={userData}>

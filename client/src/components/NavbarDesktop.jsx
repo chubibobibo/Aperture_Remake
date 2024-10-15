@@ -5,12 +5,14 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 
-import { useContext } from "react";
-import { UserContext } from "../pages/HomeLayout";
+// import { useContext } from "react";
+// import { UserContext } from "../context/Context.js";
+// import { UserContext } from "../pages/HomeLayout";
 
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import NavList from "./NavList";
+import { useUserContext } from "../hooks/useUserContext.js";
 
 function NavbarDesktop() {
   /** @openNav state that handles the display of compact and full navbar */
@@ -28,7 +30,9 @@ function NavbarDesktop() {
   }, []);
 
   /** @userData data from context in DashboardLayout */
-  const userData = useContext(UserContext);
+  // const userData = useContext(UserContext);
+  const userData = useUserContext();
+  // console.log(userData);
 
   /** @userName logged user's name from the props @userData */
   const userName = userData?.data?.foundLoggedUser?.username;
@@ -65,7 +69,7 @@ function NavbarDesktop() {
           <img
             src={
               userData?.data?.message === "No logged user"
-                ? "../src/assets/Aperture1.png"
+                ? "/public/Aperture1.png"
                 : userData?.data?.foundLoggedUser?.avatarUrl
             }
             alt='avatar picture'

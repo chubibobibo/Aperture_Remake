@@ -1,18 +1,16 @@
 /** LEAFLET MAP */
-import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "../../styles.css";
 import { Icon, divIcon, point } from "leaflet";
-import mockData from "../../jsonData/data.json";
 import PhotoIndex from "../../components/PhotoIndex";
 import MarkerClusterGroup from "react-leaflet-cluster";
 
-import { createContext } from "react";
+import { PhotosContext } from "../../context/Context.js";
 import { useLoaderData } from "react-router-dom";
 
 import { toast } from "react-toastify";
 import axios from "axios";
-import { Typography } from "@material-tailwind/react";
 
 import { toCapitalize } from "../../utils/toCaptialize";
 
@@ -28,7 +26,7 @@ export const loader = async () => {
 };
 
 /** @PhotosContext shares data from the loader function to the PhotoIndex component */
-export const PhotosContext = createContext();
+// export const PhotosContext = createContext();
 
 function IndexPage() {
   /** @photoData contains all photos obtained using loader function */

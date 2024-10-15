@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { UserModel } from "./UserSchema.js";
 
 const { Schema } = mongoose;
 
@@ -9,8 +10,8 @@ const CommentSchema = new Schema({
   },
 
   author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "UserSchema",
+    type: Schema.Types.ObjectId,
+    ref: UserModel,
   },
 
   rating: {
