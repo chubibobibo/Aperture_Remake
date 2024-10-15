@@ -125,3 +125,16 @@ export const updateUserValidation = withValidationErrors([
     }
   }),
 ]);
+
+export const addCommentValidation = withValidationErrors([
+  body("body")
+    .notEmpty()
+    .withMessage("Comment cannot be empty")
+    .isLength({ max: 550 })
+    .withMessage("Comment cannot exceed 550 characters"),
+  body("rating")
+    .notEmpty()
+    .withMessage("Rating cannot be empty")
+    .isNumeric()
+    .withMessage("Rating needs to be a number"),
+]);

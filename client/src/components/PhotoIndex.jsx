@@ -28,7 +28,7 @@ function PhotoIndex() {
           <div key={newData._id} className='flex mt-4 flex-col'>
             <UserAvatar newData={newData} />
             <img
-              className='h-auto max-w-full rounded-lg object-cover object-center'
+              className='h-auto max-w-full rounded-lg object-cover object-center cursor-pointer'
               src={newData.photoUrl}
               alt='gallery-photo'
               loading='lazy'

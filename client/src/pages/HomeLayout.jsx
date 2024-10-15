@@ -22,7 +22,7 @@ export const loader = async () => {
 
 function HomeLayout() {
   const userData = useLoaderData();
-  console.log(userData);
+  // console.log(userData);
   return (
     <>
       <UserContext.Provider value={userData}>

@@ -29,8 +29,9 @@ const PhotoSchema = new Schema({
     required: true,
   },
 
+  /** @comment an array of ObjectIds from the comment schema*/
   comment: {
-    type: Schema.Types.ObjectId,
+    type: [Schema.Types.ObjectId],
     ref: CommentModel,
   },
 
