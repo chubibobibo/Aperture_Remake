@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { Typography } from "@material-tailwind/react";
 
+
 import { Link, useLoaderData } from "react-router-dom";
 import UpdateCommentModal from "../../components/UpdateCommentModal";
 
@@ -11,10 +12,13 @@ import ReactStars from "react-stars";
 import DeleteCommentModal from "../../components/DeleteCommentModal";
 import AddCommentModal from "../../components/AddCommentModal";
 
+
 /** @loader function to obtain single photo and logged user returns both the photo data and the logged user */
 /** @params obtains id from the params in the url */
 export const loader = async ({ params }) => {
+
   // console.log(params.id);
+
   try {
     const photoData = await axios.get(`/api/photo/post/${params.id}`);
     const isLoggedUser = await axios.get("/api/auth/getLoggedUser");
@@ -26,8 +30,10 @@ export const loader = async ({ params }) => {
   }
 };
 
+
 /** @PostPage  page that will be rendered to display the specific photo*/
 /** @newData props that is needed by UserAvatar to display user info. Since the photo contains createdBy which is populated with userData, we can use it to display the author of the photo */
+
 
 function PostPage() {
   const data = useLoaderData();
@@ -35,6 +41,7 @@ function PostPage() {
   const photoData = data?.photoData?.data?.foundPhoto;
   const loggedUser = data?.isLoggedUser?.data?.foundLoggedUser;
   // console.log(photoData);
+
 
   return (
     /** Displays the photo and the user details that posted it */
@@ -50,6 +57,7 @@ function PostPage() {
         <Typography className='mb-1 md:mb-4 md:text-lg md:font-bold'>
           Location:{" "}
           <Link
+
             to={`https://www.google.com/maps/search/?api=1&query= +
         ${photoData.photoCoords[1]} +
         , +
@@ -59,6 +67,7 @@ function PostPage() {
             {photoData.photoLocation}
           </Link>
         </Typography>
+
         {/** @AddCommentModal modal for adding comments. passes the logged user details */}
         <AddCommentModal loggedUser={loggedUser} photoData={photoData} />
       </div>
