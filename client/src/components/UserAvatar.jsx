@@ -11,10 +11,10 @@ function UserAvatar({ newData }) {
           <img
             src={newData.createdBy.avatarUrl}
             alt=''
-            className='w-8 h-8 rounded-2xl'
+            className='w-8 h-8 rounded-3xl'
           />
         </div>
-        <div className='text-md'>
+        <div className='text-md font-bold'>
           <p>{toCapitalize(newData.createdBy.username)}</p>
         </div>
       </div>

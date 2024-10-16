@@ -48,10 +48,16 @@ function UpdateCommentModal({ singleComment, photoData }) {
         `/api/comment/updateComment/${singleComment}`,
         commentData
       );
-      toast.success("Comment successfully updated");
       navigate(`/dashboard/post/${photoData}`);
+      toast.success("Comment successfully updated");
     } catch (err) {
       console.log(err);
+      navigate(`/dashboard/post/${photoData}`);
+      toast.error(
+        Array.isArray(err?.response?.data?.message)
+          ? err?.response?.data?.message[0]
+          : err?.response?.data?.message
+      );
     }
   };
 
