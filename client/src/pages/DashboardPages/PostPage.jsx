@@ -59,54 +59,63 @@ function PostPage() {
             {photoData.photoLocation}
           </Link>
         </Typography>
-        {/* {loggedUser && <Button className='md:w-[20rem]'>Add Comment</Button>} */}
         {/** @AddCommentModal modal for adding comments. passes the logged user details */}
-        <AddCommentModal loggedUser={loggedUser} />
+        <AddCommentModal loggedUser={loggedUser} photoData={photoData} />
       </div>
-      {/** Displays the comments by mapping */}
-      {photoData.comment.map((allComments) => {
-        // console.log(allComments);
-        const isAuthor = loggedUser?._id === allComments?.author?._id;
-        return (
-          <section
-            key={allComments._id}
-            className='mb-2 w-full md:flex md:flex-col md:items-center md:w-[90%]'
-          >
-            <div className='grid grid-cols-3 grid-rows-1 mt-4 h-[10rem] border-2 border-gray-400 rounded-lg md:w-[90%] md:h-[10rem] lg:w-[50rem] overflow-y-scroll '>
-              <div className='flex p-2 font-bold cursor-pointer col-span-1'>
-                <UserAvatarComments newData={allComments} />
-              </div>
-              <div className='flex flex-col justify-center col-span-2 p-2'>
-                <ReactStars
-                  size={30}
-                  value={allComments?.rating} //default value
-                  color2={"#ffd700"}
-                  half={false}
-                  edit={false} //allows changing of rate
-                />
-                <p className='text-sm md:text-base h-[5rem] md:h-[5rem]'>
-                  {allComments.body}
-                </p>
-              </div>
-            </div>
+      {photoData.comment.length === 0 ? (
+        <>
+          <Typography>
+            Wow! it's empty here. Be the first to leave a comment
+          </Typography>
+        </>
+      ) : (
+        <>
+          {/** Displays the comments by mapping */}
+          {photoData.comment.map((allComments) => {
+            // console.log(allComments);
+            const isAuthor = loggedUser?._id === allComments?.author?._id;
+            return (
+              <section
+                key={allComments._id}
+                className='mb-2 w-full md:flex md:flex-col md:items-center md:w-[90%]'
+              >
+                <div className='grid grid-cols-3 grid-rows-1 mt-4 h-[10rem] border-2 border-gray-400 rounded-lg md:w-[90%] md:h-[10rem] lg:w-[50rem] overflow-y-scroll '>
+                  <div className='flex p-2 font-bold cursor-pointer col-span-1'>
+                    <UserAvatarComments newData={allComments} />
+                  </div>
+                  <div className='flex flex-col justify-center col-span-2 p-2'>
+                    <ReactStars
+                      size={30}
+                      value={allComments?.rating} //default value
+                      color2={"#ffd700"}
+                      half={false}
+                      edit={false} //allows changing of rate
+                    />
+                    <p className='text-sm md:text-base h-[5rem] md:h-[5rem]'>
+                      {allComments.body}
+                    </p>
+                  </div>
+                </div>
 
-            {/** dynamically renders the buttons depending if user is the author of the comment */}
-            {isAuthor && (
-              <div className='flex gap-1 p-1 md:w-[100%] md:justify-star lg:w-[50rem]'>
-                <UpdateCommentModal
-                  singleComment={allComments?._id}
-                  photoData={photoData._id}
-                />
+                {/** dynamically renders the buttons depending if user is the author of the comment */}
+                {isAuthor && (
+                  <div className='flex gap-1 p-1 md:w-[100%] md:justify-star lg:w-[50rem]'>
+                    <UpdateCommentModal
+                      singleComment={allComments?._id}
+                      photoData={photoData._id}
+                    />
 
-                <DeleteCommentModal
-                  photoDataId={photoData._id}
-                  commentDataId={allComments._id}
-                />
-              </div>
-            )}
-          </section>
-        );
-      })}
+                    <DeleteCommentModal
+                      photoDataId={photoData._id}
+                      commentDataId={allComments._id}
+                    />
+                  </div>
+                )}
+              </section>
+            );
+          })}
+        </>
+      )}
     </section>
   );
 }
