@@ -60,7 +60,7 @@ function IndexPage() {
     <div className='flex flex-col justify-center items-center'>
       <MapContainer
         center={[48.8566, 2.3522]}
-        zoom={10}
+        zoom={2}
         scrollWheelZoom={false}
         className='h-52 w-11/12 flex justify-center items-center rounded-lg mt-2 md:h-[30rem]'
       >
