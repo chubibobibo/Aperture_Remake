@@ -63,3 +63,32 @@ export const getSinglePhoto = async (req, res) => {
   }
   res.status(StatusCodes.OK).json({ message: "Found photo", foundPhoto });
 };
+
+/** GetUserPhoto */
+export const getUserPhoto = async (req, res) => {
+  const { id } = req.params;
+  const foundUserPhoto = await PhotoModel.find({ createdBy: id });
+  if (!foundUserPhoto) {
+    res.status(StatusCodes.OK).json({ message: "No photo uploaded" });
+  }
+  res.status(StatusCodes.OK).json({ message: "user photos", foundUserPhoto });
+};
+
+/** DELETE A POST */
+
+export const deletePost = async (req, res) => {
+  const { id } = req.params;
+  const foundPhoto = await PhotoModel.findById(id);
+  if (!foundPhoto) {
+    throw new ExpressError("Photo not found", StatusCodes.NOT_FOUND);
+  }
+  /** deletes photo in cloudinary using the publicId (photoId) */
+  if (foundPhoto.photoId) {
+    await cloudinary.v2.uploader.destroy(foundPhoto.photoId);
+  }
+  const deletedPhoto = await PhotoModel.findByIdAndDelete(id);
+  if (!deletedPhoto) {
+    throw new ExpressError("Problem deleting post", StatusCodes.BAD_REQUEST);
+  }
+  res.status(StatusCodes.OK).json({ message: "Post deleted", deletedPhoto });
+};
