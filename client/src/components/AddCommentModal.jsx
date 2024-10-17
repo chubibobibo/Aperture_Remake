@@ -66,6 +66,8 @@ function AddCommentModal({ loggedUser, photoData }) {
   return (
     <>
       {" "}
+      {/** Conditionally change the behavior of the add comment button depending if user is logged in */}
+      {/** if user is not logged navigate to login page and execute a toast error */}
       <Button onClick={loggedUser ? handleOpen : onClickNav}>
         Add Comment
       </Button>

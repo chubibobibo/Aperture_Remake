@@ -2,7 +2,7 @@ import UserAvatar from "../../components/UserAvatar";
 import UserAvatarComments from "../../components/UserAvatarComments";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { Typography } from "@material-tailwind/react";
+import { Typography, Button } from "@material-tailwind/react";
 
 import { Link, useLoaderData } from "react-router-dom";
 import UpdateCommentModal from "../../components/UpdateCommentModal";
@@ -35,14 +35,30 @@ function PostPage() {
   const photoData = data?.photoData?.data?.foundPhoto;
   const loggedUser = data?.isLoggedUser?.data?.foundLoggedUser;
   // console.log(photoData);
+  // console.log(photoData);
+
+  const isPostOwner = photoData?.createdBy?._id === loggedUser?._id;
 
   return (
     /** Displays the photo and the user details that posted it */
-    <section className='w-fit flex flex-col justify-center items-center m-4 mt-10 gap-2 md:w-screen md:gap-2 md:items-center'>
-      <div className='w-[100%] md:w-[45rem] md:m-1 md:flex md:justify-start'>
+    <section className='w-full p-4 flex flex-col justify-center items-center mt-10 gap-2 md:w-screen md:gap-2 md:items-center'>
+      {/* <div className='flex justify-start md:w-[45rem]'> */}
+      <div className='w-[100%] flex md:w-[45rem] md:flex md:justify-start'>
         <UserAvatar newData={photoData} />
+        {isPostOwner && (
+          <Button color='red' size='sm' className='ml-auto md:ml-auto'>
+            Delete Post
+          </Button>
+        )}
+
+        {/* </div> */}
+        {/* <div className='w-[100%] md:w-[45rem] md:flex md:justify-start md:ml-auto'>
+          <Button color='red' size='sm'>
+            Delete Post
+          </Button>
+        </div> */}
       </div>
-      <div className='md:mb-2 md:w-[45rem] md:m-1'>
+      <div className='md:mb-2 md:w-[45rem] '>
         <img src={photoData.photoUrl} alt='' />
       </div>
       <div className='flex flex-col gap-2 md:items-center'>
@@ -63,11 +79,11 @@ function PostPage() {
         <AddCommentModal loggedUser={loggedUser} photoData={photoData} />
       </div>
       {photoData.comment.length === 0 ? (
-        <>
+        <div className='mt-6'>
           <Typography>
             Wow! it's empty here. Be the first to leave a comment
           </Typography>
-        </>
+        </div>
       ) : (
         <>
           {/** Displays the comments by mapping */}

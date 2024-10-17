@@ -88,7 +88,7 @@ function IndexPage() {
                 <Popup>
                   <span className='font-bold text-md'>Photo uploaded by: </span>
                   <span className='text-md'>
-                    {toCapitalize(newData.createdBy.username)}
+                    {toCapitalize(newData?.createdBy?.username)}
                   </span>
                   <br />
                   <span className='font-bold text-md'>Title: </span>

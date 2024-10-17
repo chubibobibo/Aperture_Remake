@@ -14,6 +14,8 @@ import {
   CreatePost,
   UpdateUser,
   PostPage,
+  ProfilePage,
+  DeletePage,
 } from "./utils";
 
 /** action and loader functions to submit and load data*/
@@ -25,7 +27,6 @@ import { action as deleteCommentAction } from "./pages/DashboardPages/DeletePage
 import { loader as getLoggedUser } from "./pages/DashboardPages/DashboardLayout.jsx";
 import { loader as getAllPhotos } from "./pages/DashboardPages/IndexPage.jsx";
 import { loader as getSinglePhoto } from "./pages/DashboardPages/PostPage.jsx";
-import DeletePage from "./pages/DashboardPages/DeletePage.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -64,6 +65,10 @@ function App() {
               path: "index",
               element: <IndexPage />,
               loader: getAllPhotos,
+            },
+            {
+              path: "profile",
+              element: <ProfilePage />,
             },
             {
               path: "create-post",

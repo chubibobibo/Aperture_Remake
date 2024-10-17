@@ -57,9 +57,8 @@ function NavList() {
         className='p-1 text-md'
       >
         <a
-          href=''
+          href='/dashboard/profile'
           className='flex items-center hover:text-blue-500 transition-colors'
-          onClick={isLoggedIn ? onClickToProfile : onClickToLogin}
         >
           PROFILE
         </a>
@@ -79,7 +78,6 @@ function NavList() {
           </a>
         </Typography>
       )}
-
       <Typography
         as='li'
         variant='small'
@@ -87,12 +85,14 @@ function NavList() {
         className='p-1 text-md'
       >
         <a
-          href='#'
+          href=''
           className='flex items-center hover:text-blue-500 transition-colors'
+          onClick={isLoggedIn ? onClickToProfile : onClickToLogin}
         >
-          SEARCH USER
+          ACCOUNT
         </a>
       </Typography>
+
       {isLoggedIn ? (
         <Typography
           as='li'
