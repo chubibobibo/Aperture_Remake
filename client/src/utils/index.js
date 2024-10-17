@@ -8,3 +8,5 @@ export { default as ErrorPage } from "../pages/ErrorPage.jsx";
 export { default as CreatePost } from "../pages/DashboardPages/CreatePost.jsx";
 export { default as UpdateUser } from "../pages/UpdateUser.jsx";
 export { default as PostPage } from "../pages/DashboardPages/PostPage.jsx";
+export { default as ProfilePage } from "../pages/DashboardPages/ProfilePage.jsx";
+export { default as DeletePage } from "../pages/DashboardPages/DeletePage.jsx";

@@ -1,6 +1,7 @@
 import { ExpressError } from "../errorHandler/ExpressError.js";
 import { StatusCodes } from "http-status-codes";
 import { CommentModel } from "../models/CommentSchema.js";
+import { PhotoModel } from "../models/PhotoSchema.js";
 
 /** @isLoggedIn middleware to protect certain routes */
 /** @authenticated method from passportJS to authenticate  */
@@ -27,6 +28,27 @@ export const isAuthor = async (req, res, next) => {
   console.log(author);
   if (!author) {
     throw new ExpressError("User is not authorized", StatusCodes.UNAUTHORIZED);
+  } else {
+    next();
+  }
+};
+
+export const isPostOwner = async (req, res, next) => {
+  if (!req.user) {
+    throw new ExpressError("User is not logged in", StatusCodes.UNAUTHORIZED);
+  }
+  const { id } = req.params;
+  const foundPhoto = await PhotoModel.findById(id);
+  if (!foundPhoto) {
+    throw new ExpressError("Photo does not exist", StatusCodes.NOT_FOUND);
+  }
+  console.log(foundPhoto);
+  console.log(req.user._id);
+  if (req.user._id.toString() !== foundPhoto.createdBy.toString()) {
+    throw new ExpressError(
+      "User is not the owner of this post",
+      StatusCodes.UNAUTHORIZED
+    );
   } else {
     next();
   }

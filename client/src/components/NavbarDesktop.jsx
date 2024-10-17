@@ -13,6 +13,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import NavList from "./NavList";
 import { useUserContext } from "../hooks/useUserContext.js";
+import { Link } from "react-router-dom";
 
 function NavbarDesktop() {
   /** @openNav state that handles the display of compact and full navbar */
@@ -57,7 +58,7 @@ function NavbarDesktop() {
         </IconButton>
         <Typography
           as='a'
-          href='#'
+          href='/dashboard/profile'
           variant='h6'
           className='cursor-pointer py-1.5 sm-max:ml-auto md:ml-auto 2xl:ml-auto'
         >
@@ -65,15 +66,18 @@ function NavbarDesktop() {
             ? "User"
             : userName.charAt(0).toUpperCase() + userName.slice(1)}
         </Typography>
-        <img
-          src={
-            userData?.data?.message === "No logged user"
-              ? "/public/Aperture1.png"
-              : userData?.data?.foundLoggedUser?.avatarUrl
-          }
-          alt='avatar picture'
-          className='w-12 h-12 rounded-full ml-2 mr-2'
-        />
+        <Link to='/dashboard/profile'>
+          <img
+            src={
+              userData?.data?.message === "No logged user" ||
+              userData?.data?.foundLoggedUser?.avatarUrl === undefined
+                ? "/public/Aperture1.png"
+                : userData?.data?.foundLoggedUser?.avatarUrl
+            }
+            alt='avatar picture'
+            className='w-12 h-12 rounded-full ml-2 mr-2'
+          />
+        </Link>
       </div>
       <Collapse open={openNav}>
         <NavList />

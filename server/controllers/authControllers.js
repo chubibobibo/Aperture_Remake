@@ -94,18 +94,27 @@ export const updateUser = async (req, res) => {
     const response = await cloudinary.v2.uploader.upload(req.file.path, {
       folder: "aperture_remake",
     });
-    fs.unlink(req.file.path);
+    console.log(response.public_id);
+    await fs.unlink(req.file.path); // deletes photo in public/uploads
+
     req.body.avatarUrl = response.secure_url;
-    req.body.avatarId = response.publicId;
+    req.body.avatarId = response.public_id;
   }
 
   const { id } = req.params;
+  const user = await UserModel.findById(id);
+  if (!user) {
+    throw new ExpressError("User does not exist", StatusCodes.NOT_FOUND);
+  }
+
   const updatedUser = await UserModel.findByIdAndUpdate(id, req.body, {
     new: true,
   });
   if (!updatedUser) {
     throw new ExpressError("Cannot update user", StatusCodes.BAD_REQUEST);
   }
+
+  await cloudinary.v2.uploader.destroy(user.avatarId);
   res
     .status(StatusCodes.OK)
     .json({ message: "User successfully updated", updatedUser });

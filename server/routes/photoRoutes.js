@@ -5,16 +5,21 @@ import { createPostValidation } from "../middleware/inputValidation.js";
 
 import {
   createPost,
+  deletePost,
   getAllPhotos,
   getSinglePhoto,
+  getUserPhoto,
 } from "../controllers/photoControllers.js";
 
 import upload from "../middleware/multerMiddleware.js";
 /** protect posting of new post */
-import { isLoggedIn } from "../middleware/authMiddleware.js";
+import { isLoggedIn, isPostOwner } from "../middleware/authMiddleware.js";
 
 /** GET ALL PHOTOS */
 router.get("/allPhotos", getAllPhotos);
+
+/** GET USER'S PHOTOS */
+router.get("/userPhoto/:id", isLoggedIn, getUserPhoto);
 
 /** GET SINGLE PHOTO */
 router.get("/post/:id", getSinglePhoto);
@@ -29,5 +34,8 @@ router.post(
   createPostValidation,
   createPost
 );
+
+/** DElETE POST */
+router.delete("/deletePost/:id", isLoggedIn, isPostOwner, deletePost);
 
 export default router;
