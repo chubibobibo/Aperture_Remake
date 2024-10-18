@@ -40,7 +40,7 @@ function NavbarDesktop() {
 
   return (
     <Navbar className='mx-auto max-w-screen-3xl px-6 py-3 mt-0 sticky '>
-      <div className='flex items-center justify-between text-blue-gray-900'>
+      <div className='flex items-center justify-around text-blue-gray-900 2xl:px-44'>
         <div className='hidden lg:block'>
           <NavList />
         </div>
@@ -58,7 +58,7 @@ function NavbarDesktop() {
         </IconButton>
         <Typography
           as='a'
-          href='/dashboard/profile'
+          href={`/dashboard/profile/${userData?.data?.foundLoggedUser?._id}`}
           variant='h6'
           className='cursor-pointer py-1.5 sm-max:ml-auto md:ml-auto 2xl:ml-auto'
         >
@@ -66,7 +66,7 @@ function NavbarDesktop() {
             ? "User"
             : userName.charAt(0).toUpperCase() + userName.slice(1)}
         </Typography>
-        <Link to='/dashboard/profile'>
+        <Link to={`/dashboard/profile/${userData?.data?.foundLoggedUser?._id}`}>
           <img
             src={
               userData?.data?.message === "No logged user" ||

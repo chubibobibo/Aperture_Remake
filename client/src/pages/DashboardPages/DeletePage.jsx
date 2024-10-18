@@ -9,6 +9,7 @@ export const action = async ({ params }) => {
     await axios.delete(
       `/api/comment/deleteComment/${params.photoId}/${params.commentId}`
     );
+    toast.success("Comment successfully deleted");
     return redirect(`/dashboard/post/${params.photoId}`);
   } catch (err) {
     console.log(err);

@@ -70,9 +70,9 @@ function ProfilePage() {
           <Typography className='font-bold mt-2' variant='h5' color='black'>
             {foundUser.username.toUpperCase()}
           </Typography>
-          <Typography color='blue-gray' className='font-medium' textGradient>
+          {/* <Typography color='blue-gray' className='font-medium' textGradient>
             CEO / Co-Founder
-          </Typography>
+          </Typography> */}
         </CardBody>
         <CardFooter className='flex justify-center gap-7 pt-2 border-b-4'>
           <Tooltip content='Like'>

@@ -2,29 +2,32 @@ import React from "react";
 import {
   Button,
   Dialog,
-  DialogBody,
+  DialogHeader,
   DialogFooter,
 } from "@material-tailwind/react";
-
 import { Form } from "react-router-dom";
 
-function DeleteCommentModal({ photoDataId, commentDataId }) {
+function DeletePostModal({ photoData }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(!open);
+  console.log(photoData);
 
   return (
-    <>
+    <section>
       <Button onClick={handleOpen} variant='gradient' color='red'>
-        DELETE
+        Delete Post
       </Button>
-      <Dialog open={open} handler={handleOpen} size='xs'>
-        {/* <DialogHeader>Its a simple modal.</DialogHeader> */}
-        <DialogBody>Do you want to delete this comment?</DialogBody>
-        <DialogFooter>
-          <Form
-            method='post'
-            action={`/dashboard/post/deleteComment/${photoDataId}/${commentDataId}`}
-          >
+      <Dialog
+        open={open}
+        handler={handleOpen}
+        animate={{
+          mount: { scale: 1, y: 0 },
+          unmount: { scale: 0.9, y: -100 },
+        }}
+      >
+        <DialogHeader>Delete your post?</DialogHeader>
+        <Form method='post' action={`/dashboard/post/deletePost/${photoData}`}>
+          <DialogFooter>
             <Button
               variant='text'
               color='red'
@@ -41,10 +44,10 @@ function DeleteCommentModal({ photoDataId, commentDataId }) {
             >
               <span>Confirm</span>
             </Button>
-          </Form>
-        </DialogFooter>
+          </DialogFooter>
+        </Form>
       </Dialog>
-    </>
+    </section>
   );
 }
-export default DeleteCommentModal;
+export default DeletePostModal;

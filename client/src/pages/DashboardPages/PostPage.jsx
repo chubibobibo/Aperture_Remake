@@ -2,7 +2,8 @@ import UserAvatar from "../../components/UserAvatar";
 import UserAvatarComments from "../../components/UserAvatarComments";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { Typography, Button } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
+import { toCapitalize } from "../../utils/toCaptialize";
 
 import { Link, useLoaderData } from "react-router-dom";
 import UpdateCommentModal from "../../components/UpdateCommentModal";
@@ -10,6 +11,11 @@ import UpdateCommentModal from "../../components/UpdateCommentModal";
 import ReactStars from "react-stars";
 import DeleteCommentModal from "../../components/DeleteCommentModal";
 import AddCommentModal from "../../components/AddCommentModal";
+import DeletePostModal from "../../components/DeletePostModal";
+
+import { FaLocationDot } from "react-icons/fa6";
+import { PiNotepadFill } from "react-icons/pi";
+import { PiSubtitlesFill } from "react-icons/pi";
 
 /** @loader function to obtain single photo and logged user returns both the photo data and the logged user */
 /** @params obtains id from the params in the url */
@@ -35,46 +41,54 @@ function PostPage() {
   const photoData = data?.photoData?.data?.foundPhoto;
   const loggedUser = data?.isLoggedUser?.data?.foundLoggedUser;
   // console.log(photoData);
-  // console.log(photoData);
+  console.log(loggedUser);
 
-  const isPostOwner = photoData?.createdBy?._id === loggedUser?._id;
+  /** @isPostOwner logic for dynamically rendering the button to delete */
+  const isPostOwner =
+    photoData?.createdBy?._id === loggedUser?._id ||
+    loggedUser?.role === "admin";
 
   return (
     /** Displays the photo and the user details that posted it */
-    <section className='w-full p-4 flex flex-col justify-center items-center mt-10 gap-2 md:w-screen md:gap-2 md:items-center'>
+    <section className='w-full p-4 flex flex-col justify-center items-center mt-4 gap-2 md:w-screen md:gap-2 md:items-center'>
       {/* <div className='flex justify-start md:w-[45rem]'> */}
       <div className='w-[100%] flex md:w-[45rem] md:flex md:justify-start'>
         <UserAvatar newData={photoData} />
         {isPostOwner && (
-          <Button color='red' size='sm' className='ml-auto md:ml-auto'>
-            Delete Post
-          </Button>
+          <div className='ml-auto md:ml-auto'>
+            <DeletePostModal photoData={photoData._id} />
+          </div>
         )}
-
-        {/* </div> */}
-        {/* <div className='w-[100%] md:w-[45rem] md:flex md:justify-start md:ml-auto'>
-          <Button color='red' size='sm'>
-            Delete Post
-          </Button>
-        </div> */}
+      </div>
+      <div className='flex justify-start w-full md:w-[45rem]'>
+        <Typography className='flex gap-2 text-sm md:text-lg'>
+          {/* <span className='font-bold'>Title:</span>{" "} */}
+          <PiSubtitlesFill size={25} />
+          {toCapitalize(photoData.title)}
+        </Typography>
       </div>
       <div className='md:mb-2 md:w-[45rem] '>
         <img src={photoData.photoUrl} alt='' />
       </div>
       <div className='flex flex-col gap-2 md:items-center'>
-        {/** provides the link of the location of the photo */}
-        <Typography className='mb-1 md:mb-4 md:text-lg md:font-bold'>
-          Location:{" "}
-          <Link
-            to={`https://www.google.com/maps/search/?api=1&query= +
+        {/** provides the link of the location of the photo and description*/}
+        <div className='w-fit p-2 border-2 rounded-md border-gray-500 mb-4 md:w-[45rem]'>
+          <Typography className='flex gap-2 text-sm mb-0 p-2 md:mb-4 md:text-lg md:font-bold md:w-[45rem]'>
+            <FaLocationDot size={25} />
+            <Link
+              to={`https://www.google.com/maps/search/?api=1&query= +
         ${photoData.photoCoords[1]} +
         , +
        ${photoData.photoCoords[0]}`}
-            className='text-blue-600'
-          >
-            {photoData.photoLocation}
-          </Link>
-        </Typography>
+              className='text-blue-600'
+            >
+              {photoData.photoLocation}
+            </Link>
+          </Typography>
+          <Typography className='flex gap-2 text-sm mb-1 p-2 md:mb-4 md:text-lg  md:w-[45rem]'>
+            <PiNotepadFill size={25} /> {photoData.description}
+          </Typography>
+        </div>
         {/** @AddCommentModal modal for adding comments. passes the logged user details */}
         <AddCommentModal loggedUser={loggedUser} photoData={photoData} />
       </div>

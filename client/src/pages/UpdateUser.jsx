@@ -1,4 +1,10 @@
-import { Card, CardBody, Input, Button } from "@material-tailwind/react";
+import {
+  Card,
+  CardBody,
+  Input,
+  Button,
+  Typography,
+} from "@material-tailwind/react";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 import { Form, redirect, useNavigation } from "react-router-dom";
@@ -63,7 +69,10 @@ function UpdateUser() {
   const isSubmitting = navigation.state === "submitting";
   return (
     <section className='h-screen flex justify-center items-center'>
-      <Card className='w-[25rem]  -mt-[5rem]  md:w-[35rem] md:-mt-[5rem]'>
+      <Card className='w-[25rem] -mt-[5rem]  md:w-[35rem] md:-mt-[5rem]'>
+        <Typography variant='h3' className='flex justify-center'>
+          Update your Profile
+        </Typography>
         <Form method='post' encType='multipart/form-data'>
           <CardBody className='flex flex-col gap-4'>
             <Input
@@ -76,7 +85,7 @@ function UpdateUser() {
             <Input label='First name' name='firstName' size='md' />
             <Input label='Last name' name='lastName' size='md' />
             <Input label='Email' name='email' size='lg' />
-            <Input
+            {/* <Input
               label='Password'
               name='password1'
               type={isHidden.password1 ? "password" : "text"}
@@ -101,7 +110,7 @@ function UpdateUser() {
                   <IoMdEye onClick={toggleHidePass2} />
                 )
               }
-            />
+            /> */}
             <Button
               variant='gradient'
               fullWidth

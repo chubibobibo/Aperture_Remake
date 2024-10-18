@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import UserAvatar from "./UserAvatar";
 import { usePhotoContext } from "../hooks/usePhotoContext";
 import { Typography } from "@material-tailwind/react";
+import { toCapitalize } from "../utils/toCaptialize";
 
 function PhotoIndex() {
   /** Obtain data from contexts */
@@ -22,17 +23,17 @@ function PhotoIndex() {
   };
 
   return (
-    <>
+    <section className='md:w-screen md:flex md:justify-center'>
       {photos.length === 0 ? (
-        <Typography variant='h6' className='mt-12'>
-          Soooo quiet in here. Create your a post
+        <Typography variant='h6' className='mt-12 md:text-2xl'>
+          Soooo quiet in here. Create a post
         </Typography>
       ) : (
-        <div className='grid grid-cols-2 gap-4 md:grid-cols-3'>
+        <div className='grid grid-cols-2 gap-3 mt-1 md:grid-cols-3 md:w-11/12 md:mt-10'>
           {photos.map((newData) => {
-            console.log(newData);
+            // console.log(newData);
             return (
-              <div key={newData._id} className='flex mt-4 flex-col'>
+              <div key={newData._id} className='flex mt-4 flex-col gap-1'>
                 <UserAvatar newData={newData} />
                 <img
                   className='h-auto max-w-full rounded-lg object-cover object-center cursor-pointer'
@@ -48,7 +49,7 @@ function PhotoIndex() {
           })}
         </div>
       )}
-    </>
+    </section>
   );
 }
 export default PhotoIndex;

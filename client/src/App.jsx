@@ -16,6 +16,8 @@ import {
   PostPage,
   ProfilePage,
   DeletePage,
+  DeletePostPage,
+  AboutPage,
 } from "./utils";
 
 /** action and loader functions to submit and load data*/
@@ -24,6 +26,7 @@ import { action as loginAction } from "./pages/LoginPage.jsx";
 import { action as createPostAction } from "./pages/DashboardPages/CreatePost.jsx";
 import { action as updateUserAction } from "./pages/UpdateUser.jsx";
 import { action as deleteCommentAction } from "./pages/DashboardPages/DeletePage.jsx";
+import { action as deletePostAction } from "./pages/DashboardPages/DeletePostPage.jsx";
 import { loader as getLoggedUser } from "./pages/DashboardPages/DashboardLayout.jsx";
 import { loader as getAllPhotos } from "./pages/DashboardPages/IndexPage.jsx";
 import { loader as getSinglePhoto } from "./pages/DashboardPages/PostPage.jsx";
@@ -57,6 +60,10 @@ function App() {
           action: updateUserAction,
         },
         {
+          path: "about",
+          element: <AboutPage />,
+        },
+        {
           path: "dashboard",
           element: <DashboardLayout />,
           loader: getLoggedUser,
@@ -67,13 +74,18 @@ function App() {
               loader: getAllPhotos,
             },
             {
-              path: "profile",
+              path: "profile/:id",
               element: <ProfilePage />,
             },
             {
               path: "create-post",
               element: <CreatePost />,
               action: createPostAction,
+            },
+            {
+              path: "post/deletePost/:id",
+              element: <DeletePostPage />,
+              action: deletePostAction,
             },
             {
               path: "post/:id",

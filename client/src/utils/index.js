@@ -10,3 +10,5 @@ export { default as UpdateUser } from "../pages/UpdateUser.jsx";
 export { default as PostPage } from "../pages/DashboardPages/PostPage.jsx";
 export { default as ProfilePage } from "../pages/DashboardPages/ProfilePage.jsx";
 export { default as DeletePage } from "../pages/DashboardPages/DeletePage.jsx";
+export { default as DeletePostPage } from "../pages/DashboardPages/DeletePostPage.jsx";
+export { default as AboutPage } from "../pages/AboutPage.jsx";
