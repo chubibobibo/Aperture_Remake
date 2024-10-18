@@ -33,7 +33,7 @@ function ErrorPage() {
         </Typography>
         <img
           className='h-64 w-64 rounded-lg object-cover object-center md:h-80 md:w-80'
-          src='../src/assets/error.png'
+          src='/public/error.png'
           alt='page not found image'
         />
         <Button className='w-48 mt-1' onClick={navToHome}>
@@ -57,15 +57,15 @@ function ErrorPage() {
       >
         There seems to be some problem.
       </Typography>
-      <Typography
+      {/* <Typography
         variant='small'
         className='mt-2 text-center px-2 font-normal mb-1 sm:text-lg md:text-2xl'
       >
         {error.stack}
-      </Typography>
+      </Typography> */}
       <img
         className='h-64 w-64 rounded-lg object-cover object-center md:h-80 md:w-80'
-        src='../src/assets/error1.png'
+        src='/public/error1.png'
         alt='page not found image'
       />
       <Button className='w-48 mt-1' onClick={navToHome}>

@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 import { toCapitalize } from "../../utils/toCaptialize";
+import { Typography } from "@material-tailwind/react";
 
 /** @loader function to obtain all photos using getAllphotos endpoint */
 export const loader = async () => {
@@ -58,9 +59,16 @@ function IndexPage() {
   /** @MarkerClusterGroup wraps around the marker to cluster them when map is zoomed out */
   return (
     <div className='flex flex-col justify-center items-center'>
+      <section>
+        <Typography color='gray' className='mt-8 mb-2 text-sm p-2 md:text-lg'>
+          Explore the map, click the pins – uncover the story behind each photo
+          and where it was captured.
+          {/* <p>Click on the markers to know more about the photos</p> */}
+        </Typography>
+      </section>
       <MapContainer
         center={[48.8566, 2.3522]}
-        zoom={10}
+        zoom={2}
         scrollWheelZoom={false}
         className='h-52 w-11/12 flex justify-center items-center rounded-lg mt-2 md:h-[30rem]'
       >
@@ -88,7 +96,7 @@ function IndexPage() {
                 <Popup>
                   <span className='font-bold text-md'>Photo uploaded by: </span>
                   <span className='text-md'>
-                    {toCapitalize(newData.createdBy.username)}
+                    {toCapitalize(newData?.createdBy?.username)}
                   </span>
                   <br />
                   <span className='font-bold text-md'>Title: </span>

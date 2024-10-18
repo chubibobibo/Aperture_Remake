@@ -8,12 +8,13 @@ import { useUserContext } from "../hooks/useUserContext.js";
 // import { UserContext } from "../pages/HomeLayout";
 
 function NavList() {
+  const navigate = useNavigate();
   /** @logoutUser onClick event to logout user */
   const logoutUser = async () => {
     try {
       await axios.post("/api/auth/logout");
       toast.success("User successfully logged out");
-      return redirect("/dashboard/index");
+      return navigate("/dashboard/index");
     } catch (err) {
       console.log(err);
       toast.error(err?.response?.data?.message);
@@ -27,11 +28,15 @@ function NavList() {
   // console.log(userData);
   const isLoggedIn = userData?.data?.message !== "No logged user";
 
-  const navigate = useNavigate();
   const onClickToProfile = () => {
+    navigate(`/dashboard/profile/${loggedUser._id}`);
+  };
+
+  const onClickToAccount = () => {
     navigate(`/update-user/${loggedUser._id}`);
   };
   const onClickToLogin = () => {
+    toast.error("User needs to be logged in");
     navigate("/login");
   };
 
@@ -55,11 +60,11 @@ function NavList() {
         variant='small'
         color='blue-gray'
         className='p-1 text-md'
+        onClick={isLoggedIn ? onClickToProfile : onClickToLogin}
       >
         <a
           href=''
           className='flex items-center hover:text-blue-500 transition-colors'
-          onClick={isLoggedIn ? onClickToProfile : onClickToLogin}
         >
           PROFILE
         </a>
@@ -79,6 +84,20 @@ function NavList() {
           </a>
         </Typography>
       )}
+      <Typography
+        as='li'
+        variant='small'
+        color='blue-gray'
+        className='p-1 text-md'
+      >
+        <a
+          href=''
+          className='flex items-center hover:text-blue-500 transition-colors'
+          onClick={isLoggedIn ? onClickToAccount : onClickToLogin}
+        >
+          ACCOUNT
+        </a>
+      </Typography>
 
       <Typography
         as='li'
@@ -87,12 +106,14 @@ function NavList() {
         className='p-1 text-md'
       >
         <a
-          href='#'
+          href='/about'
           className='flex items-center hover:text-blue-500 transition-colors'
+          // onClick={isLoggedIn ? onClickToAccount : onClickToLogin}
         >
-          SEARCH USER
+          ABOUT US
         </a>
       </Typography>
+
       {isLoggedIn ? (
         <Typography
           as='li'
