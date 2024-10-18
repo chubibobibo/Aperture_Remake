@@ -34,7 +34,6 @@ router.post(
   createPostValidation,
   createPost
 );
-
 /** DElETE POST */
 router.delete("/deletePost/:id", isLoggedIn, isPostOwner, deletePost);
 
