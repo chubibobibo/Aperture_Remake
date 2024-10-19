@@ -11,10 +11,15 @@ import authRoutes from "./routes/authRoutes.js";
 import photoRoutes from "./routes/photoRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
 
+import helmet from "helmet";
+import mongoSanitize from "express-mongo-sanitize";
+
 import passport from "passport";
 import { UserModel } from "./models/UserSchema.js";
 
 const app = express();
+app.use(helmet());
+app.use(mongoSanitize());
 
 /** middleware function parses requests with json payloads */
 app.use(express.json());
@@ -23,7 +28,8 @@ app.use(cors());
 /** database connection */
 main().catch((err) => console.log(err));
 async function main() {
-  await mongoose.connect(process.env.MONGO_DB_URL);
+  // await mongoose.connect(process.env.MONGO_DB_URL);
+  await mongoose.connect(process.env.MONGO_ATLAS);
 }
 
 /** Express sessions used with passportJS */
