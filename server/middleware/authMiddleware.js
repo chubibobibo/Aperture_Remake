@@ -25,7 +25,9 @@ export const isAuthor = async (req, res, next) => {
   const foundComment = await CommentModel.findById(commentId);
   // console.log(req.user._id);
   // console.log(foundComment.author);
-  const author = req.user._id.toString() === foundComment.author.toString();
+  const author =
+    req.user._id.toString() === foundComment.author.toString() ||
+    req.user.role === "admin";
   console.log(author);
   if (!author) {
     throw new ExpressError("User is not authorized", StatusCodes.UNAUTHORIZED);

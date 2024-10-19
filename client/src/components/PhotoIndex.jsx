@@ -1,5 +1,5 @@
 // import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, redirect, Link } from "react-router-dom";
 // import PhotosContext from "../context/PhotoContext";
 
 import UserAvatar from "./UserAvatar";
@@ -15,7 +15,7 @@ function PhotoIndex() {
   const photoData = usePhotoContext();
   const photos = photoData.data.allPhotos;
   const navigate = useNavigate();
-  console.log(photos);
+  // console.log(photos);
 
   /** @handleClickNav onClick event handler to navigate to specific post */
   const handleClickNav = (postId) => {

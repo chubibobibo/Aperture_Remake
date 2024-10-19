@@ -114,8 +114,20 @@ export const updateUser = async (req, res) => {
     throw new ExpressError("Cannot update user", StatusCodes.BAD_REQUEST);
   }
 
-  await cloudinary.v2.uploader.destroy(user.avatarId);
+  if (user.avatarId) {
+    await cloudinary.v2.uploader.destroy(user.avatarId);
+  }
   res
     .status(StatusCodes.OK)
     .json({ message: "User successfully updated", updatedUser });
+};
+
+/** GET USER */
+export const getUser = async (req, res) => {
+  const { id } = req.params;
+  const foundUser = await UserModel.findById(id);
+  if (!foundUser) {
+    throw new ExpressError("Cannot find user", StatusCodes.NOT_FOUND);
+  }
+  res.status(StatusCodes.OK).json({ message: "user found", foundUser });
 };

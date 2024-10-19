@@ -67,12 +67,16 @@ function PostPage() {
           {toCapitalize(photoData.title)}
         </Typography>
       </div>
-      <div className='md:mb-2 md:w-[45rem] '>
-        <img src={photoData.photoUrl} alt='' />
+      <div className='md:mb-2 md:w-[45rem] md:flex md:justify-center'>
+        <img
+          src={photoData.photoUrl}
+          alt='post photo'
+          className='max-h-[20rem] md:max-h-[40rem]'
+        />
       </div>
+      {/** Description and location */}
       <div className='flex flex-col gap-2 md:items-center'>
-        {/** provides the link of the location of the photo and description*/}
-        <div className='w-fit p-2 border-2 rounded-md border-gray-500 mb-4 md:w-[45rem]'>
+        <div className='w-fit min-w-[18rem] p-2 border-2 rounded-md border-gray-500 mb-4 md:w-[45rem]'>
           <Typography className='flex gap-2 text-sm mb-0 p-2 md:mb-4 md:text-lg md:font-bold md:w-[45rem]'>
             <FaLocationDot size={25} />
             <Link
@@ -103,14 +107,16 @@ function PostPage() {
           {/** Displays the comments by mapping */}
           {photoData.comment.map((allComments) => {
             // console.log(allComments);
-            const isAuthor = loggedUser?._id === allComments?.author?._id;
+            const isAuthor =
+              loggedUser?._id === allComments?.author?._id ||
+              loggedUser.role === "admin";
             return (
               <section
                 key={allComments._id}
                 className='mb-2 w-full md:flex md:flex-col md:items-center md:w-[90%]'
               >
-                <div className='grid grid-cols-3 grid-rows-1 mt-4 h-[10rem] border-2 border-gray-400 rounded-lg md:w-[90%] md:h-[10rem] lg:w-[50rem] overflow-y-scroll '>
-                  <div className='flex p-2 font-bold cursor-pointer col-span-1'>
+                <div className='grid grid-cols-3 grid-rows-1 gap-12 mt-4 h-[10rem] border-2 border-gray-400 rounded-lg md:w-[90%] md:h-[10rem] lg:w-[50rem] overflow-y-scroll '>
+                  <div className='flex p-2 font-bold cursor-pointer col-span-1 min-w-[10rem] mt-2'>
                     <UserAvatarComments newData={allComments} />
                   </div>
                   <div className='flex flex-col justify-center col-span-2 p-2'>
