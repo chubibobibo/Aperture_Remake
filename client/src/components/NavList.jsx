@@ -1,7 +1,7 @@
 import { Typography } from "@material-tailwind/react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { useContext } from "react";
 // import { UserContext } from "../context/Context.js";
 import { useUserContext } from "../hooks/useUserContext.js";
@@ -14,7 +14,7 @@ function NavList() {
     try {
       await axios.post("/api/auth/logout");
       toast.success("User successfully logged out");
-      return navigate("/dashboard/index");
+      // navigate("/dashboard/home");
     } catch (err) {
       console.log(err);
       toast.error(err?.response?.data?.message);
@@ -25,19 +25,20 @@ function NavList() {
   // const userData = useContext(UserContext);
   const userData = useUserContext();
   const loggedUser = userData?.data?.foundLoggedUser;
-  // console.log(userData);
+  console.log(loggedUser);
   const isLoggedIn = userData?.data?.message !== "No logged user";
 
   const onClickToProfile = () => {
-    navigate(`/dashboard/profile/${loggedUser._id}`);
+    navigate(`/profile/${loggedUser._id}`);
   };
 
   const onClickToAccount = () => {
     navigate(`/update-user/${loggedUser._id}`);
   };
+
   const onClickToLogin = () => {
-    toast.error("User needs to be logged in");
     navigate("/login");
+    toast.error("User needs to be logged in");
   };
 
   return (
@@ -49,7 +50,7 @@ function NavList() {
         className='p-1 text-md'
       >
         <a
-          href='/dashboard/index'
+          href='/dashboard/home'
           className='flex items-center hover:text-blue-500 transition-colors'
         >
           HOME
@@ -63,7 +64,7 @@ function NavList() {
         onClick={isLoggedIn ? onClickToProfile : onClickToLogin}
       >
         <a
-          href=''
+          href={`/profile/${loggedUser._id}`}
           className='flex items-center hover:text-blue-500 transition-colors'
         >
           PROFILE
@@ -91,7 +92,7 @@ function NavList() {
         className='p-1 text-md'
       >
         <a
-          href=''
+          href='#'
           className='flex items-center hover:text-blue-500 transition-colors'
           onClick={isLoggedIn ? onClickToAccount : onClickToLogin}
         >
@@ -106,7 +107,7 @@ function NavList() {
         className='p-1 text-md'
       >
         <a
-          href='/about'
+          href='/dashboard/about'
           className='flex items-center hover:text-blue-500 transition-colors'
           // onClick={isLoggedIn ? onClickToAccount : onClickToLogin}
         >
@@ -122,7 +123,7 @@ function NavList() {
           className='p-1 text-md'
         >
           <a
-            href='#'
+            href='/dashboard/home'
             className='flex items-center hover:text-blue-500 transition-colors'
             onClick={logoutUser}
           >

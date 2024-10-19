@@ -1,7 +1,4 @@
 import axios from "axios";
-import { toast } from "react-toastify";
-import { useLoaderData } from "react-router-dom";
-
 import { useUserContext } from "../../hooks/useUserContext";
 import {
   Card,
@@ -14,58 +11,64 @@ import {
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import { toCapitalize } from "../../utils/toCaptialize";
 
-/** loader function to retreive user and photo data */
-/** @userData user id linked from clicking user avatars */
-/** @photoData obtaining the users photos  */
-export const loader = async ({ params }) => {
-  try {
-    const userData = await axios.get(`/api/auth/getUser/${params.id}`);
-    // console.log(userData);
-    const user = userData.data.foundUser._id;
-    const photoData = await axios.get(`/api/photo/userPhoto/${user}`);
-    // console.log(photoData);
-    return { userData, photoData };
-  } catch (err) {
-    console.log(err);
-    toast.error(err?.response?.data?.message);
-    return err;
-  }
-};
+function ProfilePage1() {
+  /**  @userData contains loggeduser data from the context in HomeLayout*/
+  const userData = useUserContext();
+  const foundUser = userData?.data?.foundLoggedUser;
 
-/** @loggedUser logged user using params from navbar */
-/** @data userData from avatar links and their photoData */
-function ProfilePage() {
   const navigate = useNavigate();
-  const loggedUser = useUserContext();
-  console.log(loggedUser);
-  const data = useLoaderData();
-
-  /** @userData @photoData data from the results of loader function */
-  const userData = data.userData.data.foundUser;
-  const photoData = data.photoData.data.foundUserPhoto;
-  console.log(data);
 
   /** @handleClickNav onClick event handler to navigate to specific post */
   const handleClickNav = (postId) => {
     navigate(`/dashboard/post/${postId}`);
   };
 
+  console.log(userData);
+
+  /** @getUserPhoto function use to retieve the photo of logged user using useQuery*/
+  const getUserPhoto = async () => {
+    try {
+      const foundUserPhoto = await axios(
+        `/api/photo/userPhoto/${foundUser._id}`
+      );
+      return foundUserPhoto;
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.response?.data?.message);
+    }
+  };
+
+  /** @useQuery fetches data using the @getUserPhoto function */
+  const { isPending, error, data, isFetching, isLoading } = useQuery({
+    queryKey: ["photoData"],
+    queryFn: getUserPhoto,
+  });
+
+  if (isPending) return "Loading...";
+  if (error) return "An error has occurred: " + error.message;
+
+  console.log(data);
+
+  /** @photoData array of images of logged user coming from @useQuery */
+  const photoData = data?.data?.foundUserPhoto;
+
   return (
     <section className='flex flex-col items-center mt-10'>
       <Card className='w-11/12 mb-4'>
         <div className='h-30 flex justify-center'>
           <img
-            src={userData.avatarUrl}
+            src={foundUser.avatarUrl}
             alt='avatar photo'
             className='rounded-full w-[6rem] h-[6rem] md:w-[10rem] md:h-[10rem]'
           />
         </div>
         <CardBody className='text-center'>
           <Typography className='font-bold mt-2' variant='h5' color='black'>
-            {userData.username.toUpperCase()}
+            {foundUser.username.toUpperCase()}
           </Typography>
           {/* <Typography color='blue-gray' className='font-medium' textGradient>
             CEO / Co-Founder
@@ -123,7 +126,6 @@ function ProfilePage() {
         )}
       </Card>
     </section>
-    // <></>
   );
 }
-export default ProfilePage;
+export default ProfilePage1;

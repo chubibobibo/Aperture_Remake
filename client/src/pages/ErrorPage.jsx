@@ -7,7 +7,7 @@ function ErrorPage() {
   console.log(error);
   /** @navToHome function used as an onClick event to navigate */
   const navToHome = () => {
-    navigate("/dashboard/index");
+    navigate("/dashboard/home");
   };
 
   if (error.status === 404) {

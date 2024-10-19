@@ -30,6 +30,7 @@ import { action as deletePostAction } from "./pages/DashboardPages/DeletePostPag
 import { loader as getLoggedUser } from "./pages/DashboardPages/DashboardLayout.jsx";
 import { loader as getAllPhotos } from "./pages/DashboardPages/IndexPage.jsx";
 import { loader as getSinglePhoto } from "./pages/DashboardPages/PostPage.jsx";
+import { loader as getUser } from "./pages/DashboardPages/ProfilePage.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -60,22 +61,24 @@ function App() {
           action: updateUserAction,
         },
         {
-          path: "about",
-          element: <AboutPage />,
+          path: "profile/:id",
+          element: <ProfilePage />,
+          loader: getUser,
         },
+
         {
           path: "dashboard",
           element: <DashboardLayout />,
           loader: getLoggedUser,
           children: [
             {
-              path: "index",
+              path: "home",
               element: <IndexPage />,
               loader: getAllPhotos,
             },
             {
-              path: "profile/:id",
-              element: <ProfilePage />,
+              path: "about",
+              element: <AboutPage />,
             },
             {
               path: "create-post",
