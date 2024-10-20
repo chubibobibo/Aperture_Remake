@@ -19,6 +19,10 @@ function LandingPage() {
     navigate("/login");
   };
 
+  const handleNavigationExplore = () => {
+    navigate("/dashboard/home");
+  };
+
   return (
     <section
       className='w-screen h-screen bg-cover bg-center bg-blend-luminosity flex justify-center items-center'
@@ -58,7 +62,10 @@ function LandingPage() {
           </Typography>
         </CardBody>
         <CardFooter className='pt-0 flex gap-2 justify-center items-center flex-col'>
-          <Button className='w-44 bg-landingGray-50 sm:max-lg:bg-red-60'>
+          <Button
+            className='w-44 bg-landingGray-50 sm:max-lg:bg-red-60'
+            onClick={handleNavigationExplore}
+          >
             Explore the app
           </Button>
           <Button

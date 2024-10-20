@@ -47,7 +47,7 @@ export const action = async ({ request }) => {
 
     await axios.post("/api/photo/createPost", formData);
     toast.success("New post created");
-    return redirect("/dashboard/index");
+    return redirect("/dashboard/home");
   } catch (err) {
     console.log(err);
     toast.error(

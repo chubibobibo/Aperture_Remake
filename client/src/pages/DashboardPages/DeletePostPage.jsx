@@ -6,7 +6,7 @@ export const action = async ({ params }) => {
   try {
     await axios.delete(`/api/photo/deletePost/${params.id}`);
     toast.success("Post successfully deleted");
-    return redirect("/dashboard/index");
+    return redirect("/dashboard/home");
   } catch (err) {
     console.log(err);
     toast.error(err?.response?.data?.message);
