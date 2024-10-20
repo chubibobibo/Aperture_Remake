@@ -55,7 +55,7 @@ function NavbarDesktop() {
         <Typography
           as='a'
           href={
-            !userData.data.foundLoggedUser
+            !userData?.data?.foundLoggedUser
               ? "/login"
               : `/profile/${userData?.data?.foundLoggedUser?._id}`
           }
@@ -68,7 +68,7 @@ function NavbarDesktop() {
         </Typography>
         <Link
           to={
-            !userData.data.foundLoggedUser
+            !userData?.data?.foundLoggedUser
               ? "/login"
               : `/profile/${userData?.data?.foundLoggedUser?._id}`
           }
@@ -83,16 +83,6 @@ function NavbarDesktop() {
             alt='avatar picture'
             className='w-12 h-12 rounded-full ml-2 mr-2'
           />
-          {/* <img
-            src={
-              !userData.data.foundLoggedUser ||
-              userData?.data?.foundLoggedUser?.avatarUrl === undefined
-                ? "/Aperture1.png"
-                : userData?.data?.foundLoggedUser?.avatarUrl
-            }
-            alt='avatar picture'
-            className='w-12 h-12 rounded-full ml-2 mr-2'
-          /> */}
         </Link>
       </div>
       <Collapse open={openNav}>
