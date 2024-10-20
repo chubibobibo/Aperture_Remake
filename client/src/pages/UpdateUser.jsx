@@ -31,7 +31,7 @@ export const action = async ({ request, params }) => {
   try {
     await axios.patch(`/api/auth/updateUser/${params.id}`, formData);
     toast.success("User successfully updated");
-    return redirect("/dashboard/index");
+    return redirect("/dashboard/home");
   } catch (err) {
     console.log(err);
     toast.error(
