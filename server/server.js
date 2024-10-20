@@ -29,11 +29,17 @@ app.use(express.static(path.resolve(__dirname, "./public")));
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
+      "connect-src": ["'self'", "https://api.mapbox.com/"],
       "default-src": ["'self'"],
       "base-uri": ["'self'"],
       "font-src": ["'self'", "https:", "data:"],
       "frame-ancestors": ["'self'"],
-      "img-src": ["'self'", "data:", "http://res.cloudinary.com"],
+      "img-src": [
+        "'self'",
+        "data:",
+        "http://res.cloudinary.com",
+        "https://*.tile.openstreetmap.org",
+      ],
       "script-src": ["'self'"],
       "script-src-attr": ["'none'"],
       "style-src": ["'self'", "https:", "'unsafe-inline'"],

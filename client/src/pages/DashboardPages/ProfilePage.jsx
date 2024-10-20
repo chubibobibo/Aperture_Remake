@@ -58,7 +58,11 @@ function ProfilePage() {
       <Card className='w-11/12 mb-4'>
         <div className='h-30 flex justify-center'>
           <img
-            src={userData?.avatarUrl}
+            src={
+              !userData.avatarUrl
+                ? "/public/Aperture1.png"
+                : userData?.avatarUrl
+            }
             alt='avatar photo'
             className='rounded-full w-[6rem] h-[6rem] md:w-[10rem] md:h-[10rem]'
           />

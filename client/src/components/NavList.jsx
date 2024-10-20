@@ -93,7 +93,7 @@ function NavList() {
         className='p-1 text-md'
       >
         <a
-          href='#'
+          href={isLoggedIn ? `/update-user/${loggedUser?._id}` : "/login"}
           className='flex items-center hover:text-blue-500 transition-colors'
           onClick={isLoggedIn ? onClickToAccount : onClickToLogin}
         >
@@ -143,6 +143,22 @@ function NavList() {
             className='flex items-center hover:text-blue-500 transition-colors'
           >
             LOGIN
+          </a>
+        </Typography>
+      )}
+
+      {!isLoggedIn && (
+        <Typography
+          as='li'
+          variant='small'
+          color='blue-gray'
+          className='p-1 text-md'
+        >
+          <a
+            href='/register'
+            className='flex items-center hover:text-blue-500 transition-colors'
+          >
+            REGISTER
           </a>
         </Typography>
       )}
