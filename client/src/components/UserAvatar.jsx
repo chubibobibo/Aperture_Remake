@@ -1,6 +1,5 @@
-import axios from "axios";
 import { toCapitalize } from "../utils/toCaptialize.js";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 /** @newData props containing mapped userData for each photo from PhotoIndex.jsx */
 function UserAvatar({ newData }) {

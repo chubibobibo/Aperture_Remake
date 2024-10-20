@@ -23,10 +23,10 @@ import { toCapitalize } from "../../utils/toCaptialize";
 export const loader = async ({ params }) => {
   try {
     const userData = await axios.get(`/api/auth/getUser/${params.id}`);
-    // console.log(userData);
-    const user = userData.data.foundUser._id;
+    console.log(userData);
+    const user = userData?.data?.foundUser?._id;
     const photoData = await axios.get(`/api/photo/userPhoto/${user}`);
-    // console.log(photoData);
+    console.log(photoData);
     return { userData, photoData };
   } catch (err) {
     console.log(err);
@@ -67,9 +67,6 @@ function ProfilePage() {
           <Typography className='font-bold mt-2' variant='h5' color='black'>
             {userData?.username?.toUpperCase()}
           </Typography>
-          {/* <Typography color='blue-gray' className='font-medium' textGradient>
-            CEO / Co-Founder
-          </Typography> */}
         </CardBody>
         <CardFooter className='flex justify-center gap-7 pt-2 border-b-4'>
           <Tooltip content='Like'>
