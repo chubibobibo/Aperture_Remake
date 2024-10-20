@@ -18,8 +18,6 @@ export const loader = async () => {
   }
 };
 
-// export const UserContext = createContext();
-
 function HomeLayout() {
   const userData = useLoaderData();
   // console.log(userData);
