@@ -17,7 +17,15 @@ import mongoSanitize from "express-mongo-sanitize";
 import passport from "passport";
 import { UserModel } from "./models/UserSchema.js";
 
+/** DEPLOYING serving public folder */
+import path from "path";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+
 const app = express();
+const __dirname = dirname(fileURLToPath(import.meta.url));
+app.use(express.static(path.resolve(__dirname, "./public")));
+
 app.use(helmet());
 app.use(mongoSanitize());
 
@@ -90,6 +98,11 @@ cloudinary.config({
 app.use("/api/auth", authRoutes);
 app.use("/api/photo", photoRoutes);
 app.use("/api/comment", commentRoutes);
+
+/** access to index.html in client */
+app.use("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./public", "index.html"));
+});
 
 /** middleware for pages not found and  errors */
 app.use("*", (req, res) => {
