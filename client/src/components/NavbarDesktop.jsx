@@ -5,10 +5,6 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 
-// import { useContext } from "react";
-// import { UserContext } from "../context/Context.js";
-// import { UserContext } from "../pages/HomeLayout";
-
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import NavList from "./NavList";
