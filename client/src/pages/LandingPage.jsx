@@ -26,14 +26,14 @@ function LandingPage() {
   return (
     <section
       className='w-screen h-screen bg-cover bg-center bg-blend-luminosity flex justify-center items-center'
-      style={{ backgroundImage: "url(../src/assets/Landing_mobile.jpg)" }}
+      style={{ backgroundImage: "url(/Landing_mobile.jpg)" }}
     >
       <Card className='w-68 bg-transparent m-2 sm:m-4 md:w-3/4 lg:w-2/4 xl:w-2/4'>
         <CardBody className='flex flex-col items-center'>
           <div>
             <img
               className='h-40 w-full object-cover object-center bg-transparent'
-              src='../src/assets/Aperture1.png'
+              src='/Aperture1.png'
               alt='site logo'
             />
           </div>
