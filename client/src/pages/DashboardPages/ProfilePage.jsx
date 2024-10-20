@@ -60,7 +60,7 @@ function ProfilePage() {
           <img
             src={
               userData.avatarUrl === undefined
-                ? "/public/Aperture1.png"
+                ? "/Aperture1.png"
                 : userData?.avatarUrl
             }
             alt='avatar photo'
