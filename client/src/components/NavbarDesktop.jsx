@@ -33,6 +33,8 @@ function NavbarDesktop() {
 
   /** @userName logged user's name from the props @userData */
   const userName = userData?.data?.foundLoggedUser?.username;
+  const isLogged = userData.data.foundLoggedUser;
+  console.log(isLogged);
 
   return (
     <Navbar className='mx-auto max-w-screen-3xl px-6 py-3 mt-0 sticky '>
@@ -62,7 +64,7 @@ function NavbarDesktop() {
           variant='h6'
           className='cursor-pointer py-1.5 sm-max:ml-auto md:ml-auto 2xl:ml-auto'
         >
-          {userData?.data?.message === "No logged user"
+          {!isLogged
             ? "User"
             : userName.charAt(0).toUpperCase() + userName.slice(1)}
         </Typography>
