@@ -56,7 +56,7 @@ function PostPage() {
         <UserAvatar newData={photoData} />
         {isPostOwner && (
           <div className='ml-auto md:ml-auto'>
-            <DeletePostModal photoData={photoData._id} />
+            <DeletePostModal photoData={photoData?._id} />
           </div>
         )}
       </div>
@@ -64,12 +64,12 @@ function PostPage() {
         <Typography className='flex gap-2 text-sm md:text-lg'>
           {/* <span className='font-bold'>Title:</span>{" "} */}
           <PiSubtitlesFill size={25} />
-          {toCapitalize(photoData.title)}
+          {toCapitalize(photoData?.title)}
         </Typography>
       </div>
       <div className='md:mb-2 md:w-[45rem] md:flex md:justify-center'>
         <img
-          src={photoData.photoUrl}
+          src={photoData?.photoUrl}
           alt='post photo'
           className='max-h-[20rem] md:max-h-[40rem]'
         />
@@ -81,22 +81,22 @@ function PostPage() {
             <FaLocationDot size={25} />
             <Link
               to={`https://www.google.com/maps/search/?api=1&query= +
-        ${photoData.photoCoords[1]} +
+        ${photoData?.photoCoords[1]} +
         , +
-       ${photoData.photoCoords[0]}`}
+       ${photoData?.photoCoords[0]}`}
               className='text-blue-600'
             >
-              {photoData.photoLocation}
+              {photoData?.photoLocation}
             </Link>
           </Typography>
           <Typography className='flex gap-2 text-sm mb-1 p-2 md:mb-4 md:text-lg  md:w-[45rem]'>
-            <PiNotepadFill size={25} /> {photoData.description}
+            <PiNotepadFill size={25} /> {photoData?.description}
           </Typography>
         </div>
         {/** @AddCommentModal modal for adding comments. passes the logged user details */}
         <AddCommentModal loggedUser={loggedUser} photoData={photoData} />
       </div>
-      {photoData.comment.length === 0 ? (
+      {photoData?.comment.length === 0 ? (
         <div className='mt-6'>
           <Typography>
             Wow! it's empty here. Be the first to leave a comment
@@ -105,14 +105,14 @@ function PostPage() {
       ) : (
         <>
           {/** Displays the comments by mapping */}
-          {photoData.comment.map((allComments) => {
+          {photoData?.comment?.map((allComments) => {
             // console.log(allComments);
             const isAuthor =
               loggedUser?._id === allComments?.author?._id ||
-              loggedUser.role === "admin";
+              loggedUser?.role === "admin";
             return (
               <section
-                key={allComments._id}
+                key={allComments?._id}
                 className='mb-2 w-full md:flex md:flex-col md:items-center md:w-[90%]'
               >
                 <div className='grid grid-cols-3 grid-rows-1 gap-12 mt-4 h-[10rem] border-2 border-gray-400 rounded-lg md:w-[90%] md:h-[10rem] lg:w-[50rem] overflow-y-scroll '>
@@ -128,7 +128,7 @@ function PostPage() {
                       edit={false} //allows changing of rate
                     />
                     <p className='text-sm md:text-base h-[5rem] md:h-[5rem]'>
-                      {allComments.body}
+                      {allComments?.body}
                     </p>
                   </div>
                 </div>
@@ -138,12 +138,12 @@ function PostPage() {
                   <div className='flex gap-1 p-1 md:w-[100%] md:justify-star lg:w-[50rem]'>
                     <UpdateCommentModal
                       singleComment={allComments?._id}
-                      photoData={photoData._id}
+                      photoData={photoData?._id}
                     />
 
                     <DeleteCommentModal
-                      photoDataId={photoData._id}
-                      commentDataId={allComments._id}
+                      photoDataId={photoData?._id}
+                      commentDataId={allComments?._id}
                     />
                   </div>
                 )}

@@ -24,7 +24,7 @@ function HomeLayout() {
   return (
     <>
       <UserContext.Provider value={userData}>
-        {/* <NavbarDesktop /> */}
+        <NavbarDesktop />
         <Outlet />
       </UserContext.Provider>
     </>

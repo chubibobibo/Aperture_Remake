@@ -44,8 +44,8 @@ function ProfilePage() {
   const data = useLoaderData();
 
   /** @userData @photoData data from the results of loader function */
-  const userData = data.userData.data.foundUser;
-  const photoData = data.photoData.data.foundUserPhoto;
+  const userData = data?.userData?.data?.foundUser;
+  const photoData = data?.photoData?.data?.foundUserPhoto;
   console.log(data);
 
   /** @handleClickNav onClick event handler to navigate to specific post */
@@ -58,14 +58,14 @@ function ProfilePage() {
       <Card className='w-11/12 mb-4'>
         <div className='h-30 flex justify-center'>
           <img
-            src={userData.avatarUrl}
+            src={userData?.avatarUrl}
             alt='avatar photo'
             className='rounded-full w-[6rem] h-[6rem] md:w-[10rem] md:h-[10rem]'
           />
         </div>
         <CardBody className='text-center'>
           <Typography className='font-bold mt-2' variant='h5' color='black'>
-            {userData.username.toUpperCase()}
+            {userData?.username?.toUpperCase()}
           </Typography>
           {/* <Typography color='blue-gray' className='font-medium' textGradient>
             CEO / Co-Founder
@@ -89,7 +89,7 @@ function ProfilePage() {
           </Tooltip>
         </CardFooter>
         {/** PHOTO GRID */}
-        {photoData.length === 0 ? (
+        {photoData?.length === 0 ? (
           <div className='flex justify-center'>
             <Typography className='mt-10 mb-10 px-3' variant='h6'>
               You don't have any posts yet.
@@ -97,20 +97,20 @@ function ProfilePage() {
           </div>
         ) : (
           <div className='grid grid-cols-2 gap-4 md:grid-cols-3 mb-8 p-2'>
-            {photoData.map((newData) => {
+            {photoData?.map((newData) => {
               console.log(newData);
               return (
                 <div
-                  key={newData._id}
+                  key={newData?._id}
                   className='flex mt-4 flex-col items-center'
                 >
                   <img
                     className='object-cover h-[10rem] w-[10rem] sm:h-[15rem] sm:w-[20rem] xl:h-[27rem] xl:w-full cursor-pointer'
-                    src={newData.photoUrl}
+                    src={newData?.photoUrl}
                     alt='gallery-photo'
                     loading='lazy'
                     onClick={() => {
-                      handleClickNav(newData._id);
+                      handleClickNav(newData?._id);
                     }}
                   />
                   <Typography className='text-xs md:text-base'>

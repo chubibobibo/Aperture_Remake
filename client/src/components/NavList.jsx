@@ -26,7 +26,7 @@ function NavList() {
   const userData = useUserContext();
   const loggedUser = userData?.data?.foundLoggedUser;
   // console.log(userData);
-  const isLoggedIn = userData?.data?.foundLoggedUser;
+  const isLoggedIn = userData?.data?.message !== "No logged user";
   // console.log(isLoggedIn);
 
   const onClickToProfile = () => {
