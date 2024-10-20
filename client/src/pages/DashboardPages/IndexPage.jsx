@@ -39,7 +39,7 @@ function IndexPage() {
 
   /** @custmoMapIcon new instance of Icon from leaflet that will apply a custom made pins in the map */
   const customMapIcon = new Icon({
-    iconUrl: "../../src/assets/location.png",
+    iconUrl: "/location.png",
     iconSize: [38, 38],
   });
 
