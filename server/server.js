@@ -26,7 +26,20 @@ const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.resolve(__dirname, "./public")));
 
-app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "default-src": ["'self'"],
+      "base-uri": ["'self'"],
+      "font-src": ["'self'", "https:", "data:"],
+      "frame-ancestors": ["'self'"],
+      "img-src": ["'self'", "data:", "http://res.cloudinary.com"],
+      "script-src": ["'self'"],
+      "script-src-attr": ["'none'"],
+      "style-src": ["'self'", "https:", "'unsafe-inline'"],
+    },
+  })
+);
 app.use(mongoSanitize());
 
 /** middleware function parses requests with json payloads */
