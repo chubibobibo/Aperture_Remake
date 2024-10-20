@@ -32,8 +32,8 @@ const limiter = rateLimit({
 });
 
 /** GET LOGGED USER */
-router.get("/getUser/:id", getUser);
 router.get("/getLoggedUser", getLoggedUser);
+router.get("/getUser/:id", getUser);
 
 /** REGISTER ROUTE */
 router.post("/register", registerValidation, register);
