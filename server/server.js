@@ -86,13 +86,6 @@ app.use(session(sessionConfig));
 app.use(passport.initialize()); // initialize passport middleware for incoming requests
 app.use(passport.session()); //allows persistent sessions
 
-// middleware to verify if user is stored as req.user and if session is created.
-// app.use((req, res, next) => {
-//   console.log(req.user);
-//   console.log(req.session);
-//   next();
-// });
-
 passport.use(UserModel.createStrategy()); // uses local strategy used in UserSchema using passport-local-mongoose
 
 // use static serialize and deserialize of model for passport session support
