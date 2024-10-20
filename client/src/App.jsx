@@ -104,6 +104,7 @@ function App() {
               element: <PostPage />,
               loader: getSinglePhoto,
             },
+
             {
               path: "post/deleteComment/:photoId/:commentId",
               element: <DeletePage />,
