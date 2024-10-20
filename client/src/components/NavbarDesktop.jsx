@@ -30,7 +30,7 @@ function NavbarDesktop() {
   /** @userData data from context in DashboardLayout */
   // const userData = useContext(UserContext);
   const userData = useUserContext();
-  console.log(userData);
+  // console.log(userData);
 
   /** @userName logged user's name from the props @userData */
   const userName = userData?.data?.foundLoggedUser?.username;
