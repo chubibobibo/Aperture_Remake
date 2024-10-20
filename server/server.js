@@ -33,7 +33,7 @@ app.use(
       "base-uri": ["'self'"],
       "font-src": ["'self'", "https:", "data:"],
       "frame-ancestors": ["'self'"],
-      "img-src": ["'self'", "data:", "http://res.cloudinary.com", "https://openstreetmap.org"],
+      "img-src": ["'self'", "data:", "http://res.cloudinary.com", "https://*.tile.openstreetmap.org"],
       "script-src": ["'self'"],
       "script-src-attr": ["'none'"],
       "style-src": ["'self'", "https:", "'unsafe-inline'"],
