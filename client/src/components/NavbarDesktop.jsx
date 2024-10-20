@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import NavList from "./NavList";
 import { useUserContext } from "../hooks/useUserContext.js";
 import { Link } from "react-router-dom";
+import { toCapitalize } from "../utils/toCaptialize.js";
 
 function NavbarDesktop() {
   /** @openNav state that handles the display of compact and full navbar */
@@ -33,8 +34,8 @@ function NavbarDesktop() {
 
   /** @userName logged user's name from the props @userData */
   const userName = userData?.data?.foundLoggedUser?.username;
-  const isLogged = userData?.data?.foundLoggedUser;
-  console.log(isLogged);
+  // const isLogged = userData?.data;
+  // console.log(isLogged);
 
   return (
     <Navbar className='mx-auto max-w-screen-3xl px-6 py-3 mt-0 sticky '>
@@ -64,13 +65,14 @@ function NavbarDesktop() {
           variant='h6'
           className='cursor-pointer py-1.5 sm-max:ml-auto md:ml-auto 2xl:ml-auto'
         >
-          {!isLogged
+          {userData?.data?.message === "No logged user"
             ? "User"
-            : userName.charAt(0).toUpperCase() + userName.slice(1)}
+            : // : userName?.charAt(0).toUpperCase() + userName?.slice(1)}
+              toCapitalize(userName)}
         </Typography>
         <Link
           to={
-            !isLogged
+            !userData?.data?.message === "No logged user"
               ? "/login"
               : `/profile/${userData?.data?.foundLoggedUser?._id}`
           }

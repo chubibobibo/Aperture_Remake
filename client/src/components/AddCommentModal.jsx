@@ -44,8 +44,11 @@ function AddCommentModal({ loggedUser, photoData }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`/api/comment/addComment/${photoData._id}`, commentData);
-      navigate(`/dashboard/post/${photoData._id}`);
+      await axios.post(
+        `/api/comment/addComment/${photoData?._id}`,
+        commentData
+      );
+      navigate(`/dashboard/post/${photoData?._id}`);
       toast.success("New comment posted");
     } catch (err) {
       console.log(err);
@@ -92,7 +95,7 @@ function AddCommentModal({ loggedUser, photoData }) {
                 size='md'
                 name='body'
                 onChange={handleCommentData}
-                value={commentData.body}
+                value={commentData?.body}
               />
               <Typography className='-mb-2' variant='h6'>
                 Rating

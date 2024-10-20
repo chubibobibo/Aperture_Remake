@@ -104,11 +104,13 @@ function IndexPage() {
                   </span>
                   <br />
                   <span className='font-bold text-md'>Title: </span>
-                  <span className='text-md'>{toCapitalize(newData.title)}</span>
+                  <span className='text-md'>
+                    {toCapitalize(newData?.title)}
+                  </span>
                   <br />
                   <span className='font-bold text-md'>Location: </span>
                   <span className='text-md'>
-                    {toCapitalize(newData.photoLocation)}
+                    {toCapitalize(newData?.photoLocation)}
                   </span>
                 </Popup>
               </Marker>

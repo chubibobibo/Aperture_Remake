@@ -27,7 +27,7 @@ import { action as createPostAction } from "./pages/DashboardPages/CreatePost.js
 import { action as updateUserAction } from "./pages/UpdateUser.jsx";
 import { action as deleteCommentAction } from "./pages/DashboardPages/DeletePage.jsx";
 import { action as deletePostAction } from "./pages/DashboardPages/DeletePostPage.jsx";
-import { loader as getLoggedUser } from "./pages/DashboardPages/DashboardLayout.jsx";
+import { loader as getLoggedUser } from "./pages/HomeLayout.jsx";
 import { loader as getAllPhotos } from "./pages/DashboardPages/IndexPage.jsx";
 import { loader as getSinglePhoto } from "./pages/DashboardPages/PostPage.jsx";
 import { loader as getUser } from "./pages/DashboardPages/ProfilePage.jsx";
@@ -74,7 +74,7 @@ function App() {
         {
           path: "dashboard",
           element: <DashboardLayout />,
-          loader: getLoggedUser,
+          // loader: getLoggedUser,
           children: [
             {
               path: "home",

@@ -20,7 +20,7 @@ function PhotoIndex() {
   // const photos = photoData?.data?.allPhotos;
   /** @usePhotoContext custom hook that uses useContext to obtain data from PhotosContext */
   const photoData = usePhotoContext();
-  const photos = photoData.data.allPhotos;
+  const photos = photoData?.data?.allPhotos;
   const navigate = useNavigate();
   // console.log(photos);
 
@@ -31,7 +31,7 @@ function PhotoIndex() {
 
   return (
     <section className='md:w-screen md:flex md:justify-center'>
-      {photos.length === 0 ? (
+      {photos?.length === 0 ? (
         <Typography variant='h6' className='mt-12 md:text-2xl'>
           Soooo quiet in here. Create a post
         </Typography>
@@ -40,16 +40,16 @@ function PhotoIndex() {
           {photos.map((newData) => {
             // console.log(newData);
             return (
-              <div key={newData._id} className='flex mt-4 flex-col gap-1'>
+              <div key={newData?._id} className='flex mt-4 flex-col gap-1'>
                 <UserAvatar newData={newData} />
                 <LazyLoadImage
                   effect='blur'
                   className='object-cover h-[10rem] w-[10rem] sm:h-[15rem] sm:w-[20rem] xl:h-[27rem] xl:w-full cursor-pointer'
-                  src={newData.photoUrl}
+                  src={newData?.photoUrl}
                   alt='gallery-photo'
                   loading='lazy'
                   onClick={() => {
-                    handleClickNav(newData._id);
+                    handleClickNav(newData?._id);
                   }}
                 />
               </div>
