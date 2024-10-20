@@ -29,7 +29,7 @@ app.use(express.static(path.resolve(__dirname, "./public")));
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      "connect-src": ["'self", "https://api.mapbox.com/"],
+      "connect-src": ["'self'", "https://api.mapbox.com/"],
       "default-src": ["'self'"],
       "base-uri": ["'self'"],
       "font-src": ["'self'", "https:", "data:"],
