@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "../../styles.css";
 import { Icon, divIcon, point } from "leaflet";
-import PhotoIndex from "../../components/PhotoIndex";
 import MarkerClusterGroup from "react-leaflet-cluster";
 
 import { PhotosContext } from "../../context/Context.js";
@@ -11,9 +10,14 @@ import { useLoaderData } from "react-router-dom";
 
 import { toast } from "react-toastify";
 import axios from "axios";
+// import { lazy, Suspense } from "react";
+// import Loading from "../../components/Loading.jsx";
 
 import { toCapitalize } from "../../utils/toCaptialize";
 import { Typography } from "@material-tailwind/react";
+import PhotoIndex from "../../components/PhotoIndex.jsx";
+
+// const PhotoIndex = lazy(() => import("../../components/PhotoIndex.jsx"));
 
 /** @loader function to obtain all photos using getAllphotos endpoint */
 export const loader = async () => {
@@ -85,7 +89,7 @@ function IndexPage() {
             // console.log(newData);
             /** @orderedCoords using the arraySwap function to swap the places of longitude and latitude in the photoCoords for every iteration of the array */
             const orderedCoords = arraySwap(newData?.photoCoords, 0, 1);
-            // console.log(orderedCoords);
+            console.log(orderedCoords);
 
             return (
               <Marker
@@ -114,7 +118,9 @@ function IndexPage() {
       </MapContainer>
       <section className='m-3'>
         <PhotosContext.Provider value={photoData}>
+          {/* <Suspense fallback={<Loading />}> */}
           <PhotoIndex />
+          {/* </Suspense> */}
         </PhotosContext.Provider>
       </section>
     </div>

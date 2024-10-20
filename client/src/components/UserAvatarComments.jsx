@@ -16,8 +16,10 @@ function UserAvatarComments({ newData }) {
               className='w-8 h-8 rounded-2xl object-cover'
             />
           </div>
-          <div className='text-md'>
-            <p>{toCapitalize(newData?.author?.username)}</p>
+          <div>
+            <p className='text-sm md:text-base'>
+              {toCapitalize(newData?.author?.username)}
+            </p>
           </div>
         </div>
       </Link>

@@ -9,7 +9,7 @@ import {
   RegisterPage,
   LandingPage,
   DashboardLayout,
-  IndexPage,
+  // IndexPage,
   ErrorPage,
   CreatePost,
   UpdateUser,
@@ -31,6 +31,11 @@ import { loader as getLoggedUser } from "./pages/DashboardPages/DashboardLayout.
 import { loader as getAllPhotos } from "./pages/DashboardPages/IndexPage.jsx";
 import { loader as getSinglePhoto } from "./pages/DashboardPages/PostPage.jsx";
 import { loader as getUser } from "./pages/DashboardPages/ProfilePage.jsx";
+
+import { lazy, Suspense } from "react";
+import Loading from "./components/Loading.jsx";
+
+const IndexPage = lazy(() => import("./pages/DashboardPages/IndexPage.jsx"));
 
 function App() {
   const router = createBrowserRouter([
@@ -73,7 +78,11 @@ function App() {
           children: [
             {
               path: "home",
-              element: <IndexPage />,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <IndexPage />
+                </Suspense>
+              ),
               loader: getAllPhotos,
             },
             {

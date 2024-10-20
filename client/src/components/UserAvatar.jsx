@@ -18,7 +18,7 @@ function UserAvatar({ newData }) {
               className='w-8 h-8 rounded-3xl object-cover'
             />
           </div>
-          <div className='text-md font-bold'>
+          <div className='text-sm font-bold md:text-base'>
             <p>{toCapitalize(newData.createdBy.username)}</p>
           </div>
         </div>

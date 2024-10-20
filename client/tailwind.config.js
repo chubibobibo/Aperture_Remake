@@ -17,6 +17,7 @@ export default withMT({
         },
       },
       screens: {
+        xs: "390px",
         "sm-max": { max: "720px" },
       },
     },
