@@ -53,7 +53,7 @@ store.on("error", (e) => {
   console.log("Session error");
 });
 
-app.set("trust proxy", 1);
+app.set("trust proxy", 1); //trust proxy1
 const sessionConfig = {
   store: store,
   name: process.env.SESSION_NAME,
