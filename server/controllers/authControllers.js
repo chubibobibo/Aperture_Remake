@@ -65,9 +65,6 @@ export const getLoggedUser = async (req, res) => {
       .status(StatusCodes.OK)
       .json({ message: "Logged User:", foundLoggedUser });
   }
-  if (!req.user) {
-    console.log("No logged user");
-  }
 };
 
 /** LOGOUT USER */
