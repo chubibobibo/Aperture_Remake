@@ -89,7 +89,7 @@ function IndexPage() {
             // console.log(newData);
             /** @orderedCoords using the arraySwap function to swap the places of longitude and latitude in the photoCoords for every iteration of the array */
             const orderedCoords = arraySwap(newData?.photoCoords, 0, 1);
-            console.log(orderedCoords);
+            // console.log(orderedCoords);
 
             return (
               <Marker
