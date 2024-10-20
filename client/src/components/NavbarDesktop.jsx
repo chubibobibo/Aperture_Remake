@@ -33,7 +33,7 @@ function NavbarDesktop() {
 
   /** @userName logged user's name from the props @userData */
   const userName = userData?.data?.foundLoggedUser?.username;
-  const isLogged = userData.data.foundLoggedUser;
+  const isLogged = userData?.data?.foundLoggedUser;
   console.log(isLogged);
 
   return (
@@ -70,7 +70,7 @@ function NavbarDesktop() {
         </Typography>
         <Link
           to={
-            !userData?.data?.foundLoggedUser
+            !isLogged
               ? "/login"
               : `/profile/${userData?.data?.foundLoggedUser?._id}`
           }
