@@ -44,7 +44,7 @@ async function main() {
 /** @store session store use to prevent memory leaks */
 /** @sessionConfig uses store (mongoStore) as session storage and will be used as config when session is instantiated */
 const store = MongoStore.create({
-  mongoUrl: process.env.MONGO_DB_URL,
+  mongoUrl: process.env.MONGO_ATLAS,
   secret: process.env.MONGO_SECRET,
   touchAfter: 24 * 60 * 60, // interval between session update
 });
