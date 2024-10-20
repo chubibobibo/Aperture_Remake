@@ -22,6 +22,7 @@ export const createPost = async (req, res) => {
   if (req.file) {
     const response = await cloudinary.v2.uploader.upload(req.file.path, {
       folder: "aperture_remake",
+      quality: 60,
     });
     console.log(response);
     await fs.unlink(req.file.path); // removes the image file in the multer storage
@@ -40,7 +41,9 @@ export const createPost = async (req, res) => {
 
 /** GET ALL PHOTOS */
 export const getAllPhotos = async (req, res) => {
-  const allPhotos = await PhotoModel.find({}).populate("createdBy");
+  const allPhotos = await PhotoModel.find({})
+    .populate("createdBy")
+    .sort({ createdAt: -1 });
   if (!allPhotos) {
     res.status(StatusCodes.OK).json({ message: "There are no images to show" });
   } else {

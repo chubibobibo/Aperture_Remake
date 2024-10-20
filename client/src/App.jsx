@@ -9,13 +9,15 @@ import {
   RegisterPage,
   LandingPage,
   DashboardLayout,
-  IndexPage,
+  // IndexPage,
   ErrorPage,
   CreatePost,
   UpdateUser,
   PostPage,
   ProfilePage,
   DeletePage,
+  DeletePostPage,
+  AboutPage,
 } from "./utils";
 
 /** action and loader functions to submit and load data*/
@@ -24,9 +26,16 @@ import { action as loginAction } from "./pages/LoginPage.jsx";
 import { action as createPostAction } from "./pages/DashboardPages/CreatePost.jsx";
 import { action as updateUserAction } from "./pages/UpdateUser.jsx";
 import { action as deleteCommentAction } from "./pages/DashboardPages/DeletePage.jsx";
-import { loader as getLoggedUser } from "./pages/DashboardPages/DashboardLayout.jsx";
+import { action as deletePostAction } from "./pages/DashboardPages/DeletePostPage.jsx";
+import { loader as getLoggedUser } from "./pages/HomeLayout.jsx";
 import { loader as getAllPhotos } from "./pages/DashboardPages/IndexPage.jsx";
 import { loader as getSinglePhoto } from "./pages/DashboardPages/PostPage.jsx";
+import { loader as getUser } from "./pages/DashboardPages/ProfilePage.jsx";
+
+import { lazy, Suspense } from "react";
+import Loading from "./components/Loading.jsx";
+
+const IndexPage = lazy(() => import("./pages/DashboardPages/IndexPage.jsx"));
 
 function App() {
   const router = createBrowserRouter([
@@ -57,23 +66,38 @@ function App() {
           action: updateUserAction,
         },
         {
+          path: "profile/:id",
+          element: <ProfilePage />,
+          loader: getUser,
+        },
+
+        {
           path: "dashboard",
           element: <DashboardLayout />,
-          loader: getLoggedUser,
+          // loader: getLoggedUser,
           children: [
             {
-              path: "index",
-              element: <IndexPage />,
+              path: "home",
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <IndexPage />
+                </Suspense>
+              ),
               loader: getAllPhotos,
             },
             {
-              path: "profile",
-              element: <ProfilePage />,
+              path: "about",
+              element: <AboutPage />,
             },
             {
               path: "create-post",
               element: <CreatePost />,
               action: createPostAction,
+            },
+            {
+              path: "post/deletePost/:id",
+              element: <DeletePostPage />,
+              action: deletePostAction,
             },
             {
               path: "post/:id",

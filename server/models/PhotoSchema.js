@@ -4,44 +4,47 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const PhotoSchema = new Schema({
-  title: {
-    type: String,
-    required: true,
-  },
+const PhotoSchema = new Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
 
-  createdBy: {
-    type: Schema.Types.ObjectId,
-    ref: UserModel,
-  },
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      ref: UserModel,
+    },
 
-  photoUrl: {
-    type: String,
-    required: true,
-  },
+    photoUrl: {
+      type: String,
+      required: true,
+    },
 
-  photoId: {
-    type: String,
-  },
+    photoId: {
+      type: String,
+    },
 
-  description: {
-    type: String,
-    required: true,
-  },
+    description: {
+      type: String,
+      required: true,
+    },
 
-  /** @comment an array of ObjectIds from the comment schema*/
-  comment: {
-    type: [Schema.Types.ObjectId],
-    ref: CommentModel,
-  },
+    /** @comment an array of ObjectIds from the comment schema*/
+    comment: {
+      type: [Schema.Types.ObjectId],
+      ref: CommentModel,
+    },
 
-  photoLocation: {
-    type: String,
-  },
+    photoLocation: {
+      type: String,
+    },
 
-  photoCoords: {
-    type: [Number],
+    photoCoords: {
+      type: [Number],
+    },
   },
-});
+  { timestamps: true }
+);
 
 export const PhotoModel = mongoose.model("PhotoModel", PhotoSchema);

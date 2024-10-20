@@ -16,6 +16,7 @@ import {
   getLoggedUser,
   logout,
   updateUser,
+  getUser,
 } from "../controllers/authControllers.js";
 import { rateLimit } from "express-rate-limit";
 
@@ -32,6 +33,7 @@ const limiter = rateLimit({
 
 /** GET LOGGED USER */
 router.get("/getLoggedUser", getLoggedUser);
+router.get("/getUser/:id", getUser);
 
 /** REGISTER ROUTE */
 router.post("/register", registerValidation, register);

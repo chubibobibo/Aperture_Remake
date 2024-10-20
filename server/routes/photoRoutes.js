@@ -19,7 +19,7 @@ import { isLoggedIn, isPostOwner } from "../middleware/authMiddleware.js";
 router.get("/allPhotos", getAllPhotos);
 
 /** GET USER'S PHOTOS */
-router.get("/userPhoto/:id", isLoggedIn, getUserPhoto);
+router.get("/userPhoto/:id", getUserPhoto);
 
 /** GET SINGLE PHOTO */
 router.get("/post/:id", getSinglePhoto);
@@ -34,7 +34,6 @@ router.post(
   createPostValidation,
   createPost
 );
-
 /** DElETE POST */
 router.delete("/deletePost/:id", isLoggedIn, isPostOwner, deletePost);
 

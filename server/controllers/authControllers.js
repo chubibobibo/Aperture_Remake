@@ -58,15 +58,13 @@ export const login = async (req, res) => {
 export const getLoggedUser = async (req, res) => {
   if (!req.user) {
     res.status(StatusCodes.OK).json({ message: "No logged user" });
+    // throw new ExpressError("No user logged in", StatusCodes.NOT_FOUND);
   } else {
     const foundLoggedUser = await UserModel.findById(req.user._id);
     console.log(foundLoggedUser);
     res
       .status(StatusCodes.OK)
       .json({ message: "Logged User:", foundLoggedUser });
-  }
-  if (!req.user) {
-    console.log("No logged user");
   }
 };
 
@@ -114,8 +112,20 @@ export const updateUser = async (req, res) => {
     throw new ExpressError("Cannot update user", StatusCodes.BAD_REQUEST);
   }
 
-  await cloudinary.v2.uploader.destroy(user.avatarId);
+  if (user.avatarId) {
+    await cloudinary.v2.uploader.destroy(user.avatarId);
+  }
   res
     .status(StatusCodes.OK)
     .json({ message: "User successfully updated", updatedUser });
+};
+
+/** GET USER */
+export const getUser = async (req, res) => {
+  const { id } = req.params;
+  const foundUser = await UserModel.findById(id);
+  if (!foundUser) {
+    throw new ExpressError("Cannot find user", StatusCodes.NOT_FOUND);
+  }
+  res.status(StatusCodes.OK).json({ message: "user found", foundUser });
 };

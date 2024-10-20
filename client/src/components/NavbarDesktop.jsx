@@ -5,15 +5,12 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 
-// import { useContext } from "react";
-// import { UserContext } from "../context/Context.js";
-// import { UserContext } from "../pages/HomeLayout";
-
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import NavList from "./NavList";
 import { useUserContext } from "../hooks/useUserContext.js";
 import { Link } from "react-router-dom";
+import { toCapitalize } from "../utils/toCaptialize.js";
 
 function NavbarDesktop() {
   /** @openNav state that handles the display of compact and full navbar */
@@ -33,14 +30,16 @@ function NavbarDesktop() {
   /** @userData data from context in DashboardLayout */
   // const userData = useContext(UserContext);
   const userData = useUserContext();
-  // console.log(userData);
+  console.log(userData);
 
   /** @userName logged user's name from the props @userData */
   const userName = userData?.data?.foundLoggedUser?.username;
+  // const isLogged = userData?.data;
+  // console.log(isLogged);
 
   return (
     <Navbar className='mx-auto max-w-screen-3xl px-6 py-3 mt-0 sticky '>
-      <div className='flex items-center justify-between text-blue-gray-900'>
+      <div className='flex items-center justify-around text-blue-gray-900 2xl:px-44'>
         <div className='hidden lg:block'>
           <NavList />
         </div>
@@ -58,20 +57,31 @@ function NavbarDesktop() {
         </IconButton>
         <Typography
           as='a'
-          href='/dashboard/profile'
+          href={
+            !userData?.data?.foundLoggedUser
+              ? "/login"
+              : `/profile/${userData?.data?.foundLoggedUser?._id}`
+          }
           variant='h6'
           className='cursor-pointer py-1.5 sm-max:ml-auto md:ml-auto 2xl:ml-auto'
         >
           {userData?.data?.message === "No logged user"
             ? "User"
-            : userName.charAt(0).toUpperCase() + userName.slice(1)}
+            : // : userName?.charAt(0).toUpperCase() + userName?.slice(1)}
+              toCapitalize(userName)}
         </Typography>
-        <Link to='/dashboard/profile'>
+        <Link
+          to={
+            !userData?.data?.message === "No logged user"
+              ? "/login"
+              : `/profile/${userData?.data?.foundLoggedUser?._id}`
+          }
+        >
           <img
             src={
               userData?.data?.message === "No logged user" ||
               userData?.data?.foundLoggedUser?.avatarUrl === undefined
-                ? "/public/Aperture1.png"
+                ? "/Aperture1.png"
                 : userData?.data?.foundLoggedUser?.avatarUrl
             }
             alt='avatar picture'

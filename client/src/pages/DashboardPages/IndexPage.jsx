@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "../../styles.css";
 import { Icon, divIcon, point } from "leaflet";
-import PhotoIndex from "../../components/PhotoIndex";
 import MarkerClusterGroup from "react-leaflet-cluster";
 
 import { PhotosContext } from "../../context/Context.js";
@@ -11,8 +10,14 @@ import { useLoaderData } from "react-router-dom";
 
 import { toast } from "react-toastify";
 import axios from "axios";
+// import { lazy, Suspense } from "react";
+// import Loading from "../../components/Loading.jsx";
 
 import { toCapitalize } from "../../utils/toCaptialize";
+import { Typography } from "@material-tailwind/react";
+import PhotoIndex from "../../components/PhotoIndex.jsx";
+
+// const PhotoIndex = lazy(() => import("../../components/PhotoIndex.jsx"));
 
 /** @loader function to obtain all photos using getAllphotos endpoint */
 export const loader = async () => {
@@ -34,7 +39,7 @@ function IndexPage() {
 
   /** @custmoMapIcon new instance of Icon from leaflet that will apply a custom made pins in the map */
   const customMapIcon = new Icon({
-    iconUrl: "../../src/assets/location.png",
+    iconUrl: "/location.png",
     iconSize: [38, 38],
   });
 
@@ -58,6 +63,13 @@ function IndexPage() {
   /** @MarkerClusterGroup wraps around the marker to cluster them when map is zoomed out */
   return (
     <div className='flex flex-col justify-center items-center'>
+      <section>
+        <Typography color='gray' className='mt-8 mb-2 text-sm p-2 md:text-lg'>
+          Explore the map, click the pins – uncover the story behind each photo
+          and where it was captured.
+          {/* <p>Click on the markers to know more about the photos</p> */}
+        </Typography>
+      </section>
       <MapContainer
         center={[48.8566, 2.3522]}
         zoom={2}
@@ -92,11 +104,13 @@ function IndexPage() {
                   </span>
                   <br />
                   <span className='font-bold text-md'>Title: </span>
-                  <span className='text-md'>{toCapitalize(newData.title)}</span>
+                  <span className='text-md'>
+                    {toCapitalize(newData?.title)}
+                  </span>
                   <br />
                   <span className='font-bold text-md'>Location: </span>
                   <span className='text-md'>
-                    {toCapitalize(newData.photoLocation)}
+                    {toCapitalize(newData?.photoLocation)}
                   </span>
                 </Popup>
               </Marker>
@@ -106,7 +120,9 @@ function IndexPage() {
       </MapContainer>
       <section className='m-3'>
         <PhotosContext.Provider value={photoData}>
+          {/* <Suspense fallback={<Loading />}> */}
           <PhotoIndex />
+          {/* </Suspense> */}
         </PhotosContext.Provider>
       </section>
     </div>

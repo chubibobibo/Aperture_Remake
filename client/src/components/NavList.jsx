@@ -1,19 +1,20 @@
 import { Typography } from "@material-tailwind/react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { useContext } from "react";
 // import { UserContext } from "../context/Context.js";
 import { useUserContext } from "../hooks/useUserContext.js";
 // import { UserContext } from "../pages/HomeLayout";
 
 function NavList() {
+  const navigate = useNavigate();
   /** @logoutUser onClick event to logout user */
   const logoutUser = async () => {
     try {
       await axios.post("/api/auth/logout");
       toast.success("User successfully logged out");
-      return redirect("/dashboard/index");
+      // navigate("/dashboard/home");
     } catch (err) {
       console.log(err);
       toast.error(err?.response?.data?.message);
@@ -26,13 +27,19 @@ function NavList() {
   const loggedUser = userData?.data?.foundLoggedUser;
   // console.log(userData);
   const isLoggedIn = userData?.data?.message !== "No logged user";
+  // console.log(isLoggedIn);
 
-  const navigate = useNavigate();
   const onClickToProfile = () => {
-    navigate(`/update-user/${loggedUser._id}`);
+    navigate(`/profile/${loggedUser._id}`);
   };
+
+  const onClickToAccount = () => {
+    navigate(`/update-user/${loggedUser?._id}`);
+  };
+
   const onClickToLogin = () => {
     navigate("/login");
+    toast.error("User needs to be logged in");
   };
 
   return (
@@ -44,7 +51,7 @@ function NavList() {
         className='p-1 text-md'
       >
         <a
-          href='/dashboard/index'
+          href='/dashboard/home'
           className='flex items-center hover:text-blue-500 transition-colors'
         >
           HOME
@@ -55,9 +62,10 @@ function NavList() {
         variant='small'
         color='blue-gray'
         className='p-1 text-md'
+        onClick={isLoggedIn ? onClickToProfile : onClickToLogin}
       >
         <a
-          href='/dashboard/profile'
+          href={isLoggedIn ? `/profile/${loggedUser?._id}` : "/login"}
           className='flex items-center hover:text-blue-500 transition-colors'
         >
           PROFILE
@@ -85,11 +93,26 @@ function NavList() {
         className='p-1 text-md'
       >
         <a
-          href=''
+          href={isLoggedIn ? `/update-user/${loggedUser?._id}` : "/login"}
           className='flex items-center hover:text-blue-500 transition-colors'
-          onClick={isLoggedIn ? onClickToProfile : onClickToLogin}
+          onClick={isLoggedIn ? onClickToAccount : onClickToLogin}
         >
           ACCOUNT
+        </a>
+      </Typography>
+
+      <Typography
+        as='li'
+        variant='small'
+        color='blue-gray'
+        className='p-1 text-md'
+      >
+        <a
+          href='/dashboard/about'
+          className='flex items-center hover:text-blue-500 transition-colors'
+          // onClick={isLoggedIn ? onClickToAccount : onClickToLogin}
+        >
+          ABOUT US
         </a>
       </Typography>
 
@@ -101,7 +124,7 @@ function NavList() {
           className='p-1 text-md'
         >
           <a
-            href='#'
+            href='/dashboard/home'
             className='flex items-center hover:text-blue-500 transition-colors'
             onClick={logoutUser}
           >
@@ -120,6 +143,22 @@ function NavList() {
             className='flex items-center hover:text-blue-500 transition-colors'
           >
             LOGIN
+          </a>
+        </Typography>
+      )}
+
+      {!isLoggedIn && (
+        <Typography
+          as='li'
+          variant='small'
+          color='blue-gray'
+          className='p-1 text-md'
+        >
+          <a
+            href='/register'
+            className='flex items-center hover:text-blue-500 transition-colors'
+          >
+            REGISTER
           </a>
         </Typography>
       )}
