@@ -25,12 +25,12 @@ function NavList() {
   // const userData = useContext(UserContext);
   const userData = useUserContext();
   const loggedUser = userData?.data?.foundLoggedUser;
-  console.log(userData);
+  // console.log(userData);
   const isLoggedIn = userData?.data?.foundLoggedUser;
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
 
   const onClickToProfile = () => {
-    navigate(`/profile/${loggedUser?._id}`);
+    navigate(`/profile/${loggedUser._id}`);
   };
 
   const onClickToAccount = () => {
@@ -65,7 +65,7 @@ function NavList() {
         onClick={isLoggedIn ? onClickToProfile : onClickToLogin}
       >
         <a
-          href={"#"}
+          href={isLoggedIn ? `/profile/${loggedUser?._id}` : "/login"}
           className='flex items-center hover:text-blue-500 transition-colors'
         >
           PROFILE

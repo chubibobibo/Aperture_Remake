@@ -105,7 +105,7 @@ function ProfilePage() {
                   className='flex mt-4 flex-col items-center'
                 >
                   <img
-                    className='object-cover h-[10rem] w-[10rem] sm:h-[15rem] sm:w-[20rem] xl:h-[27rem] xl:w-full'
+                    className='object-cover h-[10rem] w-[10rem] sm:h-[15rem] sm:w-[20rem] xl:h-[27rem] xl:w-full cursor-pointer'
                     src={newData.photoUrl}
                     alt='gallery-photo'
                     loading='lazy'
