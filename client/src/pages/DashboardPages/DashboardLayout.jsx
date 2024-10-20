@@ -12,7 +12,7 @@ export const loader = async () => {
     console.log(err);
     toast.error(err?.response?.data?.message);
     // return redirect("/login");
-    return null;
+    return err;
   }
 };
 

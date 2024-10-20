@@ -18,15 +18,13 @@ export const loader = async () => {
   }
 };
 
-// export const UserContext = createContext();
-
 function HomeLayout() {
   const userData = useLoaderData();
   // console.log(userData);
   return (
     <>
       <UserContext.Provider value={userData}>
-        <NavbarDesktop />
+        {/* <NavbarDesktop /> */}
         <Outlet />
       </UserContext.Provider>
     </>
