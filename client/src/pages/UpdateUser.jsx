@@ -45,7 +45,7 @@ export const action = async ({ request, params }) => {
 
 function UpdateUser() {
   const userData = useContext(UserContext);
-  console.log(userData);
+  // console.log(userData);
   const user = userData.data.foundLoggedUser;
   /** @toggleHidePass1 @toggleHidePass2 onClick functions to change the @isHidden state to change the input type to text to password and to change the icons */
   // const [isHidden, setIsHidden] = useState({
