@@ -10,7 +10,7 @@ import { Form } from "react-router-dom";
 function DeletePostModal({ photoData }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(!open);
-  console.log(photoData);
+  // console.log(photoData);
 
   return (
     <section>
