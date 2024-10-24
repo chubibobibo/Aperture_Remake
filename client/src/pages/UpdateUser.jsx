@@ -106,32 +106,6 @@ function UpdateUser() {
               size='lg'
               defaultValue={user.email}
             />
-            {/* <Input
-              label='Password'
-              name='password1'
-              type={isHidden.password1 ? "password" : "text"}
-              size='md'
-              icon={
-                isHidden.password1 ? (
-                  <IoMdEyeOff onClick={toggleHidePass1} />
-                ) : (
-                  <IoMdEye onClick={toggleHidePass1} />
-                )
-              }
-            />
-            <Input
-              label='Re-enter your password'
-              name='password2'
-              type={isHidden.password2 ? "password" : "text"}
-              size='md'
-              icon={
-                isHidden.password2 ? (
-                  <IoMdEyeOff onClick={toggleHidePass2} />
-                ) : (
-                  <IoMdEye onClick={toggleHidePass2} />
-                )
-              }
-            /> */}
             <Button
               variant='gradient'
               fullWidth
