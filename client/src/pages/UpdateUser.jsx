@@ -5,12 +5,12 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
-import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+// import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 import { Form, redirect, useNavigation } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useState } from "react";
+
 import { useContext } from "react";
 import { UserContext } from "../context/Context.js";
 // import { UserContext } from "./HomeLayout";
@@ -46,23 +46,24 @@ export const action = async ({ request, params }) => {
 function UpdateUser() {
   const userData = useContext(UserContext);
   console.log(userData);
+  const user = userData.data.foundLoggedUser;
   /** @toggleHidePass1 @toggleHidePass2 onClick functions to change the @isHidden state to change the input type to text to password and to change the icons */
-  const [isHidden, setIsHidden] = useState({
-    password1: true,
-    password2: true,
-  });
-  const toggleHidePass1 = () => {
-    setIsHidden((prev) => ({
-      ...prev,
-      password1: !isHidden.password1,
-    }));
-  };
-  const toggleHidePass2 = () => {
-    setIsHidden((prev) => ({
-      ...prev,
-      password2: !isHidden.password2,
-    }));
-  };
+  // const [isHidden, setIsHidden] = useState({
+  //   password1: true,
+  //   password2: true,
+  // });
+  // const toggleHidePass1 = () => {
+  //   setIsHidden((prev) => ({
+  //     ...prev,
+  //     password1: !isHidden.password1,
+  //   }));
+  // };
+  // const toggleHidePass2 = () => {
+  //   setIsHidden((prev) => ({
+  //     ...prev,
+  //     password2: !isHidden.password2,
+  //   }));
+  // };
 
   /** @isSubmitting defines the state of navigation to dynamically disable the register button */
   const navigation = useNavigation();
@@ -81,10 +82,30 @@ function UpdateUser() {
               name='avatarUrl'
               size='md'
             />
-            <Input label='Username' name='username' size='md' />
-            <Input label='First name' name='firstName' size='md' />
-            <Input label='Last name' name='lastName' size='md' />
-            <Input label='Email' name='email' size='lg' />
+            <Input
+              label='Username'
+              name='username'
+              size='md'
+              defaultValue={user.username}
+            />
+            <Input
+              label='First name'
+              name='firstName'
+              size='md'
+              defaultValue={user.firstName}
+            />
+            <Input
+              label='Last name'
+              name='lastName'
+              size='md'
+              defaultValue={user.lastName}
+            />
+            <Input
+              label='Email'
+              name='email'
+              size='lg'
+              defaultValue={user.email}
+            />
             {/* <Input
               label='Password'
               name='password1'
