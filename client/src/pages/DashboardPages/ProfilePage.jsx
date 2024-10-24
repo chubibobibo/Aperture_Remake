@@ -23,10 +23,10 @@ import { toCapitalize } from "../../utils/toCaptialize";
 export const loader = async ({ params }) => {
   try {
     const userData = await axios.get(`/api/auth/getUser/${params.id}`);
-    console.log(userData);
+    // console.log(userData);
     const user = userData?.data?.foundUser?._id;
     const photoData = await axios.get(`/api/photo/userPhoto/${user}`);
-    console.log(photoData);
+    // console.log(photoData);
     return { userData, photoData };
   } catch (err) {
     console.log(err);
@@ -40,13 +40,13 @@ export const loader = async ({ params }) => {
 function ProfilePage() {
   const navigate = useNavigate();
   const loggedUser = useUserContext();
-  console.log(loggedUser);
+  // console.log(loggedUser);
   const data = useLoaderData();
 
   /** @userData @photoData data from the results of loader function */
   const userData = data?.userData?.data?.foundUser;
   const photoData = data?.photoData?.data?.foundUserPhoto;
-  console.log(data);
+  console.log(!userData.avatarUrl);
 
   /** @handleClickNav onClick event handler to navigate to specific post */
   const handleClickNav = (postId) => {
@@ -58,7 +58,7 @@ function ProfilePage() {
       <Card className='w-11/12 mb-4'>
         <div className='h-30 flex justify-center'>
           <img
-            src={userData?.avatarUrl}
+            src={!userData.avatarUrl ? "/Aperture1.png" : userData?.avatarUrl}
             alt='avatar photo'
             className='rounded-full w-[6rem] h-[6rem] md:w-[10rem] md:h-[10rem]'
           />
@@ -95,7 +95,7 @@ function ProfilePage() {
         ) : (
           <div className='grid grid-cols-2 gap-4 md:grid-cols-3 mb-8 p-2'>
             {photoData?.map((newData) => {
-              console.log(newData);
+              // console.log(newData);
               return (
                 <div
                   key={newData?._id}

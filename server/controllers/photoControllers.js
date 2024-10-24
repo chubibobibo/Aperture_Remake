@@ -22,6 +22,7 @@ export const createPost = async (req, res) => {
   if (req.file) {
     const response = await cloudinary.v2.uploader.upload(req.file.path, {
       folder: "aperture_remake",
+      quality: 60,
     });
     console.log(response);
     await fs.unlink(req.file.path); // removes the image file in the multer storage

@@ -30,7 +30,7 @@ function NavbarDesktop() {
   /** @userData data from context in DashboardLayout */
   // const userData = useContext(UserContext);
   const userData = useUserContext();
-  console.log(userData);
+  // console.log(userData);
 
   /** @userName logged user's name from the props @userData */
   const userName = userData?.data?.foundLoggedUser?.username;
@@ -85,7 +85,7 @@ function NavbarDesktop() {
                 : userData?.data?.foundLoggedUser?.avatarUrl
             }
             alt='avatar picture'
-            className='w-12 h-12 rounded-full ml-2 mr-2'
+            className='w-12 h-12 rounded-full ml-2 mr-2 object-cover'
           />
         </Link>
       </div>
