@@ -45,7 +45,7 @@ export const action = async ({ request, params }) => {
 
 function UpdateUser() {
   const userData = useContext(UserContext);
-  console.log(userData);
+  // console.log(userData);
   const user = userData.data.foundLoggedUser;
   /** @toggleHidePass1 @toggleHidePass2 onClick functions to change the @isHidden state to change the input type to text to password and to change the icons */
   // const [isHidden, setIsHidden] = useState({
@@ -106,32 +106,6 @@ function UpdateUser() {
               size='lg'
               defaultValue={user.email}
             />
-            {/* <Input
-              label='Password'
-              name='password1'
-              type={isHidden.password1 ? "password" : "text"}
-              size='md'
-              icon={
-                isHidden.password1 ? (
-                  <IoMdEyeOff onClick={toggleHidePass1} />
-                ) : (
-                  <IoMdEye onClick={toggleHidePass1} />
-                )
-              }
-            />
-            <Input
-              label='Re-enter your password'
-              name='password2'
-              type={isHidden.password2 ? "password" : "text"}
-              size='md'
-              icon={
-                isHidden.password2 ? (
-                  <IoMdEyeOff onClick={toggleHidePass2} />
-                ) : (
-                  <IoMdEye onClick={toggleHidePass2} />
-                )
-              }
-            /> */}
             <Button
               variant='gradient'
               fullWidth

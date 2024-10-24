@@ -46,7 +46,7 @@ function ProfilePage() {
   /** @userData @photoData data from the results of loader function */
   const userData = data?.userData?.data?.foundUser;
   const photoData = data?.photoData?.data?.foundUserPhoto;
-  console.log(!userData.avatarUrl);
+  // console.log(!userData.avatarUrl);
 
   /** @handleClickNav onClick event handler to navigate to specific post */
   const handleClickNav = (postId) => {
@@ -60,7 +60,7 @@ function ProfilePage() {
           <img
             src={!userData.avatarUrl ? "/Aperture1.png" : userData?.avatarUrl}
             alt='avatar photo'
-            className='rounded-full w-[6rem] h-[6rem] md:w-[10rem] md:h-[10rem]'
+            className='rounded-full w-[6rem] h-[6rem] md:w-[10rem] md:h-[10rem] object-cover'
           />
         </div>
         <CardBody className='text-center'>
