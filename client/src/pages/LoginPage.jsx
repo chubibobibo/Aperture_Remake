@@ -18,6 +18,7 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
+  // console.log(data);
   try {
     await axios.post("/api/auth/login", data);
     return redirect("/dashboard/home");
