@@ -68,7 +68,7 @@ function RegisterPage() {
 
   return (
     <section className=' h-screen flex justify-center items-center'>
-      <Card className='w-72 md:w-[25rem] md:-mt-[5rem] xl:-mt-[5rem] xl:w-[50rem]'>
+      <Card className='w-72 mt-10 mb-2 md:w-[25rem] md:-mt-[5rem] xl:-mt-[5rem] xl:w-[50rem]'>
         <Form method='POST'>
           <CardBody className='flex flex-col gap-4'>
             <div className='flex justify-center'>
@@ -137,7 +137,7 @@ function RegisterPage() {
               color='blue-gray'
               className='ml-1 font-bold'
             >
-              Sign up
+              Log in
             </Typography>
           </Typography>
         </CardFooter>

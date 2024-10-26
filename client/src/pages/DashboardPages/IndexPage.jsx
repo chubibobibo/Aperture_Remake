@@ -6,7 +6,8 @@ import { Icon, divIcon, point } from "leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 
 import { PhotosContext } from "../../context/Context.js";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { useUserContext } from "../../hooks/useUserContext.js";
 
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -14,7 +15,7 @@ import axios from "axios";
 // import Loading from "../../components/Loading.jsx";
 
 import { toCapitalize } from "../../utils/toCaptialize";
-import { Typography } from "@material-tailwind/react";
+import { Typography, Button } from "@material-tailwind/react";
 import PhotoIndex from "../../components/PhotoIndex.jsx";
 
 // const PhotoIndex = lazy(() => import("../../components/PhotoIndex.jsx"));
@@ -36,8 +37,16 @@ export const loader = async () => {
 function IndexPage() {
   /** @photoData contains all photos obtained using loader function */
   const photoData = useLoaderData();
+  const data = useUserContext();
+  const userData = data?.data?.foundLoggedUser;
 
-  /** @custmoMapIcon new instance of Icon from leaflet that will apply a custom made pins in the map */
+  /** function to navigate to create post */
+  const navigate = useNavigate();
+  const navToCreate = () => {
+    navigate("/dashboard/create-post");
+  };
+
+  /** @customMapIcon new instance of Icon from leaflet that will apply a custom made pins in the map */
   const customMapIcon = new Icon({
     iconUrl: "/location.png",
     iconSize: [38, 38],
@@ -118,7 +127,13 @@ function IndexPage() {
           })}
         </MarkerClusterGroup>
       </MapContainer>
-      <section className='m-3'>
+      {userData && (
+        <section className='mt-6'>
+          <Button onClick={navToCreate}>Create Post</Button>
+        </section>
+      )}
+
+      <section className='m-3 -mt-1'>
         <PhotosContext.Provider value={photoData}>
           {/* <Suspense fallback={<Loading />}> */}
           <PhotoIndex />
