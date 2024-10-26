@@ -43,11 +43,11 @@ export const loader = async ({ params }) => {
 
 function PostPage() {
   const data = useLoaderData();
-  console.log(data);
+  // console.log(data);
   const photoData = data?.photoData?.data?.foundPhoto;
   const loggedUser = data?.isLoggedUser?.data?.foundLoggedUser;
   // console.log(photoData);
-  console.log(loggedUser);
+  // console.log(loggedUser);
 
   /** @isPostOwner logic for dynamically rendering the button to delete */
   const isPostOwner =
