@@ -22,7 +22,6 @@ import { useState } from "react";
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const avatar = formData.get("avatarUrl");
-  // console.log(avatar);
   if (avatar && avatar.size > 5000000) {
     toast.error("Image too large");
   }
@@ -34,8 +33,6 @@ export const action = async ({ request }) => {
   const confirmedPassword = passwordData1 === passwordData2;
   if (confirmedPassword) {
     formData.set("password", passwordData1); //creating a new key in the formData to submit as password
-    // const newPassword = formData.get("password");
-    // console.log(newPassword);
     try {
       await axios.post("/api/auth/register", formData);
       toast.success("New user registered");

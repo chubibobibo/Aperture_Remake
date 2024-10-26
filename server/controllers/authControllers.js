@@ -27,6 +27,7 @@ export const register = async (req, res) => {
       quality: 70,
     });
     await fs.unlink(req.file.path); // deletes photo in public/uploads
+    /** saves the response of cloudinary in a var to use as value when registering the new user */
     avatarUrl = response.secure_url;
     avatarId = response.public_id;
   }
