@@ -91,6 +91,7 @@ export const updateUser = async (req, res) => {
   if (req.file) {
     const response = await cloudinary.v2.uploader.upload(req.file.path, {
       folder: "aperture_remake",
+      quality: 70,
     });
     console.log(response.public_id);
     await fs.unlink(req.file.path); // deletes photo in public/uploads
@@ -112,6 +113,7 @@ export const updateUser = async (req, res) => {
     throw new ExpressError("Cannot update user", StatusCodes.BAD_REQUEST);
   }
 
+  //** deletes a photo being replaced or deleted in cloudinary */
   if (user.avatarId) {
     await cloudinary.v2.uploader.destroy(user.avatarId);
   }
