@@ -36,7 +36,12 @@ router.get("/getLoggedUser", getLoggedUser);
 router.get("/getUser/:id", getUser);
 
 /** REGISTER ROUTE */
-router.post("/register", registerValidation, register);
+router.post(
+  "/register",
+  upload.single("avatarUrl"),
+  registerValidation,
+  register
+);
 
 /** LOGIN ROUTE */
 /** @authenticate passport method that authenticates using the local strategy  */
