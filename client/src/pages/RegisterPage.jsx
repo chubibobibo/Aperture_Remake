@@ -21,13 +21,23 @@ import { useState } from "react";
 /** @confirmedPassword taking 2 passwords from input field and checking if they are the same */
 export const action = async ({ request }) => {
   const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-  console.log(data);
-  const confirmedPassword = data.password1 === data.password2;
+  const avatar = formData.get("avatarUrl");
+  // console.log(avatar);
+  if (avatar && avatar.size > 5000000) {
+    toast.error("Image too large");
+  }
+  const passwordData1 = formData.get("password1");
+  const passwordData2 = formData.get("password2");
+  // const data = Object.fromEntries(formData);
+  // console.log(data);
+  // const confirmedPassword = data.password1 === data.password2;
+  const confirmedPassword = passwordData1 === passwordData2;
   if (confirmedPassword) {
-    data.password = data.password1; //modifying the password in the data object with the value of password1
+    formData.set("password", passwordData1); //creating a new key in the formData to submit as password
+    // const newPassword = formData.get("password");
+    // console.log(newPassword);
     try {
-      await axios.post("/api/auth/register", data);
+      await axios.post("/api/auth/register", formData);
       toast.success("New user registered");
       return redirect("/login");
     } catch (err) {
@@ -68,8 +78,8 @@ function RegisterPage() {
 
   return (
     <section className=' h-screen flex justify-center items-center'>
-      <Card className='w-72 mt-10 mb-2 md:w-[25rem] md:-mt-[5rem] xl:-mt-[5rem] xl:w-[50rem]'>
-        <Form method='POST'>
+      <Card className='w-72 mt-24 mb-2 md:w-[25rem] md:-mt-[5rem] xl:-mt-[5rem] xl:w-[50rem]'>
+        <Form method='POST' encType='multipart/form-data'>
           <CardBody className='flex flex-col gap-4'>
             <div className='flex justify-center'>
               <Typography
@@ -81,10 +91,16 @@ function RegisterPage() {
                 REGISTER
               </Typography>
             </div>
+            <Input
+              label='Upload your avatar image'
+              type='file'
+              name='avatarUrl'
+              size='md'
+            />
             <Input label='Username' name='username' size='md' />
             <Input label='First name' name='firstName' size='md' />
             <Input label='Last name' name='lastName' size='md' />
-            <Input label='Email' name='email' size='lg' />
+            <Input label='Email' name='email' size='md' />
             <Input
               label='Password'
               name='password1'
