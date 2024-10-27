@@ -26,16 +26,17 @@ export const action = async ({ request }) => {
   } catch (err) {
     console.log(err);
     if (
-      err?.response?.data !== "Too many login attempts. Try again in 15 minutes"
+      err?.response?.data === "Too many login attempts. Try again in 15 minutes"
     ) {
+      toast.error(err?.response?.data);
+      return err;
+    } else {
       toast.error(
         Array.isArray(err?.response?.data?.message)
           ? err?.response?.data?.message[0]
           : err?.response?.data?.message
       );
       return err;
-    } else {
-      toast.error(err?.response?.data);
     }
   }
 };
