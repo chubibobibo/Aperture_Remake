@@ -27,9 +27,7 @@ export const action = async ({ request }) => {
   }
   const passwordData1 = formData.get("password1");
   const passwordData2 = formData.get("password2");
-  // const data = Object.fromEntries(formData);
-  // console.log(data);
-  // const confirmedPassword = data.password1 === data.password2;
+
   const confirmedPassword = passwordData1 === passwordData2;
   if (confirmedPassword) {
     formData.set("password", passwordData1); //creating a new key in the formData to submit as password
