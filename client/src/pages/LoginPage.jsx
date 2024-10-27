@@ -21,15 +21,22 @@ export const action = async ({ request }) => {
   // console.log(data);
   try {
     await axios.post("/api/auth/login", data);
+    toast.success("User is logged in");
     return redirect("/dashboard/home");
   } catch (err) {
     console.log(err);
-    toast.error(
-      Array.isArray(err?.response?.data?.message)
-        ? err?.response?.data?.message[0]
-        : err?.response?.data?.message
-    );
-    return err;
+    if (
+      err?.response?.data !== "Too many login attempts. Try again in 15 minutes"
+    ) {
+      toast.error(
+        Array.isArray(err?.response?.data?.message)
+          ? err?.response?.data?.message[0]
+          : err?.response?.data?.message
+      );
+      return err;
+    } else {
+      toast.error(err?.response?.data);
+    }
   }
 };
 
