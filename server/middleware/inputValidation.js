@@ -76,6 +76,7 @@ export const createPostValidation = withValidationErrors([
       "Description should be at least 10 characters and not more than 200 characters"
     ),
   body("photoLocation").notEmpty().withMessage("Location cannot be empty"),
+  // body("photoUrl").notEmpty().withMessage("You need a photo to upload"),
 ]);
 
 /** INPUT VALIDATION FOR UPDATING USER */
