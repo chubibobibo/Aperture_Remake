@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 /** @newData props containing mapped userData for each photo from PhotoIndex.jsx */
 function UserAvatar({ newData }) {
-  console.log(newData);
+  // console.log(newData);
   /** @toCapitalize function to capitalize texts */
 
   return (
