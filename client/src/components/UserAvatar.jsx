@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 /** @newData props containing mapped userData for each photo from PhotoIndex.jsx */
 function UserAvatar({ newData }) {
-  // console.log(newData);
+  console.log(newData);
   /** @toCapitalize function to capitalize texts */
 
   return (
@@ -12,13 +12,17 @@ function UserAvatar({ newData }) {
         <div className='flex gap-1 items-center mb-1'>
           <div>
             <img
-              src={newData.createdBy.avatarUrl}
+              src={
+                newData.createdBy.avatarUrl
+                  ? newData?.createdBy?.avatarUrl
+                  : "/Aperture1.png"
+              }
               alt=''
               className='w-8 h-8 rounded-3xl object-cover'
             />
           </div>
           <div className='text-sm font-bold md:text-base'>
-            <p>{toCapitalize(newData.createdBy.username)}</p>
+            <p>{toCapitalize(newData?.createdBy?.username)}</p>
           </div>
         </div>
       </Link>

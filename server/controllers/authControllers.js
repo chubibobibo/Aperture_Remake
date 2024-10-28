@@ -15,9 +15,22 @@ export const register = async (req, res) => {
   /** @setPassword passport method to set a new unique password by accessing the newly created instance of UserModel */
   /** @isAdmin checks if number of entries in the UserModel is 0 then use it as ternary operator */
   /** destructure req.body to obtain each property */
-  const { username, email, password, firstName, lastName } = req.body;
+  let { username, email, password, firstName, lastName, avatarUrl, avatarId } =
+    req.body;
   const isAdmin = (await UserModel.countDocuments()) === 0;
   req.body.role = isAdmin ? "admin" : "user";
+
+  /** cloudinary api to upload avatar*/
+  if (req.file) {
+    const response = await cloudinary.v2.uploader.upload(req.file.path, {
+      folder: "aperture_remake",
+      quality: 70,
+    });
+    await fs.unlink(req.file.path); // deletes photo in public/uploads
+    /** saves the response of cloudinary in a var to use as value when registering the new user */
+    avatarUrl = response.secure_url;
+    avatarId = response.public_id;
+  }
 
   const newUser = await UserModel.create({
     username: username,
@@ -25,6 +38,8 @@ export const register = async (req, res) => {
     firstName: firstName,
     lastName: lastName,
     role: req.body.role,
+    avatarUrl: avatarUrl,
+    avatarId: avatarId,
   });
   await newUser.setPassword(password);
   await newUser.save();
@@ -91,6 +106,7 @@ export const updateUser = async (req, res) => {
   if (req.file) {
     const response = await cloudinary.v2.uploader.upload(req.file.path, {
       folder: "aperture_remake",
+      quality: 70,
     });
     console.log(response.public_id);
     await fs.unlink(req.file.path); // deletes photo in public/uploads
@@ -112,6 +128,7 @@ export const updateUser = async (req, res) => {
     throw new ExpressError("Cannot update user", StatusCodes.BAD_REQUEST);
   }
 
+  //** deletes a photo being replaced or deleted in cloudinary */
   if (user.avatarId) {
     await cloudinary.v2.uploader.destroy(user.avatarId);
   }

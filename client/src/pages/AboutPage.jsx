@@ -1,6 +1,7 @@
 import { Typography } from "@material-tailwind/react";
 
 function AboutPage() {
+  console.log("Alistair");
   return (
     <section className='grid grid-cols-1 grid-rows-1 place-items-center h-fit mb-10'>
       <div className='mt-8'>

@@ -5,6 +5,7 @@ import axios from "axios";
 import { Typography } from "@material-tailwind/react";
 import { toCapitalize } from "../../utils/toCaptialize";
 
+
 import { Link, useLoaderData } from "react-router-dom";
 import UpdateCommentModal from "../../components/UpdateCommentModal";
 
@@ -17,10 +18,13 @@ import { FaLocationDot } from "react-icons/fa6";
 import { PiNotepadFill } from "react-icons/pi";
 import { PiSubtitlesFill } from "react-icons/pi";
 
+
 /** @loader function to obtain single photo and logged user returns both the photo data and the logged user */
 /** @params obtains id from the params in the url */
 export const loader = async ({ params }) => {
+
   // console.log(params.id);
+
   try {
     const photoData = await axios.get(`/api/photo/post/${params.id}`);
     const isLoggedUser = await axios.get("/api/auth/getLoggedUser");
@@ -32,8 +36,10 @@ export const loader = async ({ params }) => {
   }
 };
 
+
 /** @PostPage  page that will be rendered to display the specific photo*/
 /** @newData props that is needed by UserAvatar to display user info. Since the photo contains createdBy which is populated with userData, we can use it to display the author of the photo */
+
 
 function PostPage() {
   const data = useLoaderData();
@@ -47,6 +53,7 @@ function PostPage() {
   const isPostOwner =
     photoData?.createdBy?._id === loggedUser?._id ||
     loggedUser?.role === "admin";
+
 
   return (
     /** Displays the photo and the user details that posted it */

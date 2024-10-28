@@ -33,7 +33,7 @@ function ErrorPage() {
         </Typography>
         <img
           className='h-64 w-64 rounded-lg object-cover object-center md:h-80 md:w-80'
-          src='/public/error.png'
+          src='/error.png'
           alt='page not found image'
         />
         <Button className='w-48 mt-1' onClick={navToHome}>
@@ -65,7 +65,7 @@ function ErrorPage() {
       </Typography> */}
       <img
         className='h-64 w-64 rounded-lg object-cover object-center md:h-80 md:w-80'
-        src='/public/error1.png'
+        src='/error1.png'
         alt='page not found image'
       />
       <Button className='w-48 mt-1' onClick={navToHome}>

@@ -28,7 +28,7 @@ const limiter = rateLimit({
   limit: 3, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-  message: "Too many login attempts. Try again in 15 minutes ",
+  message: "Too many login attempts. Try again in 15 minutes",
 });
 
 /** GET LOGGED USER */
@@ -36,7 +36,12 @@ router.get("/getLoggedUser", getLoggedUser);
 router.get("/getUser/:id", getUser);
 
 /** REGISTER ROUTE */
-router.post("/register", registerValidation, register);
+router.post(
+  "/register",
+  upload.single("avatarUrl"),
+  registerValidation,
+  register
+);
 
 /** LOGIN ROUTE */
 /** @authenticate passport method that authenticates using the local strategy  */
