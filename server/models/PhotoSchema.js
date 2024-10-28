@@ -38,6 +38,7 @@ const PhotoSchema = new Schema(
 
     photoLocation: {
       type: String,
+      required: true,
     },
 
     photoCoords: {
