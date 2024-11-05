@@ -103,6 +103,8 @@ export const updateUser = async (req, res) => {
     throw new ExpressError("No data received", StatusCodes.BAD_REQUEST);
   }
 
+  const { username, firstName, lastName, email, password } = req.body;
+
   if (req.file) {
     const response = await cloudinary.v2.uploader.upload(req.file.path, {
       folder: "aperture_remake",
@@ -119,6 +121,10 @@ export const updateUser = async (req, res) => {
   const user = await UserModel.findById(id);
   if (!user) {
     throw new ExpressError("User does not exist", StatusCodes.NOT_FOUND);
+  }
+  if (req.body.password) {
+    await user.setPassword(password);
+    await user.save();
   }
 
   const updatedUser = await UserModel.findByIdAndUpdate(id, req.body, {
