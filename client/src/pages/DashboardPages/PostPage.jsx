@@ -119,7 +119,7 @@ function PostPage() {
                   <div className='flex p-2 font-bold cursor-pointer col-span-1 min-w-[10rem] mt-2'>
                     <UserAvatarComments newData={allComments} />
                   </div>
-                  <div className='flex flex-col justify-center col-span-2 p-2'>
+                  <div className='flex flex-col justify-center col-span-2 p-2 ml-4'>
                     <ReactStars
                       size={30}
                       value={allComments?.rating} //default value
