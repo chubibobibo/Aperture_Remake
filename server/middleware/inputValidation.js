@@ -29,7 +29,13 @@ export const registerValidation = withValidationErrors([
     .notEmpty()
     .withMessage("Username cannot be empty")
     .isLength({ min: 4 })
-    .withMessage("Username must not be less than 4 characters"),
+    .withMessage("Username must not be less than 4 characters")
+    .custom(async (username) => {
+      const foundName = await UserModel.findOne({ username: username });
+      if (foundName) {
+        throw new ExpressError("username already used");
+      }
+    }),
   body("firstName")
     .notEmpty()
     .withMessage("First name cannot be empty")
@@ -76,6 +82,7 @@ export const createPostValidation = withValidationErrors([
       "Description should be at least 10 characters and not more than 200 characters"
     ),
   body("photoLocation").notEmpty().withMessage("Location cannot be empty"),
+  // body("photoUrl").notEmpty().withMessage("You need a photo to upload"),
 ]);
 
 /** INPUT VALIDATION FOR UPDATING USER */

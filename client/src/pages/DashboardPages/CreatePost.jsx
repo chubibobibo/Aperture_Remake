@@ -74,11 +74,15 @@ function CreatePost() {
 
             <Input label='Title of Post' name='title' />
 
-            <Input label='Upload photo' type='file' name='photoUrl' />
+            <Input label='Upload photo' type='file' name='photoUrl' required />
 
             <Textarea label='Description of your photo' name='description' />
 
-            <Input label='Location of your photo' name='photoLocation' />
+            <Input
+              label='Location of your photo'
+              name='photoLocation'
+              required
+            />
           </CardBody>
           <CardFooter className='pt-0'>
             <Button type='submit' disabled={isSubmitting}>
