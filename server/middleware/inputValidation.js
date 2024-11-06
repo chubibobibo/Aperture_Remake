@@ -91,7 +91,13 @@ export const updateUserValidation = withValidationErrors([
     .notEmpty()
     .withMessage("Username cannot be empty")
     .isLength({ min: 4 })
-    .withMessage("Username must not be less than 4 characters"),
+    .withMessage("Username must not be less than 4 characters")
+    .custom(async (username, { req }) => {
+      const foundUsername = await UserModel.findOne({ username: username });
+      if (foundUsername && foundUsername.username !== req.user.username) {
+        throw new ExpressError("Username is already used");
+      }
+    }),
   body("firstName")
     .notEmpty()
     .withMessage("First name cannot be empty")
