@@ -25,6 +25,7 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
   const file = formData.get("photoUrl");
   const loc = formData.get("photoLocation");
+  // console.log(file);
 
   if (file && file.size > 50000000) {
     toast.error("file is too large");
