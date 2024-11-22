@@ -7,8 +7,10 @@ import sgMail from "@sendgrid/mail";
 import { notif } from "../utils/NotifMsg.js";
 
 /** Id from params is required to find the specific post where the comment will be pushed. */
+
 /** @foundPost request to search the specific photo post in order to push the created comment into the comment array of PhotoModel */
 /** CREATING COMMENTS AND RATING */
+
 
 export const addComment = async (req, res) => {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -19,7 +21,9 @@ export const addComment = async (req, res) => {
   if (!req.user) {
     throw new ExpressError("User is not logged in", StatusCodes.UNAUTHORIZED);
   } else {
+
     req.body.author = req.user.id; //adds the logged user's id as author of the comment
+
   }
 
   const newComment = await CommentModel.create(req.body);
@@ -35,6 +39,7 @@ export const addComment = async (req, res) => {
 
   await foundPost.comment.push(newComment._id);
   await foundPost.save();
+
   const sendMsg = notif(foundPost.createdBy.email);
   sgMail.send(sendMsg).then(
     () => {},
@@ -46,10 +51,12 @@ export const addComment = async (req, res) => {
       }
     }
   );
+
   res
     .status(StatusCodes.OK)
     .json({ message: "New comment created", newComment });
 };
+
 
 /** UPDATING COMMENTS AND RATINGS */
 
@@ -82,3 +89,4 @@ export const deleteComment = async (req, res) => {
   await CommentModel.findByIdAndDelete(commentId, { new: true });
   res.status(StatusCodes.OK).json({ message: "Comment deleted" });
 };
+
