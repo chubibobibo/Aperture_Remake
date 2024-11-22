@@ -58,7 +58,7 @@ function NavbarDesktop() {
         <Typography
           as='a'
           href={
-            !userData?.data?.foundLoggedUser
+            userData?.data?.foundLoggedUser
               ? "/login"
               : `/profile/${userData?.data?.foundLoggedUser?._id}`
           }
@@ -72,7 +72,7 @@ function NavbarDesktop() {
         </Typography>
         <Link
           to={
-            !userData?.data?.message === "No logged user"
+            userData?.data?.message === "No logged user"
               ? "/login"
               : `/profile/${userData?.data?.foundLoggedUser?._id}`
           }
