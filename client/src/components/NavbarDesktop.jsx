@@ -30,10 +30,11 @@ function NavbarDesktop() {
   /** @userData data from context in DashboardLayout */
   // const userData = useContext(UserContext);
   const userData = useUserContext();
-  // console.log(userData);
+  // console.log(userData.data);
 
   /** @userName logged user's name from the props @userData */
   const userName = userData?.data?.foundLoggedUser?.username;
+  // console.log(userName);
   // const isLogged = userData?.data;
   // console.log(isLogged);
 
@@ -58,7 +59,7 @@ function NavbarDesktop() {
         <Typography
           as='a'
           href={
-            userData?.data?.foundLoggedUser
+            userData?.data?.message === "No logged user"
               ? "/login"
               : `/profile/${userData?.data?.foundLoggedUser?._id}`
           }
