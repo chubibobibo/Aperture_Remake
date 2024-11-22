@@ -3,6 +3,8 @@ import { ExpressError } from "../errorHandler/ExpressError.js";
 import { StatusCodes } from "http-status-codes";
 import { CommentModel } from "../models/CommentSchema.js";
 import { PhotoModel } from "../models/PhotoSchema.js";
+import sgMail from "@sendgrid/mail";
+import { notif } from "../utils/NotifMsg.js";
 
 /** Id from params is required to find the specific post where the comment will be pushed. */
 
@@ -11,6 +13,7 @@ import { PhotoModel } from "../models/PhotoSchema.js";
 
 
 export const addComment = async (req, res) => {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   const { id } = req.params;
   if (!req.body) {
     throw new ExpressError("No data", StatusCodes.NOT_FOUND);
@@ -28,13 +31,26 @@ export const addComment = async (req, res) => {
     throw new ExpressError("Cannot post comment", StatusCodes.BAD_REQUEST);
   }
 
-  const foundPost = await PhotoModel.findById(id);
+  const foundPost = await PhotoModel.findById(id).populate("createdBy");
+  // console.log(foundPost);
   if (!foundPost) {
     throw new ExpressError("Post does not exist", StatusCodes.NOT_FOUND);
   }
 
   await foundPost.comment.push(newComment._id);
   await foundPost.save();
+
+  const sendMsg = notif(foundPost.createdBy.email);
+  sgMail.send(sendMsg).then(
+    () => {},
+    (error) => {
+      console.error(error);
+
+      if (error.response) {
+        console.error(error.response.body);
+      }
+    }
+  );
 
   res
     .status(StatusCodes.OK)
