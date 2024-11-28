@@ -7,6 +7,22 @@ Aperture is a webapp project created using MERN stack. It is an online photo sha
 * A cloudinary account
 * A mapbox account
 
+## Key Features  
+
+
+➡️ Uploading and sharing of photos.  
+➡️ Automated Status Updates: Automatically sends email notification to the post owner when a user comments on their post  
+➡️ Cloud Integration: Upload images directly to Cloudinary.  
+
+## Built with the MERN stack (MongoDB, Express, React, Node.js).    
+
+➡️ Implement lazy loading for efficient rendering of components.  
+➡️ Use custom hooks for streamlined database interactions.  
+➡️ Sending of notification to user's email.  
+➡️ Uploading of photos using Cloudinary.  
+➡️ Authentication/authorization using PassportJs.  
+
+
 ## Getting the app running locally
 * `git clone` this repo `https://github.com/chubibobibo/Aperture_Remake`
 * Navigate to the root of the server and client folder then `npm install` to install dependencies
