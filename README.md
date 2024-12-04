@@ -1,6 +1,14 @@
 # Aperture
 Aperture is a webapp project created using MERN stack. It is an online photo sharing platform where photographer can share and specify the locations where their photos are taken. Users can interact with other members photos by rating and commenting on it.  
 
+# Screen captures  
+![alt text](https://res.cloudinary.com/dw1q3coyf/image/upload/c_pad,w_250/v1733322925/Screenshot_20241204-153251_qymaok.png)
+![alt text](https://res.cloudinary.com/dw1q3coyf/image/upload/c_pad,w_250/v1733322928/Screenshot_20241204-153302_pbbzwf.png)
+![alt text](https://res.cloudinary.com/dw1q3coyf/image/upload/c_pad,w_250/v1733322929/Screenshot_20241204-153311_wywohy.png)
+![alt text](https://res.cloudinary.com/dw1q3coyf/image/upload/c_pad,w_250/v1733322922/Screenshot_20241204-153321_sjvy0p.png)
+![alt text](https://res.cloudinary.com/dw1q3coyf/image/upload/c_pad,w_250/v1733322923/Screenshot_20241204-153331_djdb0f.png)
+![alt text](https://res.cloudinary.com/dw1q3coyf/image/upload/c_pad,w_250/v1733322923/Screenshot_20241204-153356_qbpytn.png)
+
 ## Prerequisites
 * A machine that has nodeJs
 * An account in [MongoDb Atlas](https://account.mongodb.com/account/login)
